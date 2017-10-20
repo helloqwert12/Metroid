@@ -13,7 +13,16 @@
 //Windows event callback func
 LRESULT WINAPI WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//TO-DO: Update soon
+	switch (msg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, msg, wParam, lParam);
+	}
+
+	return 0;
 }
 
 //helper to set up the window properites
@@ -50,7 +59,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 	//set up the screen in windowed or fullscreen mode
 	DWORD style;
 	//if (FULLSCREEN)
-		style = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP;
+	style = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP;
 	//else
 	//	style = WS_OVERLAPPED;
 
