@@ -26,6 +26,7 @@ int Init_Direct3D(HWND hWnd, int width, int height, int fullscreen)
 	d3dpp.BackBufferWidth = width;
 	d3dpp.hDeviceWindow = hWnd;
 
+
 	_d3d->CreateDevice(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
