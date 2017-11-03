@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __SPRITE_H__
-#define __SPRITE_H__
+#ifndef _SPRITE_H_
+#define _SPRITE_H_
 
 #include <d3d9.h>
 #include <d3dx9.h>
