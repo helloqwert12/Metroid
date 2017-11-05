@@ -9,10 +9,10 @@ void Samus::_Render()
 	switch (state)
 	{
 	case RIGHTING:
-		run_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		running_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case LEFTING:
-		run_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		running_left->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case AIMING_UP_LEFT:
 		run_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
@@ -27,10 +27,10 @@ void Samus::_Render()
 		idle_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case IDLE_LEFT:
-		running_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case IDLE_RIGHT:
-		running_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	}
 
@@ -153,10 +153,10 @@ void Samus::Update(int t)
 		switch (state)
 		{
 		case RIGHTING:
-			run_shooting_right->Next();
+			running_right->Next();
 			break;
 		case LEFTING:
-			run_shooting_left->Next();
+			running_left->Next();
 			break;
 		case AIMING_UP_LEFT:
 			run_aim_up_left->Next();

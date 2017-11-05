@@ -93,4 +93,5 @@ void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 void Metroid::OnKeyDown(int KeyCode)
 {
+
 }
