@@ -6,15 +6,35 @@ void Samus::_Render()
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-	if (vx > 0)
-		running_right->Render(pos_x, pos_y, pos_x - 400, 600);
-	else if (vx < 0)
+	switch (state)
+	{
+	case RIGHTING:
+		run_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case LEFTING:
+		run_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case AIMING_UP_LEFT:
+		run_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case AIMING_UP_RIGHT:
+		run_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case IDLING_AIM_UP_LEFT:
+		idle_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case IDLING_AIM_UP_RIGHT:
+		idle_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case IDLE_LEFT:
 		running_left->Render(pos_x, pos_y, pos_x - 400, 600);
-	else if (vx_last < 0)
-		running_left->Render(pos_x, pos_y, pos_x - 400, 600);
-	else
+		break;
+	case IDLE_RIGHT:
 		running_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	}
 
+	
 	_SpriteHandler->End();
 }
 
@@ -50,6 +70,12 @@ void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	running_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUNNING_RIGHT, RUNNING_WIDTH, RUNNING_HEIGHT, RUNNING_COUNT, SPRITE_PER_ROW);
 	jump_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_LEFT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
 	jump_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_LEFT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
+	run_shooting_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_LEFT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
+	run_shooting_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_RIGHT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
+	run_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_LEFT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
+	run_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_RIGHT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_LEFT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_RIGHT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -62,6 +88,8 @@ void Samus::InitPostition()
 	vx_last = 1.0f;
 	vy = 0;
 
+	//Init state of samus
+	state = IDLE_RIGHT;
 }
 
 void Samus::SetVelocityX(float value)
@@ -79,6 +107,21 @@ void Samus::SetVelocityXLast(float value)
 	vx_last = value;
 }
 
+float Samus::GetVelocityXLast()
+{
+	return vx_last;
+}
+
+SAMUS_STATE Samus::GetState()
+{
+	return state;
+}
+
+void Samus::SetState(SAMUS_STATE value)
+{
+	state = value;
+}
+
 void Samus::ResetAllSprites()
 {
 	appearing->Reset();
@@ -86,6 +129,12 @@ void Samus::ResetAllSprites()
 	running_right->Reset();
 	jump_left->Reset();
 	jump_right->Reset();
+	run_shooting_left->Reset();
+	run_shooting_right->Reset();
+	run_aim_up_left->Reset();
+	run_aim_up_right->Reset();
+	idle_aim_up_left->Reset();
+	idle_aim_up_right->Reset();
 }
 
 
@@ -101,8 +150,27 @@ void Samus::Update(int t)
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
 	{
-		if (vx > 0) running_right->Next();
-		if (vx < 0) running_left->Next();
+		switch (state)
+		{
+		case RIGHTING:
+			run_shooting_right->Next();
+			break;
+		case LEFTING:
+			run_shooting_left->Next();
+			break;
+		case AIMING_UP_LEFT:
+			run_aim_up_left->Next();
+			break;
+		case AIMING_UP_RIGHT:
+			run_aim_up_right->Next();
+			break;
+		case IDLING_AIM_UP_LEFT:
+			idle_aim_up_left->Next();
+			break;
+		case IDLING_AIM_UP_RIGHT:
+			idle_aim_up_right->Next();
+			break;
+		}
 
 		last_time = now;
 	}

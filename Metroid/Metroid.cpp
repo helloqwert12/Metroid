@@ -1,5 +1,6 @@
 #include "Metroid.h"
 #include <time.h>
+#include "trace.h"
 
 void Metroid::_InitBackground()
 {
@@ -34,24 +35,53 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
-	if (IsKeyDown(DIK_RIGHT))
+	
+	if (IsKeyDown(DIK_RIGHT) && IsKeyDown(DIK_UP))
 	{
 		samus->SetVelocityXLast(samus->GetVelocityX());
-		samus->SetVelocityX(SAMUS_SPEED);	
+		samus->SetVelocityX(SAMUS_SPEED);
+		samus->SetState(AIMING_UP_RIGHT);
+	}
+	else if (IsKeyDown(DIK_LEFT) && IsKeyDown(DIK_UP))
+	{
+		samus->SetVelocityXLast(samus->GetVelocityX());
+		samus->SetVelocityX(-SAMUS_SPEED);
+		samus->SetState(AIMING_UP_LEFT);
+	}
+	else if (IsKeyDown(DIK_RIGHT))
+	{
+		samus->SetVelocityXLast(samus->GetVelocityX());
+		samus->SetVelocityX(SAMUS_SPEED);
+		samus->SetState(RIGHTING);
+	}
+	else if (IsKeyDown(DIK_LEFT))
+	{
+		samus->SetVelocityXLast(samus->GetVelocityX());
+		samus->SetVelocityX(-SAMUS_SPEED);
+		samus->SetState(LEFTING);
+	}
+	else if (IsKeyDown(DIK_UP) && samus->GetVelocityXLast() > 0)
+	{
+		samus->SetVelocityX(0);
+		samus->ResetAllSprites();
+		samus->SetState(IDLING_AIM_UP_RIGHT);
+	}
+	else if (IsKeyDown(DIK_UP) && samus->GetVelocityXLast() < 0)
+	{
+		samus->SetVelocityX(0);
+		samus->ResetAllSprites();
+		samus->SetState(IDLING_AIM_UP_LEFT);
 	}
 	else
 	{
-		if (IsKeyDown(DIK_LEFT))
-		{
-			samus->SetVelocityXLast(samus->GetVelocityX());
-			samus->SetVelocityX(-SAMUS_SPEED);		
-		}
+		samus->SetVelocityX(0);
+		samus->ResetAllSprites();
+		if (samus->GetVelocityXLast() < 0)
+			samus->SetState(IDLE_LEFT);
 		else
-		{
-			samus->SetVelocityX(0);
-			samus->ResetAllSprites();
-		}
+			samus->SetState(IDLE_RIGHT);
 	}
+	
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
