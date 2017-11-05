@@ -27,10 +27,10 @@ void Samus::_Render()
 		idle_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case IDLE_LEFT:
-		run_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_left->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	case IDLE_RIGHT:
-		run_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
 	}
 
@@ -76,6 +76,8 @@ void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	run_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_RIGHT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
 	idle_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_LEFT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
 	idle_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_RIGHT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, STANDING_LEFT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
+	idle_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, STANDING_RIGHT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -135,6 +137,8 @@ void Samus::ResetAllSprites()
 	run_aim_up_right->Reset();
 	idle_aim_up_left->Reset();
 	idle_aim_up_right->Reset();
+	idle_left->Reset();
+	idle_right->Reset();
 }
 
 
