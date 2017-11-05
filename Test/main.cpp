@@ -21,7 +21,7 @@ void main()
 	ifstream f;
 	try
 	{
-		f.open("sprites\\testsprite.txt");
+		f.open("sprites\\APPEARING.txt");
 	}
 	catch (std::fstream::failure e)
 	{
@@ -36,6 +36,11 @@ void main()
 		vector<string> pos;
 		string split;
 		getline(f, line);
+
+		//check if line has only space
+		
+		
+
 		istringstream iss(line);
 
 		while (getline(iss, split, ' '))

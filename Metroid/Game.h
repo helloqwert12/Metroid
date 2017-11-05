@@ -3,6 +3,7 @@
 #define _GAME_H_
 #include <windows.h>
 #include <d3d9.h>
+#include <d3dx9.h>
 #include <dinput.h>
 
 //
@@ -21,10 +22,17 @@
 #define KEYBOARD_BUFFER_SIZE	1024
 class Game
 {
-private:
-	LPDIRECT3D9 _d3d;
-	LPDIRECT3DDEVICE9 _d3ddv;
+protected:
+	LPDIRECT3D9			_d3d;
+	LPDIRECT3DDEVICE9	_d3ddv;
 	LPDIRECT3DSURFACE9 _BackBuffer;
+
+	LPDIRECTINPUT8       _di;		// The DirectInput object         
+	LPDIRECTINPUTDEVICE8 _Keyboard;	// The keyboard device 
+
+	BYTE  _KeyStates[256];			// DirectInput keyboard state buffer 
+								
+	DIDEVICEOBJECTDATA _KeyEvents[KEYBOARD_BUFFER_SIZE]; // Buffered keyboard data
 
 
 	DWORD _DeltaTime;		// Time between the last frame and current frame
@@ -38,17 +46,22 @@ private:
 
 	D3DFORMAT _BackBufferFormat;
 
-	HINSTANCE _hInstance;	// Handle of the game instance
-	HWND _hWnd;				// Handle of the Game Window
+	HINSTANCE	_hInstance;	// Handle of the game instance
+	HWND		_hWnd;				// Handle of the Game Window
 
-	LPWSTR _Name;			// Name of game will be used as Window Class Name
+	LPWSTR		_Name;			// Name of game will be used as Window Class Name
 
 	void _SetScreenDimension(int Mode);
 
 	static LRESULT CALLBACK _WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
+	//Init method
 	void _InitWindow();
 	void _InitDirectX();
+	void _InitKeyboard();
+
+	void _ProcessKeyBoard();
+	int IsKeyDown(int KeyCode);
 
 	// Render a single frame
 	void _RenderFrame();
@@ -58,8 +71,12 @@ private:
 	//
 	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
+	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
-public:
+	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyUp(int KeyCode);
+
+
 public:
 	LPDIRECT3D9 GetDirectX();
 	LPDIRECT3DDEVICE9 GetDevice();

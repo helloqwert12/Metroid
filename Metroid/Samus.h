@@ -5,7 +5,7 @@
 
 #define SAMUS_SPRITES_PATH L"sprites\\samus_sprites.png"
 
-#define APPEARING "sprites\\JUMP_APPEARING.txt"
+#define APPEARING "sprites\\APPEARING.txt"
 #define RUNNING_LEFT "sprites\\RUNNING_LEFT.txt"
 #define RUNNING_RIGHT "sprites\\RUNNING_RIGHT.txt"
 #define JUMP_LEFT "sprites\\JUMP_LEFT.txt"
@@ -13,7 +13,7 @@
 
 #define APPEARING_WIDTH 16
 #define APPEARING_HEIGHT 32
-#define RUNNING_WIDTH 21
+#define RUNNING_WIDTH 18
 #define RUNNING_HEIGHT 32
 #define JUMP_WIDTH 18
 #define JUMP_HEIGHT 25
@@ -37,14 +37,24 @@ protected:
 	Sprite * running_right;
 	Sprite * jump_left;
 	Sprite * jump_right;
+
+private:
+	void _Render();
 public:
 	Samus();
 	~Samus();
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void InitPostition();
+
+	void SetVelocityX(float value);
+	float GetVelocityX();
+	void SetVelocityY(float value);
+	void SetVelocityXLast(float value);
+
+	void ResetAllSprites();
 	
-	//Update every frame of game
-	void Update();
+	//Update every frame of game	
+	void Update(int t);
 };
 #endif // !_SAMUS_H
 

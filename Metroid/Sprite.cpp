@@ -22,7 +22,7 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, char* infoFilePath,
 	fstream f;
 	try
 	{
-		f.open(infoFilePath, ios::in);
+		f.open(infoFilePath);
 	}
 	catch (std::fstream::failure e)
 	{
@@ -32,7 +32,7 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, char* infoFilePath,
 	}
 	string line;
 	int id = 0;
-	while (!f.eof())
+	while (!f.eof() && id < Count)
 	{
 		vector<string> pos;
 		string split;
@@ -125,11 +125,31 @@ void Sprite::Render(int X, int Y, int vpx, int vpy)
 
 	D3DXVECTOR3 position((float)X, (float)Y, 0);
 
+	//
+	// WORLD TO VIEWPORT TRANSFORM USING MATRIX
+	//
+
+	D3DXMATRIX mt;
+	D3DXMatrixIdentity(&mt);
+	mt._22 = -1.0f;
+	mt._41 = -vpx;
+	mt._42 = vpy;
+	D3DXVECTOR4 vp_pos;
+	D3DXVec3Transform(&vp_pos, &position, &mt);
+
+	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
+	D3DXVECTOR3 pp(X, Y, 0);	//[CAUTION] TEST! - This code only for testing and will be edited soon! *****************
+	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
+
+	/*D3DXMATRIX mt1;
+	D3DXMatrixScaling(&mt1, 1.5, 1.5, 1);
+	_SpriteHandler->SetTransform(&mt1);*/
+
 	_SpriteHandler->Draw(
 		_Image,
 		&rect,
-		NULL,
-		&position,
+		&center,
+		&pp,
 		D3DCOLOR_XRGB(255, 255, 255)
 	);
 }
