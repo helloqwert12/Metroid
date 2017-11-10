@@ -186,10 +186,10 @@ void Samus::Update(int t)
 
 bool Samus::isColliding(GameObject object)
 {
-	float left = object.getPos_x - (this->pos_x + this->width);
-	float right = (object.getPos_x + object.getWidth) - this->pos_x;
-	float top = object.getPos_y - (this->getPos_y + this->height);
-	float bottom = (object.getPos_y + object.getHeight) - this->pos_y;
+	float left = object.getPos_x() - (this->pos_x + this->width);
+	float right = (object.getPos_x() + object.getWidth()) - this->pos_x;
+	float top = object.getPos_y() - (this->pos_y + this->height);
+	float bottom = (object.getPos_y() + object.getHeight()) - this->pos_y;
 
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
@@ -202,23 +202,23 @@ float Samus::sweptAABB(GameObject object, float & normalx, float & normaly)
 	// khoảng cách tới vật thể
 	if (this->pos_x > 0.0f)
 	{
-		dxEntry = object.getPos_x - (this->pos_x + this->width);
-		dxExit = (object.getPos_x + object.getWidth) - this->pos_x;
+		dxEntry = object.getPos_x() - (this->pos_x + this->width);
+		dxExit = (object.getPos_x() + object.getWidth()) - this->pos_x;
 	}
 	else
 	{
-		dxEntry = (object.getPos_x + object.getWidth) - this->pos_x;
-		dxExit = object.getPos_x - (this->pos_x + this->width);
+		dxEntry = (object.getPos_x() + object.getWidth()) - this->pos_x;
+		dxExit = object.getPos_x() - (this->pos_x + this->width);
 	}
 	if (this->pos_y > 0.0f)
 	{
-		dyEntry = object.getPos_y - (this->pos_y + this->height);
-		dyExit = (object.getPos_y + object.getHeight) - this->pos_y;
+		dyEntry = object.getPos_y() - (this->pos_y + this->height);
+		dyExit = (object.getPos_y() + object.getHeight()) - this->pos_y;
 	}
 	else
 	{
-		dyEntry = (object.getPos_y + object.getHeight) - this->pos_y;
-		dyExit = object.getPos_y - (this->pos_y + this->height);
+		dyEntry = (object.getPos_y() + object.getHeight()) - this->pos_y;
+		dyExit = object.getPos_y() - (this->pos_y + this->height);
 	}
 	// tính thời gian va chạm theo trục
 	float txEntry, txExit;
