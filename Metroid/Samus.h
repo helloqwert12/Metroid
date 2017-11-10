@@ -104,6 +104,9 @@ public:
 	
 	//Update every frame of game	
 	void Update(int t);
+
+	bool isColliding(GameObject object);
+	float sweptAABB(GameObject object, float& normalx, float& normaly);
 };
 #endif // !_SAMUS_H
 
