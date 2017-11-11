@@ -40,5 +40,6 @@ public:
 		return height;
 	}
 	virtual void Update();
+	virtual void _Render();
 };
 #endif // !_GAME_OBJECT_
