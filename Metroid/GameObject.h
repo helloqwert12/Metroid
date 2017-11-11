@@ -18,10 +18,27 @@ protected:
 
 	DWORD last_time; // this is to control the animate rate of kitty
 
+	float width;
+	float height;
 public:
 	GameObject();
 	~GameObject();
-	virtual void _Render();
+	int getPos_x()
+	{
+		return pos_x;
+	}
+	int getPos_y()
+	{
+		return pos_y;
+	}
+	float getWidth()
+	{
+		return width;
+	}
+	float getHeight()
+	{
+		return height;
+	}
 	virtual void Update();
 };
 #endif // !_GAME_OBJECT_

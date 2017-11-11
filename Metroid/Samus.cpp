@@ -1,6 +1,6 @@
-#include "Samus.h"
+﻿#include "Samus.h"
 #include "trace.h"
-
+#include <limits>
 
 void Samus::_Render()
 {
@@ -289,4 +289,108 @@ void Samus::Update(int t)
 	//Render
 	_Render();
 
+}
+
+bool Samus::isColliding(GameObject object)
+{
+	float left = object.getPos_x() - (this->pos_x + this->width);
+	float right = (object.getPos_x() + object.getWidth()) - this->pos_x;
+	float top = object.getPos_y() - (this->pos_y + this->height);
+	float bottom = (object.getPos_y() + object.getHeight()) - this->pos_y;
+
+	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+}
+
+float Samus::sweptAABB(GameObject object, float & normalx, float & normaly)
+{
+	float dxEntry, dxExit;
+	float dyEntry, dyExit;
+
+	// khoảng cách tới vật thể
+	if (this->pos_x > 0.0f)
+	{
+		dxEntry = object.getPos_x() - (this->pos_x + this->width);
+		dxExit = (object.getPos_x() + object.getWidth()) - this->pos_x;
+	}
+	else
+	{
+		dxEntry = (object.getPos_x() + object.getWidth()) - this->pos_x;
+		dxExit = object.getPos_x() - (this->pos_x + this->width);
+	}
+	if (this->pos_y > 0.0f)
+	{
+		dyEntry = object.getPos_y() - (this->pos_y + this->height);
+		dyExit = (object.getPos_y() + object.getHeight()) - this->pos_y;
+	}
+	else
+	{
+		dyEntry = (object.getPos_y() + object.getHeight()) - this->pos_y;
+		dyExit = object.getPos_y() - (this->pos_y + this->height);
+	}
+	// tính thời gian va chạm theo trục
+	float txEntry, txExit;
+	float tyEntry, tyExit;
+
+	if (this->vx == 0.0f) // đang đứng yên
+	{
+		txEntry = -std::numeric_limits<float>::infinity();
+		txExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		txEntry = dxEntry / this->vx;
+		txExit = dxExit / this->vx;
+	}
+	if (this->vy == 0.0f)
+	{
+		tyEntry = -std::numeric_limits<float>::infinity();
+		tyExit = std::numeric_limits<float>::infinity();
+	}
+	else
+	{
+		tyEntry = dyEntry / this->vy;
+		tyExit = dyExit / this->vy;
+	}
+	//thời gian va chạm là thời gian lớn nhất của 2 trục
+	float entryTime = std::fmax(txEntry, tyEntry);
+	// thời gian hết va chạm là thời gian nhỏ nhất
+	float ExitTime = std::fmin(txExit, tyExit);
+
+	// kiểm tra có thể va chạm không
+
+	if (entryTime > ExitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
+	{
+		// đứng yên
+		normalx = 0.0f;
+		normaly = 0.0f;
+		return 1.0f; // ko va chạm trong frame này
+	}
+	// lấy hướng va chạm
+	if (txEntry > tyEntry)
+	{
+		if (dxEntry > 0.0f)
+		{
+			normalx = 1.0f;
+			normaly = 0.0f;
+		}
+		else
+		{
+			normalx = -1.0f;
+			normaly = 0.0f;
+		}
+	}
+	else
+	{
+		if (dyEntry > 0.0f)
+		{
+			normalx = 0.0f;
+			normaly = 1.0f;
+		}
+		else
+		{
+			normalx = 0.0f;
+			normaly = -1.0f;
+		}
+	}
+	return entryTime;
 }
