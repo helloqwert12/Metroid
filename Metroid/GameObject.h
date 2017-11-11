@@ -21,7 +21,7 @@ protected:
 public:
 	GameObject();
 	~GameObject();
-
+	virtual void _Render();
 	virtual void Update();
 };
 #endif // !_GAME_OBJECT_

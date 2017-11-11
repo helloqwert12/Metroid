@@ -2,7 +2,9 @@
 #ifndef _METROID_H_
 #define _METROID_H_
 
-#define SAMUS_SPEED 0.6f
+#define SAMUS_SPEED 0.4f
+
+
 
 #include "Game.h"
 #include "Samus.h"

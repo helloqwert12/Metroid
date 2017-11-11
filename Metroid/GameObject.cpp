@@ -11,6 +11,10 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::_Render()
+{
+}
+
 void GameObject::Update()
 {
 }

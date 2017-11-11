@@ -18,6 +18,10 @@
 #define IDLE_AIM_UP_RIGHT "sprites\\IDLE_AIM_UP_RIGHT.txt"
 #define STANDING_LEFT "sprites\\STANDING_LEFT.txt"
 #define STANDING_RIGHT "sprites\\STANDING_RIGHT.txt"
+#define MORPH_BALL_LEFT "sprites\\MORPH_BALL_LEFT.txt"
+#define MORPH_BALL_RIGHT "sprites\\MORPH_BALL_RIGHT.txt"
+#define RUN_SHOOTING_LEFT "sprites\\RUN_SHOOTING_LEFT.txt"
+#define RUN_SHOOTING_RIGHT "sprites\\RUN_SHOOTING_RIGHT.txt"
 
 #define APPEARING_WIDTH 16
 #define APPEARING_HEIGHT 32
@@ -27,12 +31,16 @@
 #define JUMP_HEIGHT 25
 #define RUN_SHOOTING_WIDTH 25
 #define RUN_SHOOTING_HEIGHT 31
-#define RUN_AIM_UP_WIDTH 19
+#define RUN_AIM_UP_WIDTH 17
 #define RUN_AIM_UP_HEIGHT 38
 #define IDLE_AIM_UP_WIDTH 14
 #define IDLE_AIM_UP_HEIGHT 38
 #define STANDING_WIDTH 21
 #define STANDING_HEIGHT 32
+#define MORPH_BALL_WIDTH 12
+#define MORPH_BALL_HEIGHT 13
+#define RUN_SHOOTING_WIDTH 22
+#define RUN_SHOOTING_HEIGHT 31
 
 #define APPEARING_COUNT 5
 #define RUNNING_COUNT 3
@@ -41,10 +49,16 @@
 #define RUN_AIM_UP_COUNT 3
 #define IDLE_AIM_UP_COUNT 1
 #define STANDING_COUNT 1
-
+#define MORPH_BALL_COUNT 4
+#define RUN_SHOOTING_COUNT 3
 #define SPRITE_PER_ROW 1
 
-#define ANIMATE_RATE 30
+#define ANIMATE_RATE 15
+
+#define JUMP_VELOCITY_BOOST 1.5f
+#define FALLDOWN_VELOCITY_DECREASE 0.2f;
+
+#define GROUND_Y 450
 
 #include "GameObject.h"
 
@@ -57,8 +71,12 @@ enum SAMUS_STATE {
 	IDLING_AIM_UP_RIGHT,
 	AIMING_UP_LEFT,
 	AIMING_UP_RIGHT,
-	MORPH_LEFT,
-	MORPH_RIGHT,
+	ON_MORPH_LEFT,
+	ON_MORPH_RIGHT,
+	ON_RUN_SHOOTING_LEFT,
+	ON_RUN_SHOOTING_RIGHT,
+	ON_JUMP_LEFT,
+	ON_JUMP_RIGHT
 };
 class Samus : public GameObject
 {
@@ -78,10 +96,11 @@ protected:
 	Sprite * idle_aim_up_right;
 	Sprite * idle_left;
 	Sprite * idle_right;
+	Sprite * morph_ball_left;
+	Sprite * morph_ball_right;
 
 	SAMUS_STATE state;
 
-private:
 	void _Render();
 public:
 	Samus();
@@ -93,6 +112,12 @@ public:
 	float GetVelocityX();
 
 	void SetVelocityY(float value);
+	float GetVelocityY();
+
+	void SetPosX(int value);
+	int GetPosX();
+	void SetPosY(int value);
+	int GetPosY();
 
 	void SetVelocityXLast(float value);
 	float GetVelocityXLast();
