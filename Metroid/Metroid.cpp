@@ -1,9 +1,6 @@
 #include "Metroid.h"
 #include <time.h>
 #include "trace.h"
-#include "utils.h"
-
-#define BACKGROUND_FILE L"background\\temp_background.png"
 
 void Metroid::_InitBackground()
 {
@@ -33,14 +30,6 @@ Metroid::~Metroid()
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
-	// Background
-	d3ddv->StretchRect(
-		Background,			// from 
-		NULL,				// which portion?
-		_BackBuffer,		// to 
-		NULL,				// which portion?
-		D3DTEXF_NONE);
-
 	samus->Update(Delta);
 }
 
@@ -136,15 +125,6 @@ void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 	srand((unsigned)time(NULL));
 	_InitSprites(d3ddv);
 	_InitPositions();
-
-	Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
-
-	samus->SetPosX(50);
-	samus->SetPosY(200);
-
-	samus->SetVelocityX(0);
-	samus->SetVelocityXLast(1.0f);
-	samus->SetPosY(0);
 }
 
 void Metroid::OnKeyDown(int KeyCode)
@@ -214,6 +194,5 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetState(RIGHTING);
 		break;
 	}
-
 
 }
