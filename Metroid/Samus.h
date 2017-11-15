@@ -20,8 +20,6 @@
 #define STANDING_RIGHT "sprites\\STANDING_RIGHT.txt"
 #define MORPH_BALL_LEFT "sprites\\MORPH_BALL_LEFT.txt"
 #define MORPH_BALL_RIGHT "sprites\\MORPH_BALL_RIGHT.txt"
-#define RUN_SHOOTING_LEFT "sprites\\RUN_SHOOTING_LEFT.txt"
-#define RUN_SHOOTING_RIGHT "sprites\\RUN_SHOOTING_RIGHT.txt"
 
 #define APPEARING_WIDTH 16
 #define APPEARING_HEIGHT 32

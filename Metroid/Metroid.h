@@ -3,7 +3,7 @@
 #define _METROID_H_
 
 #define SAMUS_SPEED 0.4f
-
+#define BACKGROUND_FILE L"background\\temp_background.png"
 
 
 #include "Game.h"
