@@ -39,6 +39,14 @@ public:
 	{
 		return height;
 	}
+	float getVx()
+	{
+		return vx;
+	}
+	float getVy()
+	{
+		return vy;
+	}
 	virtual void Update();
 	virtual void _Render();
 };
