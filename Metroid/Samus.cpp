@@ -82,8 +82,6 @@ Samus::~Samus()
 	delete(idle_right);
 	delete(morph_ball_left);
 	delete(morph_ball_right);
-	delete(run_shooting_left);
-	delete(run_shooting_right);
 }
 
 void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
@@ -109,8 +107,6 @@ void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	idle_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, STANDING_RIGHT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
 	morph_ball_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_LEFT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
 	morph_ball_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_RIGHT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
-	run_shooting_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_LEFT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
-	run_shooting_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_RIGHT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -204,8 +200,6 @@ void Samus::ResetAllSprites()
 	idle_right->Reset();
 	morph_ball_left->Reset();
 	morph_ball_right->Reset();
-	run_shooting_left->Reset();
-	run_shooting_right->Reset();
 }	
 
 

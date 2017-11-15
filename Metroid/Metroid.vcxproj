@@ -129,6 +129,7 @@
     <ClCompile Include="Samus.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="trace.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="vsgame.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="Samus.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="trace.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="vsgame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
