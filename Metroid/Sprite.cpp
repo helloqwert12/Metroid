@@ -149,7 +149,7 @@ void Sprite::Render(int X, int Y, int vpx, int vpy)
 		_Image,
 		&rect,
 		&center,
-		&pp,
+		&p,
 		D3DCOLOR_XRGB(255, 255, 255)
 	);
 }
