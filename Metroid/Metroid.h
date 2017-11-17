@@ -19,6 +19,10 @@ private:
 	void _InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void _InitPositions();
 
+	DWORD start_jump;
+	DWORD now_jump;
+	DWORD tick_per_frame;
+
 public:
 	Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
 	~Metroid();

@@ -21,6 +21,7 @@ void Metroid::_InitPositions()
 Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate):Game(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
 	samus = new Samus();
+	tick_per_frame = 1000 / _FrameRate;
 }
 
 
@@ -69,6 +70,43 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	//	samus->SetVelocityX(SAMUS_SPEED);
 	//	samus->SetState(ON_RUN_SHOOTING_RIGHT);
 	//}
+
+	if (IsKeyDown(DIK_X)) 
+	{
+		if (samus->GetPosY() >= GROUND_Y)
+		{
+			start_jump = GetTickCount();
+			if (samus->GetVelocityXLast() < 0)
+			{
+				samus->SetState(ON_JUMP_LEFT);
+				samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+			}
+			else if (samus->GetVelocityXLast() > 0)
+			{
+				samus->SetState(ON_JUMP_RIGHT);
+				samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+			}
+		}
+		else
+		{
+			now_jump = GetTickCount();
+			if ((now_jump - start_jump) <= 25 * tick_per_frame)
+			{
+				if (samus->GetVelocityXLast() < 0)
+				{
+					samus->SetState(ON_JUMP_LEFT);
+					samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+				}
+				else if (samus->GetVelocityXLast() > 0)
+				{
+					samus->SetState(ON_JUMP_RIGHT);
+					samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+				}
+			}
+		}
+		
+	}
+	
 	if (IsKeyDown(DIK_RIGHT))
 	{
 		samus->SetVelocityXLast(samus->GetVelocityX());
@@ -177,25 +215,25 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetState(IDLE_RIGHT);
 		}
 		break;
-	case DIK_X:
-		//**********************************************************************************
-		// [CAUTION!!!] Vi pos_y chua chinh theo toa do World, code duoi day chi la tam thoi,
-		// se cap nhat lai sau
-		if (samus->GetPosY() >= GROUND_Y)
-		{
-			if (samus->GetVelocityXLast() < 0)
-			{
-				samus->SetState(ON_JUMP_LEFT);
-				samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
-			}
-			else if (samus->GetVelocityXLast() > 0)
-			{
-				samus->SetState(ON_JUMP_RIGHT);
-				samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
-			}
-		}
-		//***********************************************************************************
-		break;
+	//case DIK_X:
+	//	//**********************************************************************************
+	//	// [CAUTION!!!] Vi pos_y chua chinh theo toa do World, code duoi day chi la tam thoi,
+	//	// se cap nhat lai sau
+	//	if (samus->GetPosY() >= GROUND_Y)
+	//	{
+	//		if (samus->GetVelocityXLast() < 0)
+	//		{
+	//			samus->SetState(ON_JUMP_LEFT);
+	//			samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+	//		}
+	//		else if (samus->GetVelocityXLast() > 0)
+	//		{
+	//			samus->SetState(ON_JUMP_RIGHT);
+	//			samus->SetVelocityY(samus->GetVelocityY() - JUMP_VELOCITY_BOOST);
+	//		}
+	//	}
+	//	//***********************************************************************************
+	//	break;
 	case DIK_LEFT:
 		if (samus->GetState() == ON_JUMP_RIGHT)
 			samus->SetState(ON_JUMP_LEFT);

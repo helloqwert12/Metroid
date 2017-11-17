@@ -23,30 +23,27 @@ protected:
 public:
 	GameObject();
 	~GameObject();
-	int getPos_x()
-	{
-		return pos_x;
-	}
-	int getPos_y()
-	{
-		return pos_y;
-	}
-	float getWidth()
-	{
-		return width;
-	}
-	float getHeight()
-	{
-		return height;
-	}
-	float getVx()
-	{
-		return vx;
-	}
-	float getVy()
-	{
-		return vy;
-	}
+
+	void SetVelocityX(float value);
+	float GetVelocityX();
+
+	void SetVelocityY(float value);
+	float GetVelocityY();
+
+	void SetPosX(int value);
+	int GetPosX();
+	void SetPosY(int value);
+	int GetPosY();
+
+	void SetVelocityXLast(float value);
+	float GetVelocityXLast();
+
+	void SetWidth(float value);
+	float GetWidth();
+
+	void SetHeight(float value);
+	float GetHeight();
+
 	virtual void Update();
 	virtual void _Render();
 };

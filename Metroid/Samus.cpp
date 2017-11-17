@@ -122,56 +122,6 @@ void Samus::InitPostition()
 	state = IDLE_RIGHT;
 }
 
-void Samus::SetVelocityX(float value)
-{
-	vx = value;
-}
-
-float Samus::GetVelocityX()
-{
-	return vx;
-}
-
-void Samus::SetVelocityY(float value)
-{
-	vy = value;
-}
-
-float Samus::GetVelocityY()
-{
-	return vy;
-}
-
-void Samus::SetPosX(int value)
-{
-	pos_x = value;
-}
-
-int Samus::GetPosX()
-{
-	return pos_x;
-}
-
-void Samus::SetPosY(int value)
-{
-	pos_y = value;
-}
-
-int Samus::GetPosY()
-{
-	return pos_y;
-}
-
-void Samus::SetVelocityXLast(float value)
-{
-	vx_last = value;
-}
-
-float Samus::GetVelocityXLast()
-{
-	return vx_last;
-}
-
 SAMUS_STATE Samus::GetState()
 {
 	return state;

@@ -52,9 +52,9 @@ void Game::Run()
 {
 	MSG msg;
 	int done = 0;
-	DWORD frame_start = GetTickCount();;
+	DWORD frame_start = GetTickCount();
 
-	DWORD tick_per_frame = 100 / _FrameRate;
+	DWORD tick_per_frame = 1000 / _FrameRate;
 
 	while (!done)
 	{
@@ -73,9 +73,12 @@ void Game::Run()
 			frame_start = now;
 			_RenderFrame();
 		}
+		else
+		{
+			Sleep(tick_per_frame - _DeltaTime);
+		}
 
 		_ProcessKeyBoard();
-
 		ProcessInput(_d3ddv, _DeltaTime);
 	}
 }

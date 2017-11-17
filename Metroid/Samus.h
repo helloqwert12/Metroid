@@ -53,8 +53,8 @@
 
 #define ANIMATE_RATE 15
 
-#define JUMP_VELOCITY_BOOST 1.5f
-#define FALLDOWN_VELOCITY_DECREASE 0.2f;
+#define JUMP_VELOCITY_BOOST 0.07f
+#define FALLDOWN_VELOCITY_DECREASE 0.2f
 
 #define GROUND_Y 450
 
@@ -105,20 +105,6 @@ public:
 	~Samus();
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void InitPostition();
-
-	void SetVelocityX(float value);
-	float GetVelocityX();
-
-	void SetVelocityY(float value);
-	float GetVelocityY();
-
-	void SetPosX(int value);
-	int GetPosX();
-	void SetPosY(int value);
-	int GetPosY();
-
-	void SetVelocityXLast(float value);
-	float GetVelocityXLast();
 
 	SAMUS_STATE GetState();
 	void SetState(SAMUS_STATE value);
