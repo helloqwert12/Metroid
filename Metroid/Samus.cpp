@@ -83,6 +83,26 @@ Samus::~Samus()
 	delete(morph_ball_right);
 }
 
+void Samus::SetPosX(int value)
+{
+	pos_x = value;
+}
+
+void Samus::SetPosY(int value)
+{
+	pos_y = value;
+}
+
+int Samus::GetPosX()
+{
+	return pos_x;
+}
+
+int Samus::GetPosY()
+{
+	return pos_y;
+}
+
 void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	if (d3ddv == NULL) return;

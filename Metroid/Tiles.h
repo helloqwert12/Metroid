@@ -3,6 +3,7 @@
 #define _TILES_H
 #include "Sprite.h"
 #include "GameObject.h"
+#include "Samus.h"
 
 #define TILES_SHEET_PATH L"background\\TILES.png"
 
@@ -17,9 +18,6 @@
 #define TILES_COUNT 1
 #define SPRITE_PER_ROW 1
 
-#define ANIMATE_RATE 15
-
-#define GROUND_Y 450
 #define VIEW_PORT_Y 600
 class Tiles : public GameObject
 {
@@ -33,24 +31,8 @@ public:
 	Tiles();
 	~Tiles();
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
-	void InitPostition();
 
-	void SetVelocityX(float value);
-	float GetVelocityX();
-
-	void SetVelocityY(float value);
-	float GetVelocityY();
-
-	void SetPosX(int value);
-	int GetPosX();
-	void SetPosY(int value);
-	int GetPosY();
-
-	void SetVelocityXLast(float value);
-	float GetVelocityXLast();
-
-	void _Render(int xc);
-	void ResetAllSprites();
+	void _Render(int xc, int samus_pos_x);
 
 };
 #endif // !_TILES_H

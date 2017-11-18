@@ -103,6 +103,10 @@ protected:
 public:
 	Samus();
 	~Samus();
+	void SetPosX(int value);
+	int GetPosX();
+	void SetPosY(int value);
+	int GetPosY();
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void InitPostition();
 

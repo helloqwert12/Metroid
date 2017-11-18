@@ -18,7 +18,6 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 void Metroid::_InitPositions()
 {
 	samus->InitPostition();
-	tiles->InitPostition();
 }
 
 
@@ -46,8 +45,10 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			NULL,				// which portion?
 			D3DTEXF_NONE);
 
+		
 	samus->Update(Delta);
-	tiles->_Render(xc);
+	tiles->_Render(xc, samus->GetPosX());
+	
 }
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
