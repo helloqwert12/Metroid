@@ -3,16 +3,18 @@
 #define _METROID_H_
 
 #define SAMUS_SPEED 0.4f
-#define BACKGROUND_FILE L"background\\temp_background.png"
+#define BACKGROUND_FILE L"background\\temp.png"
 
 
 #include "Game.h"
 #include "Samus.h"
+#include "Tiles.h"
 class Metroid : public Game
 {
 protected:
 	LPDIRECT3DSURFACE9 Background;
 	Samus * samus;
+	Tiles * tiles;
 
 private:
 	void _InitBackground();

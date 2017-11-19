@@ -3,6 +3,8 @@
 #include "trace.h"
 #include "utils.h"
 
+int xc = 0; ////////////////////////////
+
 void Metroid::_InitBackground()
 {
 }
@@ -10,6 +12,7 @@ void Metroid::_InitBackground()
 void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	samus->InitSprites(d3ddv);
+	tiles->InitSprites(d3ddv);
 }
 
 void Metroid::_InitPositions()
@@ -21,6 +24,7 @@ void Metroid::_InitPositions()
 Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate):Game(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
 	samus = new Samus();
+	tiles = new Tiles();
 	tick_per_frame = 1000 / _FrameRate;
 }
 
@@ -28,6 +32,7 @@ Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, i
 Metroid::~Metroid()
 {
 	delete(samus);
+	delete(tiles);
 }
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
@@ -40,7 +45,10 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			NULL,				// which portion?
 			D3DTEXF_NONE);
 
+		
 	samus->Update(Delta);
+	tiles->_Render(xc, samus->GetPosX());
+	
 }
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)

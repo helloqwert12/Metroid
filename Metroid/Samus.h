@@ -66,7 +66,7 @@
 #define JUMP_VELOCITY_BOOST 0.07f
 #define FALLDOWN_VELOCITY_DECREASE 0.2f
 
-#define GROUND_Y 450
+#define GROUND_Y 40
 
 #include "GameObject.h"
 
@@ -121,6 +121,10 @@ protected:
 public:
 	Samus();
 	~Samus();
+	void SetPosX(int value);
+	int GetPosX();
+	void SetPosY(int value);
+	int GetPosY();
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void InitPostition();
 
