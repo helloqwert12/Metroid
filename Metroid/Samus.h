@@ -20,6 +20,10 @@
 #define STANDING_RIGHT "sprites\\STANDING_RIGHT.txt"
 #define MORPH_BALL_LEFT "sprites\\MORPH_BALL_LEFT.txt"
 #define MORPH_BALL_RIGHT "sprites\\MORPH_BALL_RIGHT.txt"
+#define SOMERSAULT_LEFT "sprites\\SOMERSAULT_LEFT.txt"
+#define SOMERSAULT_RIGHT "sprites\\SOMERSAULT_RIGHT.txt"
+#define JUMPING_SHOOTING_LEFT "sprites\\JUMP_SHOOTING_LEFT.txt"
+#define JUMPING_SHOOTING_RIGHT "sprites\\JUMP_SHOOTING_RIGHT.txt"
 
 #define APPEARING_WIDTH 16
 #define APPEARING_HEIGHT 32
@@ -39,6 +43,10 @@
 #define MORPH_BALL_HEIGHT 13
 #define RUN_SHOOTING_WIDTH 22
 #define RUN_SHOOTING_HEIGHT 31
+#define SOMERSAULT_WIDTH 19
+#define SOMERSAULT_HEIGHT 23
+#define JUMPING_SHOOTING_WIDTH 23
+#define JUMPING_SHOOTING_HEIGHT 25
 
 #define APPEARING_COUNT 5
 #define RUNNING_COUNT 3
@@ -50,6 +58,8 @@
 #define MORPH_BALL_COUNT 4
 #define RUN_SHOOTING_COUNT 3
 #define SPRITE_PER_ROW 1
+#define SOMERSAULT_COUNT 4
+#define JUMPING_SHOOTING_COUNT 1
 
 #define ANIMATE_RATE 15
 
@@ -74,7 +84,11 @@ enum SAMUS_STATE {
 	ON_RUN_SHOOTING_LEFT,
 	ON_RUN_SHOOTING_RIGHT,
 	ON_JUMP_LEFT,
-	ON_JUMP_RIGHT
+	ON_JUMP_RIGHT,
+	ON_SOMERSAULT_LEFT,
+	ON_SOMERSAULT_RIGHT,
+	ON_JUMPING_SHOOTING_LEFT,
+	ON_JUMPING_SHOOTING_RIGHT
 };
 class Samus : public GameObject
 {
@@ -96,6 +110,10 @@ protected:
 	Sprite * idle_right;
 	Sprite * morph_ball_left;
 	Sprite * morph_ball_right;
+	Sprite * somersault_left;
+	Sprite * somersault_right;
+	Sprite * jumping_shooting_left;
+	Sprite * jumping_shooting_right;
 
 	SAMUS_STATE state;
 
