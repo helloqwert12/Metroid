@@ -266,9 +266,9 @@ void Samus::Update(int t)
 	//**********************************************************************************
 	// [CAUTION!!!] Vi pos_y chua chinh theo toa do World, code duoi day chi la tam thoi,
 	// se cap nhat lai sau
-	if (pos_y < GROUND_Y)
+	if (pos_y > GROUND_Y)
 	{
-		vy += FALLDOWN_VELOCITY_DECREASE;
+		vy -= FALLDOWN_VELOCITY_DECREASE;
 	}
 	else
 	{
