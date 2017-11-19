@@ -81,7 +81,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 	if (IsKeyDown(DIK_X)) 
 	{
-		if (samus->GetPosY() <= GROUND_Y)
+		if (samus->GetPosY() <= GROUND_Y + 5)
 		{
 			start_jump = GetTickCount();
 			if (samus->GetVelocityXLast() < 0)
@@ -90,7 +90,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 					samus->SetState(ON_SOMERSAULT_LEFT);
 				else if (samus->GetState() != ON_SOMERSAULT_LEFT)
 					samus->SetState(ON_JUMP_LEFT);
-				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
 			}
 			else if (samus->GetVelocityXLast() > 0)
 			{
@@ -98,7 +98,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 					samus->SetState(ON_SOMERSAULT_RIGHT);
 				else if (samus->GetState() != ON_SOMERSAULT_RIGHT)
 					samus->SetState(ON_JUMP_RIGHT);
-				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
 			}
 		}
 		else
