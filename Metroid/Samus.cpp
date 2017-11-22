@@ -263,9 +263,7 @@ void Samus::Update(int t)
 		last_time = now;
 	}
 
-	//**********************************************************************************
-	// [CAUTION!!!] Vi pos_y chua chinh theo toa do World, code duoi day chi la tam thoi,
-	// se cap nhat lai sau
+	//Check if samus is on ground or not
 	if (pos_y > GROUND_Y)
 	{
 		vy -= FALLDOWN_VELOCITY_DECREASE;
@@ -283,7 +281,6 @@ void Samus::Update(int t)
 			state = IDLE_RIGHT;
 		}
 	}
-	//************************************************************************************
 
 	//Render
 	_Render();

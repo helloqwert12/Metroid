@@ -9,12 +9,15 @@
 #include "Game.h"
 #include "Samus.h"
 #include "Tiles.h"
+#include "Bullet.h"
 class Metroid : public Game
 {
 protected:
 	LPDIRECT3DSURFACE9 Background;
 	Samus * samus;
 	Tiles * tiles;
+
+	Bullet * bullet;
 
 private:
 	void _InitBackground();

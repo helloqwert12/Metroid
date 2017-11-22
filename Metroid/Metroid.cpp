@@ -13,11 +13,15 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	samus->InitSprites(d3ddv);
 	tiles->InitSprites(d3ddv);
+
+	bullet->InitSprites(d3ddv);
 }
 
 void Metroid::_InitPositions()
 {
 	samus->InitPostition();
+
+	bullet->InitPosition(samus->GetPosX(), samus->GetPosY());
 }
 
 
@@ -26,6 +30,8 @@ Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, i
 	samus = new Samus();
 	tiles = new Tiles();
 	tick_per_frame = 1000 / _FrameRate;
+
+	bullet = new Bullet();
 }
 
 
@@ -33,6 +39,8 @@ Metroid::~Metroid()
 {
 	delete(samus);
 	delete(tiles);
+
+	delete(bullet);
 }
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
@@ -48,6 +56,8 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
+
+	bullet->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	
 }
 
@@ -294,9 +304,9 @@ void Metroid::OnKeyDown(int KeyCode)
 			&& samus->GetState() != ON_SOMERSAULT_LEFT)
 			samus->SetState(RIGHTING);
 		break;
-	/*case DIK_SPACE:
-		samus->SetState(ON_SOMERSAULT_RIGHT);
-		break;*/
+	case DIK_SPACE:
+		bullet->SetDirection(ON_RIGHT);
+		break;
 	}
 
 }

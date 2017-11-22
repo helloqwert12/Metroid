@@ -128,7 +128,7 @@ void Sprite::Render(int X, int Y, int vpx, int vpy)
 	//
 	// WORLD TO VIEWPORT TRANSFORM USING MATRIX
 	//
-
+	
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1.0f;
@@ -138,7 +138,7 @@ void Sprite::Render(int X, int Y, int vpx, int vpy)
 	D3DXVec3Transform(&vp_pos, &position, &mt);
 
 	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
-	D3DXVECTOR3 pp(X, Y, 0);	//[CAUTION] TEST! - This code only for testing and will be edited soon! *****************
+	
 	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
 
 	/*D3DXMATRIX mt1;
