@@ -19,6 +19,18 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{c60467c3-2bf9-430a-a20b-7e137b35f162}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{9b5d8b9f-7c6c-4c7f-940a-bb9e60ca491b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{523f5449-e115-4965-a443-57ca30132e63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{fc17e077-f0f5-4ff7-a4fb-a5a7d419aa77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Items">
+      <UniqueIdentifier>{7e2c4ff6-45c0-4e13-bc14-59882f5c0d50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winmain.cpp">
@@ -60,6 +72,9 @@
     <ClCompile Include="Tiles.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dxgraphics.h">
@@ -94,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Tiles.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
