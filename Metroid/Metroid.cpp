@@ -104,35 +104,9 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
-	
-	//if (IsKeyDown(DIK_RIGHT) && IsKeyDown(DIK_UP))
-	//{
-	//	samus->SetVelocityXLast(samus->GetVelocityX());
-	//	samus->SetVelocityX(SAMUS_SPEED);
-	//	samus->SetState(AIMING_UP_RIGHT);
-	//}
-	//else if (IsKeyDown(DIK_LEFT) && IsKeyDown(DIK_UP))
-	//{
-	//	samus->SetVelocityXLast(samus->GetVelocityX());
-	//	samus->SetVelocityX(-SAMUS_SPEED);
-	//	samus->SetState(AIMING_UP_LEFT);
-	//}
-	//else if (IsKeyDown(DIK_LEFT) && IsKeyDown(DIK_X))	//shooting
-	//{
-	//	samus->SetVelocityXLast(samus->GetVelocityX());
-	//	samus->SetVelocityX(-SAMUS_SPEED);
-	//	samus->SetState(ON_RUN_SHOOTING_LEFT);
-	//}
-	//else if (IsKeyDown(DIK_RIGHT) && IsKeyDown(DIK_X))
-	//{
-	//	samus->SetVelocityXLast(samus->GetVelocityX());
-	//	samus->SetVelocityX(SAMUS_SPEED);
-	//	samus->SetState(ON_RUN_SHOOTING_RIGHT);
-	//}
-
-	if (IsKeyDown(DIK_X)) 
+	/*if (IsKeyDown(DIK_X)) 
 	{
-		if (samus->GetPosY() <= GROUND_Y + 5)
+		if (samus->GetPosY() <= GROUND_Y)
 		{
 			start_jump = GetTickCount();
 			if (samus->GetVelocityXLast() < 0)
@@ -175,6 +149,151 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 				}
 			}
 		}
+	}*/
+
+	
+	
+	if (IsKeyDown(DIK_RIGHT))
+	{
+		samus->SetVelocityXLast(samus->GetVelocityX());
+		samus->SetVelocityX(SAMUS_SPEED);	
+		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
+			&& samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
+			&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
+			/*&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT*/)
+		{
+			if (IsKeyDown(DIK_X))
+			{
+				if (samus->GetState() != ON_SOMERSAULT_RIGHT)
+				{
+					start_jump = GetTickCount();
+					now_jump = GetTickCount();
+					samus->SetState(ON_SOMERSAULT_RIGHT);
+					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
+				}
+				else
+				{
+					now_jump = GetTickCount();
+					if ((now_jump - start_jump) <= 20 * tick_per_frame)
+					{
+						samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+					}
+				}
+			}
+			else if (samus->GetState() != ON_SOMERSAULT_RIGHT)
+				samus->SetState(RIGHTING);
+		}
+	}
+	else if (IsKeyDown(DIK_LEFT))
+	{
+		samus->SetVelocityXLast(samus->GetVelocityX());
+		samus->SetVelocityX(-SAMUS_SPEED);
+		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
+			&& samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
+			&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
+			/*&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT*/)
+		{
+			if (IsKeyDown(DIK_X))
+			{
+				if (samus->GetState() != ON_SOMERSAULT_LEFT)
+				{
+					start_jump = GetTickCount();
+					now_jump = GetTickCount();
+					samus->SetState(ON_SOMERSAULT_LEFT);
+					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
+				}
+				else
+				{
+					now_jump = GetTickCount();
+					if ((now_jump - start_jump) <= 20 * tick_per_frame)
+					{
+						samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+					}
+				}
+			}
+			else if (samus->GetState() != ON_SOMERSAULT_LEFT)
+				samus->SetState(LEFTING);
+		}
+	}
+	else if (IsKeyDown(DIK_X))
+	{
+		if (samus->GetVelocityXLast() < 0)
+		{
+			if (samus->GetState() != ON_JUMP_LEFT)
+			{
+				start_jump = GetTickCount();
+				now_jump = GetTickCount();
+				samus->SetState(ON_JUMP_LEFT);
+				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
+			}
+			else
+			{
+				now_jump = GetTickCount();
+				if ((now_jump - start_jump) <= 20 * tick_per_frame)
+				{
+					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+				}
+			}
+		}
+		if (samus->GetVelocityXLast() > 0)
+		{
+			if (samus->GetState() != ON_JUMP_RIGHT)
+			{
+				start_jump = GetTickCount();
+				now_jump = GetTickCount();
+				samus->SetState(ON_JUMP_RIGHT);
+				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
+			}
+			else
+			{
+				now_jump = GetTickCount();
+				if ((now_jump - start_jump) <= 20 * tick_per_frame)
+				{
+					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
+				}
+			}
+		}
+	}
+	else
+	{
+		samus->SetVelocityX(0);
+		
+		if (samus->GetVelocityXLast() < 0)
+		{
+			if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
+				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
+				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+			{
+				samus->SetState(IDLE_LEFT);
+				samus->ResetAllSprites();
+			}
+		}
+		else
+		{
+			if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
+				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
+				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+			{
+				samus->SetState(IDLE_RIGHT);
+				samus->ResetAllSprites();
+			}
+		}
+	}
+
+	if (IsKeyDown(DIK_UP))
+	{
+		if (samus->GetState() == LEFTING)
+			samus->SetState(AIMING_UP_LEFT);
+		if (samus->GetState() == RIGHTING)
+			samus->SetState(AIMING_UP_RIGHT);
+		if (samus->GetState() == IDLE_LEFT)
+			samus->SetState(IDLING_AIM_UP_LEFT);
+		if (samus->GetState() == IDLE_RIGHT)
+			samus->SetState(IDLING_AIM_UP_RIGHT);
+		if (samus->GetState() == ON_MORPH_LEFT)
+			samus->SetState(IDLE_LEFT);
+		if (samus->GetState() == ON_MORPH_RIGHT)
+			samus->SetState(IDLE_RIGHT);
 	}
 
 	if (IsKeyDown(DIK_Z))
@@ -193,95 +312,28 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		if (samus->GetState() == ON_JUMP_RIGHT || samus->GetState() == ON_SOMERSAULT_RIGHT)
 		{
 			samus->SetState(ON_JUMPING_SHOOTING_RIGHT);
-		
+
 			_Shoot(ON_RIGHT);
 		}
-		
-	}
-	
-	if (IsKeyDown(DIK_RIGHT))
-	{
-		samus->SetVelocityXLast(samus->GetVelocityX());
-		samus->SetVelocityX(SAMUS_SPEED);	
-		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
-			&& samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
-			&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-			&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+		if (samus->GetState() == LEFTING)
 		{
-			if (IsKeyDown(DIK_UP))
-				samus->SetState(AIMING_UP_RIGHT);
-			else if (IsKeyDown(DIK_Z))
-			{
-				samus->SetState(ON_RUN_SHOOTING_RIGHT);
+			samus->SetState(ON_RUN_SHOOTING_LEFT);
 
-				_Shoot(ON_RIGHT);
-			}
-			else
-				samus->SetState(RIGHTING);
+			_Shoot(ON_LEFT);
 		}
-	}
-	else if (IsKeyDown(DIK_LEFT))
-	{
-		samus->SetVelocityXLast(samus->GetVelocityX());
-		samus->SetVelocityX(-SAMUS_SPEED);
-		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
-			&& samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
-			&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-			&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+		if (samus->GetState() == RIGHTING)
 		{
-			if (IsKeyDown(DIK_UP))
-				samus->SetState(AIMING_UP_LEFT);
-			else if (IsKeyDown(DIK_Z))
-			{
-				samus->SetState(ON_RUN_SHOOTING_LEFT);
+			samus->SetState(ON_RUN_SHOOTING_RIGHT);
 
-				_Shoot(ON_LEFT);
-			}
-			else
-				samus->SetState(LEFTING);
+			_Shoot(ON_RIGHT);
 		}
-	}
-	else if (IsKeyDown(DIK_UP))
-	{
-		samus->SetVelocityX(0);
-		samus->ResetAllSprites();
-		if (samus->GetVelocityXLast() > 0)
+		if (samus->GetState() == IDLE_LEFT)
 		{
-			samus->SetState(IDLING_AIM_UP_RIGHT);
+			_Shoot(ON_LEFT);
 		}
-		else if (samus->GetVelocityXLast() < 0)
+		if (samus->GetState() == IDLE_RIGHT)
 		{
-			samus->SetState(IDLING_AIM_UP_LEFT);
-		}
-	}
-	else
-	{
-		samus->SetVelocityX(0);
-		
-		if (samus->GetVelocityXLast() < 0)
-		{
-			if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
-				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
-			{
-				samus->SetState(IDLE_LEFT);
-				samus->ResetAllSprites();
-				if (IsKeyDown(DIK_Z))
-					_Shoot(ON_LEFT);
-				
-			}
-		}
-		else
-		{
-			if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
-				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
-			{
-				samus->SetState(IDLE_RIGHT);
-				samus->ResetAllSprites();
-				if (IsKeyDown(DIK_Z))
-					_Shoot(ON_RIGHT);
-			}
+			_Shoot(ON_RIGHT);
 		}
 	}
 	
@@ -355,22 +407,22 @@ void Metroid::OnKeyDown(int KeyCode)
 	//	//***********************************************************************************
 	//	break;
 	case DIK_LEFT:
-		if (samus->GetState() == ON_JUMP_RIGHT)
-			samus->SetState(ON_JUMP_LEFT);
+		/*if (samus->GetState() == ON_JUMP_RIGHT)
+			samus->SetState(ON_JUMP_LEFT);*/
 		if (samus->GetState() == ON_MORPH_RIGHT)
 			samus->SetState(ON_MORPH_LEFT);
-		else if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT 
+		/*else if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT 
 			&& samus->GetState() != ON_SOMERSAULT_RIGHT)
-			samus->SetState(LEFTING);
+			samus->SetState(LEFTING);*/
 		break;
 	case DIK_RIGHT:
-		if (samus->GetState() == ON_JUMP_LEFT)
-			samus->SetState(ON_JUMP_RIGHT);
+		/*if (samus->GetState() == ON_JUMP_LEFT)
+			samus->SetState(ON_JUMP_RIGHT);*/
 		if (samus->GetState() == ON_MORPH_LEFT)
 			samus->SetState(ON_MORPH_RIGHT);
-		else if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
+		/*else if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
 			&& samus->GetState() != ON_SOMERSAULT_LEFT)
-			samus->SetState(RIGHTING);
+			samus->SetState(RIGHTING);*/
 		break;
 	}
 
