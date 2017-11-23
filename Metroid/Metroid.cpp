@@ -18,7 +18,6 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	enemy_stick_up->InitSprites(d3ddv);
 	enemy_stick_left->InitSprites(d3ddv);
 	enemy_stick_right->InitSprites(d3ddv);
-	bullet->InitSprites(d3ddv);
 
 	bulletManager->InitSprites(d3ddv);
 }
@@ -31,7 +30,6 @@ void Metroid::_InitPositions()
 	enemy_stick_up->InitPostition();
 	enemy_stick_left->InitPostition();
 	enemy_stick_right->InitPostition();
-	bullet->InitPosition(samus->GetPosX(), samus->GetPosY());
 
 	bulletManager->InitPosition(samus->GetPosX(), samus->GetPosY());
 }
@@ -77,7 +75,6 @@ Metroid::~Metroid()
 	delete(enemy_stick_up);
 	delete(enemy_stick_right);
 	delete(enemy_stick_left);
-	delete(bullet);
 	
 	delete(bulletManager);
 }
@@ -100,7 +97,6 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	enemy_stick_up->Update(Delta, samus->GetPosX());
 	enemy_stick_left->Update(Delta, samus->GetPosX());
 	enemy_stick_right->Update(Delta, samus->GetPosX());
-	bullet->Update(Delta, samus->GetPosX(), samus->GetPosY());
 
 	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	

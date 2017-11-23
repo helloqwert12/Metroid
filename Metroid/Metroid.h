@@ -30,8 +30,6 @@ protected:
 
 	BulletManager * bulletManager;
 
-	Bullet * bullet;
-
 private:
 	void _InitBackground();
 	void _InitSprites(LPDIRECT3DDEVICE9 d3ddv);
