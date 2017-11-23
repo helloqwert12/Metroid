@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -125,6 +125,12 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="dxgraphics.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Enemy_Fly.cpp" />
+    <ClCompile Include="Enemy_Stick_Bottom.cpp" />
+    <ClCompile Include="Enemy_Stick_Left.cpp" />
+    <ClCompile Include="Enemy_Stick_Right.cpp" />
+    <ClCompile Include="Enemy_Stick_Up.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -142,6 +148,12 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="dxgraphics.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy_Fly.h" />
+    <ClInclude Include="Enemy_Stick_Bottom.h" />
+    <ClInclude Include="Enemy_Stick_Left.h" />
+    <ClInclude Include="Enemy_Stick_Right.h" />
+    <ClInclude Include="Enemy_Stick_Up.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Metroid.h" />
