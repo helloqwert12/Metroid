@@ -18,8 +18,8 @@ protected:
 
 	DWORD last_time; // this is to control the animate rate of kitty
 
-	float width;
-	float height;
+	float width = 32;
+	float height = 32;
 public:
 	GameObject();
 	~GameObject();

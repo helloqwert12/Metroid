@@ -2,7 +2,7 @@
 #include <time.h>
 #include "trace.h"
 #include "utils.h"
-
+#include "Collision.h"
 int xc = 0; ////////////////////////////
 
 void Metroid::_InitBackground()
@@ -13,14 +13,22 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	samus->InitSprites(d3ddv);
 	tiles->InitSprites(d3ddv);
-
+	enemy_fly->InitSprites(d3ddv);
+	enemy_stick_bottom->InitSprites(d3ddv);
+	enemy_stick_up->InitSprites(d3ddv);
+	enemy_stick_left->InitSprites(d3ddv);
+	enemy_stick_right->InitSprites(d3ddv);
 	bullet->InitSprites(d3ddv);
 }
 
 void Metroid::_InitPositions()
 {
 	samus->InitPostition();
-
+	enemy_fly->InitPostition();
+	enemy_stick_bottom->InitPostition();
+	enemy_stick_up->InitPostition();
+	enemy_stick_left->InitPostition();
+	enemy_stick_right->InitPostition();
 	bullet->InitPosition(samus->GetPosX(), samus->GetPosY());
 }
 
@@ -29,6 +37,11 @@ Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, i
 {
 	samus = new Samus();
 	tiles = new Tiles();
+	enemy_stick_bottom = new Enemy_Stick_Bottom();
+	enemy_stick_up = new Enemy_Stick_Up();
+	enemy_stick_left = new Enemy_Stick_Left();
+	enemy_stick_right = new Enemy_Stick_Right();
+	enemy_fly = new Enemy_Fly();
 	tick_per_frame = 1000 / _FrameRate;
 
 	bullet = new Bullet();
@@ -39,7 +52,11 @@ Metroid::~Metroid()
 {
 	delete(samus);
 	delete(tiles);
-
+	delete(enemy_fly);
+	delete(enemy_stick_bottom);
+	delete(enemy_stick_up);
+	delete(enemy_stick_right);
+	delete(enemy_stick_left);
 	delete(bullet);
 }
 
@@ -56,9 +73,12 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
-
+	enemy_fly->Update(Delta, samus->GetPosX());
+	enemy_stick_bottom->Update(Delta, samus->GetPosX());
+	enemy_stick_up->Update(Delta, samus->GetPosX());
+	enemy_stick_left->Update(Delta, samus->GetPosX());
+	enemy_stick_right->Update(Delta, samus->GetPosX());
 	bullet->Update(Delta, samus->GetPosX(), samus->GetPosY());
-	
 }
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)

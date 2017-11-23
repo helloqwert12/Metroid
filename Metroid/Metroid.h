@@ -10,13 +10,21 @@
 #include "Samus.h"
 #include "Tiles.h"
 #include "Bullet.h"
+#include "Enemy_Fly.h"
+#include "Enemy_Stick_Bottom.h"
+#include "Enemy_Stick_Up.h"
+#include "Enemy_Stick_Left.h"
+#include "Enemy_Stick_Right.h"
+
 class Metroid : public Game
 {
 protected:
 	LPDIRECT3DSURFACE9 Background;
 	Samus * samus;
 	Tiles * tiles;
-
+	Enemy * enemy_fly,* enemy_stick_bottom,
+		*enemy_stick_up,*enemy_stick_left,
+		*enemy_stick_right;
 	Bullet * bullet;
 
 private:
