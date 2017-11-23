@@ -13,9 +13,11 @@
 #define SPRITE_PER_ROW 1
 
 #define SPEED 0.6f
+#define LIMIT_DISTANCE 150
 
 enum BULLET_DIRECTION 
 {
+	NONE,
 	ON_LEFT,
 	ON_RIGHT,
 	ON_UP
@@ -26,6 +28,11 @@ class Bullet : public GameObject
 private:
 	int pos_x_holder;
 	int pos_y_holder;
+
+	int limit_dist_x;		//limit distance of x
+	int limit_dist_y;		//limit distance of y;
+
+	bool isRendering;		//determine if the bullet is in rendering (in case out of distance_limit -> not render)
 
 	LPD3DXSPRITE _SpriteHandler;
 	BULLET_DIRECTION direction;
@@ -43,6 +50,10 @@ public:
 	BULLET_DIRECTION GetDirection();
 	void SetDirection(BULLET_DIRECTION value);
 	void Update(int t, int posX, int posY);
+	void ResetPosition();
+	void Reset();
+	void Release();		//destroy the bullet
+	void Shoot(BULLET_DIRECTION dir);
 };
 
 #endif // !_BULLET_H

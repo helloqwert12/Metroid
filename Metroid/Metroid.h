@@ -2,7 +2,8 @@
 #ifndef _METROID_H_
 #define _METROID_H_
 
-#define SAMUS_SPEED 0.4f
+#define SAMUS_SPEED 0.25f
+#define SHOOTING_SPEED 15
 #define BACKGROUND_FILE L"background\\temp.png"
 
 
@@ -10,12 +11,15 @@
 #include "Samus.h"
 #include "Tiles.h"
 #include "Bullet.h"
+#include "BulletManager.h"
 class Metroid : public Game
 {
 protected:
 	LPDIRECT3DSURFACE9 Background;
 	Samus * samus;
 	Tiles * tiles;
+
+	BulletManager * bulletManager;
 
 	Bullet * bullet;
 
@@ -27,6 +31,11 @@ private:
 	DWORD start_jump;
 	DWORD now_jump;
 	DWORD tick_per_frame;
+
+	DWORD start_shoot;
+	DWORD now_shoot;
+
+	void _Shoot(BULLET_DIRECTION dir);
 
 public:
 	Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate);
@@ -40,6 +49,7 @@ public:
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
 
 	virtual void OnKeyDown(int KeyCode);
+
 };
 
 #endif // !_METROID_

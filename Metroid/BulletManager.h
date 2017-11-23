@@ -13,15 +13,17 @@ private:
 	int pos_y_holder;
 	int _Index;
 
-	void _Render();
+	
 public:
 	BulletManager();
 	BulletManager(int posX, int posY);
 	~BulletManager();
-	void Init(LPDIRECT3DDEVICE9 d3ddv);
-	void Reset();
+	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
+	void InitPosition(int posX, int posY);
+	void ResetAll();
 	void Next(BULLET_DIRECTION dir);
 	void Update(int t, int posX, int posY);
+	
 };
 
 #endif // !_BULLETMANAGER_H_

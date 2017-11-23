@@ -136,6 +136,7 @@ public:
 	
 	//Update every frame of game	
 	void Update(int t);
+	
 
 };
 #endif // !_SAMUS_H

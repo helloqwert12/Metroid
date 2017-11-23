@@ -14,24 +14,40 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	samus->InitSprites(d3ddv);
 	tiles->InitSprites(d3ddv);
 
-	bullet->InitSprites(d3ddv);
+	bulletManager->InitSprites(d3ddv);
 }
 
 void Metroid::_InitPositions()
 {
 	samus->InitPostition();
 
-	bullet->InitPosition(samus->GetPosX(), samus->GetPosY());
+	bulletManager->InitPosition(samus->GetPosX(), samus->GetPosY());
 }
 
+
+void Metroid::_Shoot(BULLET_DIRECTION dir)
+{
+	now_shoot = GetTickCount();
+	if (start_shoot <= 0) //if shooting is active
+	{
+		start_shoot = GetTickCount();
+		bulletManager->Next(dir);
+	}
+	else if ((now_shoot - start_shoot) > SHOOTING_SPEED * tick_per_frame)
+	{
+		//Reset start_shoot
+		start_shoot = 0;
+	}
+}
 
 Metroid::Metroid(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullScreen, int FrameRate):Game(hInstance, Name, Mode, IsFullScreen, FrameRate)
 {
 	samus = new Samus();
 	tiles = new Tiles();
 	tick_per_frame = 1000 / _FrameRate;
+	start_shoot = 0;
 
-	bullet = new Bullet();
+	bulletManager = new BulletManager();
 }
 
 
@@ -39,8 +55,8 @@ Metroid::~Metroid()
 {
 	delete(samus);
 	delete(tiles);
-
-	delete(bullet);
+	
+	delete(bulletManager);
 }
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
@@ -57,7 +73,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 
-	bullet->Update(Delta, samus->GetPosX(), samus->GetPosY());
+	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	
 }
 
@@ -138,14 +154,24 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 	if (IsKeyDown(DIK_Z))
 	{
+		if (samus->GetState() == AIMING_UP_LEFT || samus->GetState() == AIMING_UP_RIGHT
+			|| samus->GetState() == IDLING_AIM_UP_LEFT || samus->GetState() == IDLING_AIM_UP_RIGHT)
+		{
+			_Shoot(ON_UP);
+		}
 		if (samus->GetState() == ON_JUMP_LEFT || samus->GetState() == ON_SOMERSAULT_LEFT)
 		{
 			samus->SetState(ON_JUMPING_SHOOTING_LEFT);
+
+			_Shoot(ON_LEFT);
 		}
 		if (samus->GetState() == ON_JUMP_RIGHT || samus->GetState() == ON_SOMERSAULT_RIGHT)
 		{
 			samus->SetState(ON_JUMPING_SHOOTING_RIGHT);
+		
+			_Shoot(ON_RIGHT);
 		}
+		
 	}
 	
 	if (IsKeyDown(DIK_RIGHT))
@@ -160,7 +186,11 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			if (IsKeyDown(DIK_UP))
 				samus->SetState(AIMING_UP_RIGHT);
 			else if (IsKeyDown(DIK_Z))
+			{
 				samus->SetState(ON_RUN_SHOOTING_RIGHT);
+
+				_Shoot(ON_RIGHT);
+			}
 			else
 				samus->SetState(RIGHTING);
 		}
@@ -177,7 +207,11 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			if (IsKeyDown(DIK_UP))
 				samus->SetState(AIMING_UP_LEFT);
 			else if (IsKeyDown(DIK_Z))
+			{
 				samus->SetState(ON_RUN_SHOOTING_LEFT);
+
+				_Shoot(ON_LEFT);
+			}
 			else
 				samus->SetState(LEFTING);
 		}
@@ -187,9 +221,13 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		samus->SetVelocityX(0);
 		samus->ResetAllSprites();
 		if (samus->GetVelocityXLast() > 0)
+		{
 			samus->SetState(IDLING_AIM_UP_RIGHT);
+		}
 		else if (samus->GetVelocityXLast() < 0)
+		{
 			samus->SetState(IDLING_AIM_UP_LEFT);
+		}
 	}
 	else
 	{
@@ -203,6 +241,9 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			{
 				samus->SetState(IDLE_LEFT);
 				samus->ResetAllSprites();
+				if (IsKeyDown(DIK_Z))
+					_Shoot(ON_LEFT);
+				
 			}
 		}
 		else
@@ -213,6 +254,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			{
 				samus->SetState(IDLE_RIGHT);
 				samus->ResetAllSprites();
+				if (IsKeyDown(DIK_Z))
+					_Shoot(ON_RIGHT);
 			}
 		}
 	}
@@ -303,9 +346,6 @@ void Metroid::OnKeyDown(int KeyCode)
 		else if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
 			&& samus->GetState() != ON_SOMERSAULT_LEFT)
 			samus->SetState(RIGHTING);
-		break;
-	case DIK_SPACE:
-		bullet->SetDirection(ON_RIGHT);
 		break;
 	}
 
