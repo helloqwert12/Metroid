@@ -95,7 +95,6 @@ class Samus : public GameObject
 {
 protected:
 	LPD3DXSPRITE _SpriteHandler;
-
 	Sprite * appearing;
 	Sprite * running_left;
 	Sprite * running_right;

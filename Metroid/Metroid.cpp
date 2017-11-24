@@ -219,7 +219,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	{
 		if (samus->GetVelocityXLast() < 0)
 		{
-			if (samus->GetState() != ON_JUMP_LEFT)
+			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT)
 			{
 				start_jump = GetTickCount();
 				now_jump = GetTickCount();
@@ -237,7 +237,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		}
 		if (samus->GetVelocityXLast() > 0)
 		{
-			if (samus->GetState() != ON_JUMP_RIGHT)
+			if (samus->GetState() != ON_JUMP_RIGHT  && samus->GetState() != ON_SOMERSAULT_RIGHT)
 			{
 				start_jump = GetTickCount();
 				now_jump = GetTickCount();
