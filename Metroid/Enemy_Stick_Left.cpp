@@ -15,7 +15,7 @@ Enemy_Stick_Left::~Enemy_Stick_Left()
 void Enemy_Stick_Left::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_stick_left->Render(100, 100, samus_pos_x - 405, 588);
+	enemy_stick_left->Render(100, 100, samus_pos_x - 405, 500);
 	_SpriteHandler->End();
 }
 void Enemy_Stick_Left::InitPostition()

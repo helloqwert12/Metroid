@@ -16,7 +16,7 @@ void Enemy_Fly::InitPostition()
 void Enemy_Fly::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_fly_1->Render(100, 100, samus_pos_x - 365, 600);
+	enemy_fly_1->Render(105, 100, samus_pos_x - 365, 520);
 	_SpriteHandler->End();
 }
 

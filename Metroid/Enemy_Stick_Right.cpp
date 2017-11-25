@@ -19,7 +19,7 @@ void Enemy_Stick_Right::InitPostition()
 void Enemy_Stick_Right::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_stick_right->Render(100, 100, samus_pos_x - 510, 590);
+	enemy_stick_right->Render(100, 100, samus_pos_x - 510, 500);
 	_SpriteHandler->End();
 }
 
