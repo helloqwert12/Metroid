@@ -303,13 +303,13 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			_Shoot(ON_UP);
 		}
-		if (samus->GetState() == ON_JUMP_LEFT || samus->GetState() == ON_SOMERSAULT_LEFT)
+		if (samus->GetState() == ON_JUMP_LEFT || samus->GetState() == ON_SOMERSAULT_LEFT || samus->GetState() == ON_JUMPING_SHOOTING_LEFT)
 		{
 			samus->SetState(ON_JUMPING_SHOOTING_LEFT);
 
 			_Shoot(ON_LEFT);
 		}
-		if (samus->GetState() == ON_JUMP_RIGHT || samus->GetState() == ON_SOMERSAULT_RIGHT)
+		if (samus->GetState() == ON_JUMP_RIGHT || samus->GetState() == ON_SOMERSAULT_RIGHT || samus->GetState() == ON_JUMPING_SHOOTING_RIGHT)
 		{
 			samus->SetState(ON_JUMPING_SHOOTING_RIGHT);
 
