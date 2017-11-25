@@ -10,66 +10,66 @@ Collision::Collision()
 Collision::~Collision()
 {
 }
- //hàm kiểm tra va chạm giữa 2 đi61 tượng
-bool Collision::isColliding(GameObject& objectA, GameObject& objectB)
+//hàm kiểm tra va chạm giữa 2 đi61 tượng
+bool Collision::isColliding(GameObject* objectA, GameObject* objectB)
 {
-	float left = objectB.GetPosX() - (objectA.GetPosX() + objectA.GetWidth());
-	float right = (objectB.GetPosX() + objectB.GetWidth()) - objectA.GetPosX();
-	float top = objectB.GetPosY() - (objectA.GetPosY() + objectA.GetHeight());
-	float bottom = (objectB.GetPosY() + objectB.GetHeight()) - objectA.GetPosY();
+	float left = objectB->GetPosX() - (objectA->GetPosX() + objectA->GetWidth());
+	float right = (objectB->GetPosX() + objectB->GetWidth()) - objectA->GetPosX();
+	float top = objectB->GetPosY() - (objectA->GetPosY() + objectA->GetHeight());
+	float bottom = (objectB->GetPosY() + objectB->GetHeight()) - objectA->GetPosY();
 
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
- //hàm kiểm tra 2 đối tượng có va chạm ko . Nếu có thì tính thời gian va chạm và thay đổi hướng
-float Collision::sweptAABB(GameObject& object, GameObject& other ,float& normalx , float& normaly)
+//hàm kiểm tra 2 đối tượng có va chạm ko . Nếu có thì tính thời gian va chạm và thay đổi hướng
+float Collision::sweptAABB(GameObject* object, GameObject* other, float& normalx, float& normaly)
 {
-	float dxEntry=0, dxExit=0;
-	float dyEntry=0, dyExit=0;
+	float dxEntry = 0, dxExit = 0;
+	float dyEntry = 0, dyExit = 0;
 
 	// khoảng cách tới vật thể
-	if (object.GetPosX() > 0.0f)
+	if (object->GetPosX() > 0.0f)
 	{
-		dxEntry = other.GetPosX() - (object.GetPosX() + object.GetWidth());
-		dxExit = (other.GetPosX() + other.GetWidth()) - object.GetPosX();
+		dxEntry = other->GetPosX() - (object->GetPosX() + object->GetWidth());
+		dxExit = (other->GetPosX() + other->GetWidth()) - object->GetPosX();
 	}
 	else
 	{
-		dxEntry = (other.GetPosX() + other.GetWidth()) - object.GetPosX();
-		dxExit = other.GetPosX() - (object.GetPosX() + object.GetWidth());
+		dxEntry = (other->GetPosX() + other->GetWidth()) - object->GetPosX();
+		dxExit = other->GetPosX() - (object->GetPosX() + object->GetWidth());
 	}
-	if (object.GetPosY() > 0.0f)
+	if (object->GetPosY() > 0.0f)
 	{
-		dyEntry = other.GetPosY() - (object.GetPosY() + object.GetHeight());
-		dyExit = (other.GetPosY() + other.GetHeight()) - object.GetPosY();
+		dyEntry = other->GetPosY() - (object->GetPosY() + object->GetHeight());
+		dyExit = (other->GetPosY() + other->GetHeight()) - object->GetPosY();
 	}
 	else
 	{
-		dyEntry = (other.GetPosY() + other.GetHeight()) - object.GetPosY();
-		dyExit = other.GetPosY() - (object.GetPosY() + object.GetHeight());
+		dyEntry = (other->GetPosY() + other->GetHeight()) - object->GetPosY();
+		dyExit = other->GetPosY() - (object->GetPosY() + object->GetHeight());
 	}
 	// tính thời gian va chạm theo trục
 	float txEntry, txExit;
 	float tyEntry, tyExit;
 
-	if (object.GetVelocityX() == 0.0f) // đang đứng yên nên thời gian va chạm = vô cực
+	if (object->GetVelocityX() == 0.0f) // đang đứng yên nên thời gian va chạm = vô cực
 	{
 		txEntry = -std::numeric_limits<float>::infinity();
 		txExit = std::numeric_limits<float>::infinity();
 	}
 	else
 	{
-		txEntry = dxEntry / object.GetVelocityX();
-		txExit = dxExit / object.GetVelocityX();
+		txEntry = dxEntry / object->GetVelocityX();
+		txExit = dxExit / object->GetVelocityX();
 	}
-	if (object.GetVelocityY() == 0.0f)
+	if (object->GetVelocityY() == 0.0f)
 	{
 		tyEntry = -std::numeric_limits<float>::infinity();
 		tyExit = std::numeric_limits<float>::infinity();
 	}
 	else
 	{
-		tyEntry = dyEntry / object.GetVelocityY();
-		tyExit = dyExit / object.GetVelocityY();
+		tyEntry = dyEntry / object->GetVelocityY();
+		tyExit = dyExit / object->GetVelocityY();
 	}
 	//thời gian va chạm là thời gian lớn nhất của 2 trục
 	float entryTime = std::fmax(txEntry, tyEntry);
