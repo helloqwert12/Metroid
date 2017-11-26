@@ -61,6 +61,12 @@ void Samus::_Render()
 	case ON_JUMPING_SHOOTING_RIGHT:
 		jumping_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
 		break;
+	case ON_JUMP_AIM_UP_LEFT:
+		jump_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
+	case ON_JUMP_AIM_UP_RIGHT:
+		jump_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		break;
 	}
 
 	
@@ -98,6 +104,8 @@ Samus::~Samus()
 	delete(somersault_right);
 	delete(jumping_shooting_left);
 	delete(jumping_shooting_right);
+	delete(jump_aim_up_left);
+	delete(jump_aim_up_right);
 }
 
 void Samus::SetPosX(int value)
@@ -147,6 +155,8 @@ void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	somersault_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, SOMERSAULT_RIGHT, SOMERSAULT_WIDTH, SOMERSAULT_HEIGHT, SOMERSAULT_COUNT, SPRITE_PER_ROW);
 	jumping_shooting_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_LEFT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
 	jumping_shooting_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_RIGHT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
+	jump_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_LEFT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
+	jump_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_RIGHT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -194,6 +204,8 @@ void Samus::ResetAllSprites()
 	somersault_right->Reset();
 	jumping_shooting_left->Reset();
 	jumping_shooting_right->Reset();
+	jump_aim_up_left->Reset();
+	jump_aim_up_right->Reset();
 }	
 
 
@@ -259,6 +271,12 @@ void Samus::Update(int t)
 		case ON_JUMPING_SHOOTING_RIGHT:
 			jumping_shooting_right->Next();
 			break;
+		case ON_JUMP_AIM_UP_LEFT:
+			jump_aim_up_left->Next();
+			break;
+		case ON_JUMP_AIM_UP_RIGHT:
+			jump_aim_up_right->Next();
+			break;
 		}
 		last_time = now;
 	}
@@ -272,11 +290,11 @@ void Samus::Update(int t)
 	{
 		pos_y = GROUND_Y;
 		vy = 0;
-		if (state == ON_JUMP_LEFT || state == ON_JUMPING_SHOOTING_LEFT || state == ON_SOMERSAULT_LEFT)
+		if (state == ON_JUMP_LEFT || state == ON_JUMPING_SHOOTING_LEFT || state == ON_SOMERSAULT_LEFT || state == ON_JUMP_AIM_UP_LEFT)
 		{
 			state = IDLE_LEFT;
 		}
-		else if (state == ON_JUMP_RIGHT || state ==ON_JUMPING_SHOOTING_RIGHT || state == ON_SOMERSAULT_RIGHT)
+		else if (state == ON_JUMP_RIGHT || state ==ON_JUMPING_SHOOTING_RIGHT || state == ON_SOMERSAULT_RIGHT || state == ON_JUMP_AIM_UP_RIGHT)
 		{
 			state = IDLE_RIGHT;
 		}

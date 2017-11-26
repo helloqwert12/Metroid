@@ -104,54 +104,6 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 {
-	/*if (IsKeyDown(DIK_X)) 
-	{
-		if (samus->GetPosY() <= GROUND_Y)
-		{
-			start_jump = GetTickCount();
-			if (samus->GetVelocityXLast() < 0)
-			{
-				if (IsKeyDown(DIK_LEFT))
-					samus->SetState(ON_SOMERSAULT_LEFT);
-				else if (samus->GetState() != ON_SOMERSAULT_LEFT)
-					samus->SetState(ON_JUMP_LEFT);
-				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
-			}
-			else if (samus->GetVelocityXLast() > 0)
-			{
-				if (IsKeyDown(DIK_RIGHT))
-					samus->SetState(ON_SOMERSAULT_RIGHT);
-				else if (samus->GetState() != ON_SOMERSAULT_RIGHT)
-					samus->SetState(ON_JUMP_RIGHT);
-				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
-			}
-		}
-		else
-		{
-			now_jump = GetTickCount();
-			if ((now_jump - start_jump) <= 25 * tick_per_frame)
-			{
-				if (samus->GetVelocityXLast() < 0)
-				{
-					if (IsKeyDown(DIK_LEFT))
-						samus->SetState(ON_SOMERSAULT_LEFT);
-					else if (samus->GetState() != ON_SOMERSAULT_LEFT)
-						samus->SetState(ON_JUMP_LEFT);
-					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
-				}
-				else if (samus->GetVelocityXLast() > 0)
-				{
-					if (IsKeyDown(DIK_RIGHT))
-						samus->SetState(ON_SOMERSAULT_RIGHT);
-					else if (samus->GetState() != ON_SOMERSAULT_RIGHT)
-						samus->SetState(ON_JUMP_RIGHT);
-					samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST);
-				}
-			}
-		}
-	}*/
-
-	
 	
 	if (IsKeyDown(DIK_RIGHT))
 	{
@@ -164,7 +116,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
-				if (samus->GetState() != ON_SOMERSAULT_RIGHT)
+				if (samus->GetState() != ON_SOMERSAULT_RIGHT /*&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT*/)
 				{
 					start_jump = GetTickCount();
 					now_jump = GetTickCount();
@@ -195,7 +147,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
-				if (samus->GetState() != ON_SOMERSAULT_LEFT)
+				if (samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
 					now_jump = GetTickCount();
@@ -219,11 +171,15 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	{
 		if (samus->GetVelocityXLast() < 0)
 		{
-			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT)
+			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT 
+				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMP_AIM_UP_LEFT)
 			{
 				start_jump = GetTickCount();
 				now_jump = GetTickCount();
-				samus->SetState(ON_JUMP_LEFT);
+				if (samus->GetState() == IDLING_AIM_UP_LEFT)
+					samus->SetState(ON_JUMP_AIM_UP_LEFT);
+				else
+					samus->SetState(ON_JUMP_LEFT);
 				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
 			}
 			else
@@ -237,11 +193,15 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		}
 		if (samus->GetVelocityXLast() > 0)
 		{
-			if (samus->GetState() != ON_JUMP_RIGHT  && samus->GetState() != ON_SOMERSAULT_RIGHT)
+			if (samus->GetState() != ON_JUMP_RIGHT  && samus->GetState() != ON_SOMERSAULT_RIGHT 
+				&& samus->GetState() != ON_JUMPING_SHOOTING_RIGHT && samus->GetState() != ON_JUMP_AIM_UP_RIGHT)
 			{
 				start_jump = GetTickCount();
 				now_jump = GetTickCount();
-				samus->SetState(ON_JUMP_RIGHT);
+				if (samus->GetState() == IDLING_AIM_UP_RIGHT)
+					samus->SetState(ON_JUMP_AIM_UP_RIGHT);
+				else
+					samus->SetState(ON_JUMP_RIGHT);
 				samus->SetVelocityY(samus->GetVelocityY() + JUMP_VELOCITY_BOOST_FIRST);
 			}
 			else
@@ -262,7 +222,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
 				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT
+				&& samus->GetState() != ON_JUMP_AIM_UP_LEFT)
 			{
 				samus->SetState(IDLE_LEFT);
 				samus->ResetAllSprites();
@@ -272,7 +233,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (samus->GetState() != ON_MORPH_RIGHT && samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_JUMP_RIGHT
 				&& samus->GetState() != ON_JUMPING_SHOOTING_LEFT && samus->GetState() != ON_JUMPING_SHOOTING_RIGHT
-				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT)
+				&& samus->GetState() != ON_SOMERSAULT_LEFT && samus->GetState() != ON_SOMERSAULT_RIGHT
+				&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT)
 			{
 				samus->SetState(IDLE_RIGHT);
 				samus->ResetAllSprites();
@@ -290,6 +252,11 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			samus->SetState(IDLING_AIM_UP_LEFT);
 		if (samus->GetState() == IDLE_RIGHT)
 			samus->SetState(IDLING_AIM_UP_RIGHT);
+		if (samus->GetState() == ON_JUMP_LEFT/* || samus->GetState() == ON_JUMPING_SHOOTING_LEFT*/)
+			samus->SetState(ON_JUMP_AIM_UP_LEFT);
+		if (samus->GetState() == ON_JUMP_RIGHT/* || samus->GetState() == ON_JUMPING_SHOOTING_RIGHT*/)
+			samus->SetState(ON_JUMP_AIM_UP_RIGHT);
+
 		if (samus->GetState() == ON_MORPH_LEFT)
 			samus->SetState(IDLE_LEFT);
 		if (samus->GetState() == ON_MORPH_RIGHT)
@@ -299,7 +266,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	if (IsKeyDown(DIK_Z))
 	{
 		if (samus->GetState() == AIMING_UP_LEFT || samus->GetState() == AIMING_UP_RIGHT
-			|| samus->GetState() == IDLING_AIM_UP_LEFT || samus->GetState() == IDLING_AIM_UP_RIGHT)
+			|| samus->GetState() == IDLING_AIM_UP_LEFT || samus->GetState() == IDLING_AIM_UP_RIGHT
+			|| samus->GetState() == ON_JUMP_AIM_UP_LEFT || samus->GetState() == ON_JUMP_AIM_UP_RIGHT)
 		{
 			_Shoot(ON_UP);
 		}
