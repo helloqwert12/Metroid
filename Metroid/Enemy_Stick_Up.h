@@ -5,8 +5,8 @@
 
 #define ENEMY_STICK_UP "sprites\\enemy\\ENEMY_STICK_UP.txt"
 
-#define ENEMY_STICK_UP_WIDTH 32
-#define ENEMY_STICK_UP_HEIGHT 32
+#define ENEMY_STICK_UP_WIDTH 16
+#define ENEMY_STICK_UP_HEIGHT 16
 
 #define ENEMY_STICK_UP_COUNT 2
 

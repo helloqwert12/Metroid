@@ -8,6 +8,6 @@ public:
 	~Collision();
 
 	static bool isColliding(GameObject* objectA , GameObject* objectB);
-	static float sweptAABB(GameObject* objectA, GameObject* objectB, float& normalx, float& normaly);
+	static float sweptAABB(GameObject* objectA, GameObject* objectB);
 };
 

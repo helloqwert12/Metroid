@@ -88,15 +88,26 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
-
 		
+		if (Collision::isColliding(samus, enemy_fly)
+			|| Collision::isColliding(samus, enemy_stick_up))
+		{
+			MessageBox(
+				NULL,
+				(LPCWSTR)L"asdas",
+				NULL,
+				NULL
+			);
+
+		}
+
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 	enemy_fly->Update(Delta, samus->GetPosX());
-	enemy_stick_bottom->Update(Delta, samus->GetPosX());
+	//enemy_stick_bottom->Update(Delta, samus->GetPosX());
 	enemy_stick_up->Update(Delta, samus->GetPosX());
-	enemy_stick_left->Update(Delta, samus->GetPosX());
-	enemy_stick_right->Update(Delta, samus->GetPosX());
+	//enemy_stick_left->Update(Delta, samus->GetPosX());
+	//enemy_stick_right->Update(Delta, samus->GetPosX());
 
 	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	

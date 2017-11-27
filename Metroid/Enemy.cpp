@@ -4,6 +4,8 @@
 
 Enemy::Enemy()
 {
+	width = 16;
+	height = 16;
 }
 
 
@@ -12,10 +14,8 @@ Enemy::~Enemy()
 }
 void Enemy::InitPostition()
 {
-	pos_x = 100;
-	pos_y = 100;
 	vx = 0;
-	vx_last = 1.0f;
+	vx_last = 0.0f;
 	vy = 0;
 }
 void Enemy::_Render(int samus_pos_x)

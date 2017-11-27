@@ -11,23 +11,23 @@ Collision::~Collision()
 {
 }
 //hàm kiểm tra va chạm giữa 2 đi61 tượng
-bool Collision::isColliding(GameObject* objectA, GameObject* objectB)
+bool Collision::isColliding(GameObject* object, GameObject* other)
 {
-	float left = objectB->GetPosX() - (objectA->GetPosX() + objectA->GetWidth());
-	float right = (objectB->GetPosX() + objectB->GetWidth()) - objectA->GetPosX();
-	float top = objectB->GetPosY() - (objectA->GetPosY() + objectA->GetHeight());
-	float bottom = (objectB->GetPosY() + objectB->GetHeight()) - objectA->GetPosY();
+	float left = other->GetPosX() - (object->GetPosX() + object->GetWidth());
+	float top = (other->GetPosY() + other->GetHeight()) - object->GetPosY();
+	float right = (other->GetPosX() + other->GetWidth()) - object->GetPosX();
+	float bottom = other->GetPosY() - (object->GetPosY() + object->GetHeight());
 
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 //hàm kiểm tra 2 đối tượng có va chạm ko . Nếu có thì tính thời gian va chạm và thay đổi hướng
-float Collision::sweptAABB(GameObject* object, GameObject* other, float& normalx, float& normaly)
+float Collision::sweptAABB(GameObject* object, GameObject* other)
 {
 	float dxEntry = 0, dxExit = 0;
 	float dyEntry = 0, dyExit = 0;
 
 	// khoảng cách tới vật thể
-	if (object->GetPosX() > 0.0f)
+	if (object->GetVelocityX() > 0.0f)
 	{
 		dxEntry = other->GetPosX() - (object->GetPosX() + object->GetWidth());
 		dxExit = (other->GetPosX() + other->GetWidth()) - object->GetPosX();
@@ -37,7 +37,7 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, float& normalx
 		dxEntry = (other->GetPosX() + other->GetWidth()) - object->GetPosX();
 		dxExit = other->GetPosX() - (object->GetPosX() + object->GetWidth());
 	}
-	if (object->GetPosY() > 0.0f)
+	if (object->GetVelocityY() > 0.0f)
 	{
 		dyEntry = other->GetPosY() - (object->GetPosY() + object->GetHeight());
 		dyExit = (other->GetPosY() + other->GetHeight()) - object->GetPosY();
@@ -81,36 +81,9 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, float& normalx
 	if (entryTime > ExitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
 	{
 		// đứng yên
-		normalx = 0.0f;
-		normaly = 0.0f;
+
 		return 1.0f; // ko va chạm trong frame này
 	}
-	// lấy hướng va chạm
-	if (txEntry > tyEntry)
-	{
-		if (dxEntry > 0.0f)
-		{
-			normalx = 1.0f;
-			normaly = 0.0f;
-		}
-		else
-		{
-			normalx = -1.0f;
-			normaly = 0.0f;
-		}
-	}
-	else
-	{
-		if (dyEntry > 0.0f)
-		{
-			normalx = 0.0f;
-			normaly = 1.0f;
-		}
-		else
-		{
-			normalx = 0.0f;
-			normaly = -1.0f;
-		}
-	}
+
 	return entryTime;
 }
