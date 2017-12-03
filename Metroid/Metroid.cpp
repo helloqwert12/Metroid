@@ -89,7 +89,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			NULL,				// which portion?
 			D3DTEXF_NONE);
 		
-		if (Collision::isColliding(samus, enemy_fly)
+	/*	if (Collision::isColliding(samus, enemy_fly)
 			|| Collision::isColliding(samus, enemy_stick_up))
 		{
 			MessageBox(
@@ -99,7 +99,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 				NULL
 			);
 
-		}
+		}*/
 
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());

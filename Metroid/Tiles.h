@@ -19,6 +19,11 @@
 #define S9 "background\\S9.txt"
 #define S10 "background\\S10.txt"
 #define S11 "background\\S11.txt"
+#define S12 "background\\S12.txt"
+#define S13 "background\\S13.txt"
+#define S14 "background\\S14.txt"
+#define S15 "background\\S15.txt"
+#define S16 "background\\S16.txt"
 
 
 #define S1_WIDTH 16
@@ -43,14 +48,23 @@
 #define S10_HEIGHT 16
 #define S11_WIDTH 16
 #define S11_HEIGHT 16
-
+#define S12_WIDTH 16
+#define S12_HEIGHT 16
+#define S13_WIDTH 16
+#define S13_HEIGHT 16
+#define S14_WIDTH 16
+#define S14_HEIGHT 16
+#define S15_WIDTH 16
+#define S15_HEIGHT 16
+#define S16_WIDTH 16
+#define S16_HEIGHT 16
 
 #define TILES_COUNT 1
 #define SPRITE_PER_ROW 1
 
 #define VIEW_PORT_Y 600
 
-#define VIEW_PORT_Y1 410
+#define VIEW_PORT_Y1 388
 #define VIEW_PORT_Y2 510
 class Tiles : public GameObject
 {
@@ -70,6 +84,12 @@ protected:
 	Sprite * s9;
 	Sprite * s10;
 	Sprite * s11;
+	Sprite * s12;
+	Sprite * s13;
+	Sprite * s14;
+	Sprite * s15;
+	Sprite * s16;
+	
 
 public:
 	Tiles();

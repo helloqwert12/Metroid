@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 using namespace std;
- int a[500];
+ int a[2000];
 Tiles::Tiles()
 {
 	s1 = NULL;
@@ -19,6 +19,12 @@ Tiles::Tiles()
 	s9 = NULL;
 	s10 = NULL;
 	s11 = NULL;
+	s12 = NULL;
+	s13 = NULL;
+	s14 = NULL;
+	s15 = NULL;
+	s16 = NULL;
+	
 }
 
 
@@ -35,6 +41,11 @@ Tiles::~Tiles()
 	delete(s9);
 	delete(s10);
 	delete(s11);
+	delete(s12);
+	delete(s13);
+	delete(s14);
+	delete(s15);
+	delete(s16);
 }
 
 void Tiles::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
@@ -56,27 +67,42 @@ void Tiles::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	s9 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S9, S9_WIDTH, S9_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
 	s10 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S10, S10_WIDTH, S10_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
 	s11 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S11, S11_WIDTH, S11_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s12 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S12, S12_WIDTH, S12_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s13 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S13, S13_WIDTH, S13_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s14 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S14, S14_WIDTH, S14_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s15 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S15, S15_WIDTH, S15_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s16 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S16, S16_WIDTH, S16_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
 }
 
 void Tiles::ImportFile()
 {
-	
-	string line;
-	int j = 0,e,f;
+
+	string line,h;
+	int j = 0;
 	ifstream myfile("TILES.txt");
 	if (myfile.is_open())
 	{
 		while (getline(myfile, line))
 		{
-			if (line.find("tile gid") != -1)
+			for (int i = 0; i < line.length(); i++)
 			{
-			    e = line.find('"');
-				f = line.find_last_of('"');
-				string g = line.substr(e + 1, f-e-1);
-				int value = atoi(g.c_str());
-				a[j] = value;
-				j++;
+				if (line[i] == '\t')
+				{
+					if (i>5 && line[i - 3] == '\t'&&line[i - 2] != '\t')
+					{
+						h = line.substr(i - 2, i);
+					}
+					else
+					{
+						h = line.substr(i - 1, i);
+					}
+					//cout << h;
+					int value = atoi(h.c_str());
+					a[j] = value;
+					j++;
+				}
 			}
+
 		}
 	}
 }
@@ -87,49 +113,69 @@ void Tiles::Check(int a[], int vpx, int vpy, int c, int d)
 	int i = 0;
 	for (j = d; j < c; j++)
 	{
-		if (a[j] == 1)
+		if (a[j] == 0)
 		{
 			s1->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 2)
+		else if (a[j] == 1)
 		{
 			s2->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 3)
+		else if (a[j] == 2)
 		{
 			s3->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 5)
+		else if (a[j] == 3)
+		{
+			s4->Render(16 + i, 16, vpx, vpy); i += 16;
+		}
+		else if (a[j] == 4)
 		{
 			s5->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 6)
+		else if (a[j] == 5)
 		{
 			s6->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 7)
+		else if (a[j] == 6)
 		{
 			s7->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
-		else if (a[j] == 8)
+		else if (a[j] == 7)
 		{
 			s8->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
 		else if (a[j] == 9)
 		{
-			s9->Render(16 + i, 16, vpx, vpy); i += 16;
+			s10->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
 		else if (a[j] == 10)
 		{
-			s10->Render(16 + i, 16, vpx, vpy); i += 16;
+			s11->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
 		else if (a[j] == 11)
 		{
-			s11->Render(16 + i, 16, vpx, vpy); i += 16;
+			s12->Render(16 + i, 16, vpx, vpy); i += 16;
+		}
+		else if (a[j] == 12)
+		{
+			s13->Render(16 + i, 16, vpx, vpy); i += 16;
+		}
+		else if (a[j] == 13)
+		{
+			s14->Render(16 + i, 16, vpx, vpy); i += 16;
+		}
+		else if (a[j] == 14)
+		{
+			s15->Render(16 + i, 16, vpx, vpy); i += 16;
+		}
+		else if (a[j] == 15)
+		{
+			s16->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
 		else
 		{
-			s4->Render(16 + i, 16, vpx, vpy); i += 16;
+			s9->Render(16 + i, 16, vpx, vpy); i += 16;
 		}
 	}
 	j = 0;
@@ -139,19 +185,19 @@ void Tiles::_Render(int xc, int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 	
-	int vpx = samus_pos_x - 400;
+	int vpx = samus_pos_x - 150;
 	//int vpx = xc;
 	//if (vpx <= 0) vpx = 0;
 	//xc += 1;
 
 	ImportFile();
 
-	int c = 16;
+	int c = 80;
 	int d = VIEW_PORT_Y1;
 	int f = 0;
-	for (int i = 0; i < 13; i++)
+	for (int i = 0; i < 15; i++)
 	{
-		Check(a, vpx, d, c, f); c += 16; d += 16;  f += 16;
+		Check(a, vpx, d, c, f); c += 80; d += 16;  f += 80;
 	}
 	_SpriteHandler->End();
 }
