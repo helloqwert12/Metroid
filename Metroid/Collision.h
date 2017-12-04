@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-enum Direction
+enum DirectCollision
 {
 	UP,
 	LEFT,
@@ -14,7 +14,7 @@ public:
 	~Collision();
 
 	static bool isColliding(GameObject* objectA , GameObject* objectB);
-	static float sweptAABB(GameObject* objectA, GameObject* objectB,Direction& direction);
-	static void Resolve(GameObject* objectA, GameObject* objectB, Direction direction);
+	static float sweptAABB(GameObject* objectA, GameObject* objectB, DirectCollision& direction);
+	static void Resolve(GameObject* objectA, GameObject* objectB, DirectCollision direction);
 };
 

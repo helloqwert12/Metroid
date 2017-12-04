@@ -32,7 +32,7 @@ private:
 	int limit_dist_x;		//limit distance of x
 	int limit_dist_y;		//limit distance of y;
 
-	bool isRendering;		//determine if the bullet is in rendering (in case out of distance_limit -> not render)
+	
 
 	LPD3DXSPRITE _SpriteHandler;
 	BULLET_DIRECTION direction;
@@ -40,6 +40,8 @@ private:
 
 	void _Render();
 public:
+	bool isRendering;		//determine if the bullet is in rendering (in case out of distance_limit -> not render)
+
 	Bullet();
 	Bullet(int x_holder, int y_holder);
 	~Bullet();

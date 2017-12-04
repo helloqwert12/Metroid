@@ -21,7 +21,7 @@ bool Collision::isColliding(GameObject* object, GameObject* other)
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 //hàm kiểm tra 2 đối tượng có va chạm ko . Nếu có thì tính thời gian va chạm và thay đổi hướng
-float Collision::sweptAABB(GameObject* object, GameObject* other, Direction& direction)
+float Collision::sweptAABB(GameObject* object, GameObject* other, DirectCollision& direction)
 {
 	float dxEntry = 0, dxExit = 0;
 	float dyEntry = 0, dyExit = 0;
@@ -72,9 +72,9 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, Direction& dir
 		tyExit = dyExit / object->GetVelocityY();
 	}
 	//thời gian va chạm là thời gian lớn nhất của 2 trục
-	float entryTime = std::fmax(txEntry, tyEntry);
+	float entryTime = (txEntry > tyEntry) ? txEntry : tyEntry;
 	// thời gian hết va chạm là thời gian nhỏ nhất
-	float ExitTime = std::fmin(txExit, tyExit);
+	float ExitTime = (txExit < tyExit) ? txExit : tyExit;
 
 	// kiểm tra có thể va chạm không
 
@@ -88,31 +88,56 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, Direction& dir
 	{
 		if (dxEntry > 0.0f)
 		{
-			direction = Direction::RIGHT;
+			direction = DirectCollision::RIGHT;
 		}
 		else
 		{
-			direction = Direction::LEFT;
+			direction = DirectCollision::LEFT;
 		}
 	}
 	else
 	{
 		if (dyEntry > 0.0f)
 		{
-			direction = Direction::UP;
+			direction = DirectCollision::UP;
 		}
 		else
 		{
-			direction = Direction::DOWN;
+			direction = DirectCollision::DOWN;
 		}
 	}
 	return entryTime;
 }
-void Collision::Resolve(GameObject* objectA, GameObject* objectB, Direction direction)
+void Collision::Resolve(GameObject* objectA, GameObject* objectB,DirectCollision direction)
 {
-	float collisiontime = sweptAABB(objectA, objectB, direction);
+	//------------va chạm gạch------------//
 
-	objectA->SetVelocityX(objectA->GetVelocityX()*(-1));
-	objectA->SetPosX(objectA->GetPosX() + objectA->GetVelocityX()*( 1.0f - collisiontime));
-	objectA->SetPosY(objectA->GetPosY() + objectA->GetVelocityY()*collisiontime);
+	float collisiontime = sweptAABB(objectA, objectB,direction);
+
+	if (Collision::isColliding(objectA, objectB) == true)
+	{
+		if (direction == DirectCollision::LEFT)
+		{
+			objectA->SetPosX(objectA->getlastPosX() - objectA->GetVelocityX()*collisiontime);
+		}
+		else if (direction == DirectCollision::RIGHT)
+		{
+			objectA->SetPosX(objectA->getlastPosX() + objectA->GetVelocityX()*collisiontime);
+		}
+		else if (direction == DirectCollision::UP)
+		{
+			objectA->SetPosY(objectA->getlastPosY() + objectA->GetVelocityY()*collisiontime);
+		}
+
+	}
+	else
+	{
+		objectA->setlastPosX(objectA->GetPosX());
+		objectA->setlastPosY(objectA->GetPosY());
+	}
+
+	//-----------va chạm quái-----------//
+
+	//----------va chạn đạn ----------- //
+
 }

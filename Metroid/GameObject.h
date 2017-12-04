@@ -20,10 +20,28 @@ protected:
 
 	float width = 16;
 	float height = 16;
+	float lastPosX;
+	float lastPosY;
 public:
 	GameObject();
 	~GameObject();
 
+	void setlastPosX(float posx)
+	{
+		this->lastPosX = posx;
+	}
+	void setlastPosY(float posy)
+	{
+		this->lastPosY = posy;
+	}
+	float getlastPosX()
+	{
+		return this->lastPosX;
+	}
+	float getlastPosY()
+	{
+		return lastPosY;
+	}
 	void SetVelocityX(float value);
 	float GetVelocityX();
 

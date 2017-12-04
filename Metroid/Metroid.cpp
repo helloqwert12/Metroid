@@ -88,7 +88,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
-
+		Collision::Resolve(samus, enemy_stick_up,samus->getDirection());
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 	enemy_fly->Update(Delta, samus->GetPosX());
@@ -106,6 +106,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	
 	if (IsKeyDown(DIK_RIGHT))
 	{
+		samus->setDirection(DirectCollision::LEFT);
 		samus->SetVelocityXLast(samus->GetVelocityX());
 		samus->SetVelocityX(SAMUS_SPEED);	
 		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
@@ -137,6 +138,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
+		samus->setDirection(DirectCollision::RIGHT);
 		samus->SetVelocityXLast(samus->GetVelocityX());
 		samus->SetVelocityX(-SAMUS_SPEED);
 		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
@@ -146,6 +148,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				samus->setDirection(DirectCollision::UP);
 				if (samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
@@ -168,6 +171,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
+		samus->setDirection(DirectCollision::UP);
 		if (samus->GetVelocityXLast() < 0)
 		{
 			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT 
@@ -303,12 +307,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_Shoot(ON_RIGHT);
 		}
 	}
-	
-
-	if (Collision::isColliding(samus, enemy_stick_up) == true)
-	{
-		Collision::Resolve(samus, enemy_stick_up, Direction::RIGHT);
-	}
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
@@ -351,12 +349,14 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetVelocityX(0);
 			samus->ResetAllSprites();
 			samus->SetState(IDLE_LEFT);
+			samus->setDirection(DirectCollision::RIGHT);
 		}
 		else if (samus->GetState() == ON_MORPH_RIGHT)
 		{
 			samus->SetVelocityX(0);
 			samus->ResetAllSprites();
 			samus->SetState(IDLE_RIGHT);
+			samus->setDirection(DirectCollision::LEFT);
 		}
 		break;
 	//case DIK_X:

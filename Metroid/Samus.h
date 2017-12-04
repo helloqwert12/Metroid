@@ -2,6 +2,7 @@
 #ifndef _SAMUS_H
 #define _SAMUS_H_
 #include "Sprite.h"
+#include "Collision.h"
 
 #define SAMUS_SPRITES_PATH L"sprites\\samus\\samus_sprites.png"
 
@@ -127,9 +128,19 @@ protected:
 	SAMUS_STATE state;
 
 	void _Render();
+
+	DirectCollision direction;
 public:
 	Samus();
 	~Samus();
+	DirectCollision getDirection()
+	{
+		return this->direction;
+	}
+	void setDirection(DirectCollision direction)
+	{
+		this->direction = direction;
+	}
 	void SetPosX(int value);
 	int GetPosX();
 	void SetPosY(int value);
