@@ -15,13 +15,13 @@ Enemy_Stick_Up::~Enemy_Stick_Up()
 void Enemy_Stick_Up::InitPostition()
 {
 	Enemy::InitPostition();
-	pos_x = 100;
+	pos_x = 360;
 	pos_y = 50;
 }
 void Enemy_Stick_Up::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_stick_up->Render(pos_x, 50, samus_pos_x - 700, 600);
+	enemy_stick_up->Render(pos_x, 50, samus_pos_x - 400, 600);
 	_SpriteHandler->End();
 }
 

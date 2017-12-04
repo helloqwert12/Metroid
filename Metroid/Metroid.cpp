@@ -88,18 +88,6 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
-		
-	/*	if (Collision::isColliding(samus, enemy_fly)
-			|| Collision::isColliding(samus, enemy_stick_up))
-		{
-			MessageBox(
-				NULL,
-				(LPCWSTR)L"asdas",
-				NULL,
-				NULL
-			);
-
-		}*/
 
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
@@ -316,6 +304,11 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		}
 	}
 	
+
+	if (Collision::isColliding(samus, enemy_stick_up) == true)
+	{
+		Collision::Resolve(samus, enemy_stick_up, Direction::RIGHT);
+	}
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
@@ -404,5 +397,4 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetState(RIGHTING);*/
 		break;
 	}
-
 }

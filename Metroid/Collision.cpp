@@ -21,7 +21,7 @@ bool Collision::isColliding(GameObject* object, GameObject* other)
 	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
 }
 //hàm kiểm tra 2 đối tượng có va chạm ko . Nếu có thì tính thời gian va chạm và thay đổi hướng
-float Collision::sweptAABB(GameObject* object, GameObject* other)
+float Collision::sweptAABB(GameObject* object, GameObject* other, Direction& direction)
 {
 	float dxEntry = 0, dxExit = 0;
 	float dyEntry = 0, dyExit = 0;
@@ -84,6 +84,35 @@ float Collision::sweptAABB(GameObject* object, GameObject* other)
 
 		return 1.0f; // ko va chạm trong frame này
 	}
-
+	if (txEntry > tyEntry)
+	{
+		if (dxEntry > 0.0f)
+		{
+			direction = Direction::RIGHT;
+		}
+		else
+		{
+			direction = Direction::LEFT;
+		}
+	}
+	else
+	{
+		if (dyEntry > 0.0f)
+		{
+			direction = Direction::UP;
+		}
+		else
+		{
+			direction = Direction::DOWN;
+		}
+	}
 	return entryTime;
+}
+void Collision::Resolve(GameObject* objectA, GameObject* objectB, Direction direction)
+{
+	float collisiontime = sweptAABB(objectA, objectB, direction);
+
+	objectA->SetVelocityX(objectA->GetVelocityX()*(-1));
+	objectA->SetPosX(objectA->GetPosX() + objectA->GetVelocityX()*( 1.0f - collisiontime));
+	objectA->SetPosY(objectA->GetPosY() + objectA->GetVelocityY()*collisiontime);
 }
