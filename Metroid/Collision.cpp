@@ -124,10 +124,10 @@ void Collision::Resolve(GameObject* objectA, GameObject* objectB,DirectCollision
 		{
 			objectA->SetPosX(objectA->getlastPosX() + objectA->GetVelocityX()*collisiontime);
 		}
-		else if (direction == DirectCollision::UP)
+		/*else if (direction == DirectCollision::UP)
 		{
 			objectA->SetPosY(objectA->getlastPosY() + objectA->GetVelocityY()*collisiontime);
-		}
+		}*/
 
 	}
 	else
