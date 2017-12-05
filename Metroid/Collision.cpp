@@ -1,6 +1,6 @@
 ﻿#include "Collision.h"
 #include <limits>
-
+#include "Samus.h"
 
 Collision::Collision()
 {
@@ -81,12 +81,11 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, DirectCollisio
 	if (entryTime > ExitTime || (txEntry < 0.0f && tyEntry < 0.0f) || txEntry > 1.0f || tyEntry > 1.0f)
 	{
 		// đứng yên
-
 		return 1.0f; // ko va chạm trong frame này
 	}
-	if (txEntry > tyEntry)
+	if ( (txEntry < tyEntry && txEntry > 0) || tyEntry < 0)
 	{
-		if (dxEntry > 0.0f)
+		if (dxEntry < 0.0f)
 		{
 			direction = DirectCollision::RIGHT;
 		}
@@ -97,7 +96,7 @@ float Collision::sweptAABB(GameObject* object, GameObject* other, DirectCollisio
 	}
 	else
 	{
-		if (dyEntry > 0.0f)
+		if (dyEntry <= 0.0f && object->GetVelocityY() < 0.0f)
 		{
 			direction = DirectCollision::UP;
 		}
@@ -119,16 +118,24 @@ void Collision::Resolve(GameObject* objectA, GameObject* objectB,DirectCollision
 		if (direction == DirectCollision::LEFT)
 		{
 			objectA->SetPosX(objectA->getlastPosX() - objectA->GetVelocityX()*collisiontime);
+			objectA->setlastPosY(objectA->GetPosY());
 		}
-		else if (direction == DirectCollision::RIGHT)
+		if (direction == DirectCollision::RIGHT)
 		{
 			objectA->SetPosX(objectA->getlastPosX() + objectA->GetVelocityX()*collisiontime);
+			objectA->setlastPosY(objectA->GetPosY());
 		}
-		/*else if (direction == DirectCollision::UP)
+		if (direction == DirectCollision::UP)
 		{
 			objectA->SetPosY(objectA->getlastPosY() + objectA->GetVelocityY()*collisiontime);
-		}*/
-
+			objectA->setlastPosX(objectA->GetPosX());
+			objectA->SetVelocityY(0.0f);	
+		}
+		if (direction == DirectCollision::DOWN)
+		{
+			objectA->SetPosY(objectA->getlastPosY() - objectA->GetVelocityY()*collisiontime);
+			objectA->setlastPosX(objectA->GetPosX());
+		}
 	}
 	else
 	{

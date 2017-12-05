@@ -5,7 +5,8 @@ enum DirectCollision
 	UP,
 	LEFT,
 	RIGHT,
-	DOWN
+	DOWN,
+	STAND
 };
 class Collision
 {

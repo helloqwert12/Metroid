@@ -88,7 +88,6 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
-		Collision::Resolve(samus, enemy_stick_up,samus->getDirection());
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 	enemy_fly->Update(Delta, samus->GetPosX());
@@ -99,6 +98,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	
+
 }
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
@@ -116,6 +116,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				samus->setDirection(DirectCollision::DOWN);
 				if (samus->GetState() != ON_SOMERSAULT_RIGHT /*&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT*/)
 				{
 					start_jump = GetTickCount();
@@ -148,7 +149,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
-				samus->setDirection(DirectCollision::UP);
+				samus->setDirection(DirectCollision::DOWN);
 				if (samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
@@ -171,7 +172,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
-		samus->setDirection(DirectCollision::UP);
+		samus->setDirection(DirectCollision::DOWN);
 		if (samus->GetVelocityXLast() < 0)
 		{
 			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT 
@@ -307,6 +308,13 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_Shoot(ON_RIGHT);
 		}
 	}
+
+	if (samus->GetVelocityY() < 0)
+	{
+		samus->setDirection(DirectCollision::UP);
+	}
+
+	Collision::Resolve(samus, enemy_stick_up, samus->getDirection());
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
