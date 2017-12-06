@@ -99,7 +99,7 @@ void Tiles::ImportFile()
 					{
 						h = line.substr(i - 1, i);
 					}
-					//cout << h;
+				
 					int value = atoi(h.c_str());
 					a[j] = value;
 					j++;
