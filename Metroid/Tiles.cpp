@@ -24,6 +24,7 @@ Tiles::Tiles()
 	s14 = NULL;
 	s15 = NULL;
 	s16 = NULL;
+	s17 = NULL;
 	
 }
 
@@ -46,6 +47,7 @@ Tiles::~Tiles()
 	delete(s14);
 	delete(s15);
 	delete(s16);
+	delete(s17);
 }
 
 void Tiles::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
@@ -57,21 +59,22 @@ void Tiles::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 
 	//Create instance of sprites
 	s1 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S1, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s2 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S2, S2_WIDTH, S2_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s3 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S3, S3_WIDTH, S3_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s4 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S4, S4_WIDTH, S4_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s5 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S5, S5_WIDTH, S5_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s6 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S6, S6_WIDTH, S6_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s7 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S7, S7_WIDTH, S7_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s8 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S8, S8_WIDTH, S8_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s9 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S9, S9_WIDTH, S9_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s10 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S10, S10_WIDTH, S10_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s11 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S11, S11_WIDTH, S11_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s12 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S12, S12_WIDTH, S12_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s13 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S13, S13_WIDTH, S13_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s14 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S14, S14_WIDTH, S14_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s15 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S15, S15_WIDTH, S15_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
-	s16 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S16, S16_WIDTH, S16_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s2 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S2, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s3 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S3, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s4 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S4, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s5 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S5, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s6 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S6, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s7 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S7, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s8 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S8, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s9 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S9, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s10 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S10, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s11 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S11, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s12 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S12, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s13 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S13, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s14 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S14, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s15 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S15, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s16 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S16, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
+	s17 = new Sprite(_SpriteHandler, TILES_SHEET_PATH, S17, S1_WIDTH, S1_HEIGHT, TILES_COUNT, SPRITE_PER_ROW);
 }
 
 void Tiles::ImportFile()
@@ -115,67 +118,71 @@ void Tiles::Check(int a[], int vpx, int vpy, int c, int d)
 	{
 		if (a[j] == 0)
 		{
-			s1->Render(16 + i, 16, vpx, vpy); i += 16;
+			s1->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 1)
 		{
-			s2->Render(16 + i, 16, vpx, vpy); i += 16;
+			s2->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 2)
 		{
-			s3->Render(16 + i, 16, vpx, vpy); i += 16;
+			s3->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 3)
 		{
-			s4->Render(16 + i, 16, vpx, vpy); i += 16;
+			s4->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 4)
 		{
-			s5->Render(16 + i, 16, vpx, vpy); i += 16;
+			s5->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 5)
 		{
-			s6->Render(16 + i, 16, vpx, vpy); i += 16;
+			s6->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 6)
 		{
-			s7->Render(16 + i, 16, vpx, vpy); i += 16;
+			s7->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 7)
 		{
-			s8->Render(16 + i, 16, vpx, vpy); i += 16;
+			s8->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 9)
 		{
-			s10->Render(16 + i, 16, vpx, vpy); i += 16;
+			s10->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 10)
 		{
-			s11->Render(16 + i, 16, vpx, vpy); i += 16;
+			s11->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 11)
 		{
-			s12->Render(16 + i, 16, vpx, vpy); i += 16;
+			s12->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 12)
 		{
-			s13->Render(16 + i, 16, vpx, vpy); i += 16;
+			s13->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 13)
 		{
-			s14->Render(16 + i, 16, vpx, vpy); i += 16;
+			s14->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 14)
 		{
-			s15->Render(16 + i, 16, vpx, vpy); i += 16;
+			s15->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else if (a[j] == 15)
 		{
-			s16->Render(16 + i, 16, vpx, vpy); i += 16;
+			s16->Render(32 + i, 32, vpx, vpy); i += 32;
+		}
+		else if (a[j] == 16)
+		{
+			s17->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 		else
 		{
-			s9->Render(16 + i, 16, vpx, vpy); i += 16;
+			s9->Render(32 + i, 32, vpx, vpy); i += 32;
 		}
 	}
 	j = 0;
@@ -189,7 +196,7 @@ void Tiles::_Render(int xc, int samus_pos_x)
 	//int vpx = xc;
 	//if (vpx <= 0) vpx = 0;
 	//xc += 1;
-
+	//s15->Render(32, 32, vpx, VIEW_PORT_Y1);
 	ImportFile();
 
 	int c = 80;
@@ -197,7 +204,7 @@ void Tiles::_Render(int xc, int samus_pos_x)
 	int f = 0;
 	for (int i = 0; i < 15; i++)
 	{
-		Check(a, vpx, d, c, f); c += 80; d += 16;  f += 80;
+		Check(a, vpx, d, c, f); c += 80; d += 32;  f += 80;
 	}
 	_SpriteHandler->End();
 }

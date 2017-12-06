@@ -24,47 +24,21 @@
 #define S14 "background\\S14.txt"
 #define S15 "background\\S15.txt"
 #define S16 "background\\S16.txt"
+#define S17 "background\\S17.txt"
 
 
-#define S1_WIDTH 16
-#define S1_HEIGHT 16
-#define S2_WIDTH 16
-#define S2_HEIGHT 16
-#define S3_WIDTH 16
-#define S3_HEIGHT 16
-#define S4_WIDTH 16
-#define S4_HEIGHT 16
-#define S5_WIDTH 16
-#define S5_HEIGHT 16
-#define S6_WIDTH 16
-#define S6_HEIGHT 16
-#define S7_WIDTH 16
-#define S7_HEIGHT 16
-#define S8_WIDTH 16
-#define S8_HEIGHT 16
-#define S9_WIDTH 16
-#define S9_HEIGHT 16
-#define S10_WIDTH 16
-#define S10_HEIGHT 16
-#define S11_WIDTH 16
-#define S11_HEIGHT 16
-#define S12_WIDTH 16
-#define S12_HEIGHT 16
-#define S13_WIDTH 16
-#define S13_HEIGHT 16
-#define S14_WIDTH 16
-#define S14_HEIGHT 16
-#define S15_WIDTH 16
-#define S15_HEIGHT 16
-#define S16_WIDTH 16
-#define S16_HEIGHT 16
+//#define S1_WIDTH 16
+//#define S1_HEIGHT 16
+#define S1_WIDTH 32
+#define S1_HEIGHT 32
+
 
 #define TILES_COUNT 1
 #define SPRITE_PER_ROW 1
 
 #define VIEW_PORT_Y 600
 
-#define VIEW_PORT_Y1 388
+#define VIEW_PORT_Y1 50
 #define VIEW_PORT_Y2 510
 class Tiles : public GameObject
 {
@@ -89,7 +63,7 @@ protected:
 	Sprite * s14;
 	Sprite * s15;
 	Sprite * s16;
-	
+	Sprite * s17;
 
 public:
 	Tiles();
