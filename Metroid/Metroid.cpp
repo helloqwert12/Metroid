@@ -4,7 +4,6 @@
 #include "utils.h"
 #include "Collision.h"
 int xc = 0; ////////////////////////////
-
 void Metroid::_InitBackground()
 {
 }
@@ -88,6 +87,9 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
+
+	Collision::Resolve(samus, enemy_fly, samus->getDirection());
+
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 	enemy_fly->Update(Delta, samus->GetPosX());
@@ -116,7 +118,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
-				samus->setDirection(DirectCollision::DOWN);
 				if (samus->GetState() != ON_SOMERSAULT_RIGHT /*&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT*/)
 				{
 					start_jump = GetTickCount();
@@ -149,7 +150,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
-				samus->setDirection(DirectCollision::DOWN);
 				if (samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
@@ -313,8 +313,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	{
 		samus->setDirection(DirectCollision::UP);
 	}
-
-	Collision::Resolve(samus, enemy_stick_up, samus->getDirection());
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)

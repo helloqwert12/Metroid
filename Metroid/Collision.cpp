@@ -146,5 +146,4 @@ void Collision::Resolve(GameObject* objectA, GameObject* objectB,DirectCollision
 	//-----------va chạm quái-----------//
 
 	//----------va chạn đạn ----------- //
-
 }
