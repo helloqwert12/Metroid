@@ -138,6 +138,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
+		trace(L"Key Left Samus");
 		samus->SetVelocityXLast(samus->GetVelocityX());
 		samus->SetVelocityX(-SAMUS_SPEED);
 		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT

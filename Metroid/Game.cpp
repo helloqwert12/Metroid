@@ -117,12 +117,6 @@ LRESULT Game::_WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_ACTIVATE:
-		if (wParam == WA_ACTIVE || wParam == WA_CLICKACTIVE)
-			PostMessage(hWnd, WM_ACTIVATE, wParam, lParam);
-		break;
-	case WM_CLOSE:
-		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
