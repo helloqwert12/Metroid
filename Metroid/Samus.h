@@ -2,6 +2,7 @@
 #ifndef _SAMUS_H
 #define _SAMUS_H_
 #include "Sprite.h"
+#include "Collision.h"
 
 #define SAMUS_SPRITES_PATH L"sprites\\samus\\samus_sprites.png"
 
@@ -27,30 +28,30 @@
 #define JUMP_AIM_UP_LEFT "sprites\\samus\\JUMP_AIM_UP_LEFT.txt"
 #define JUMP_AIM_UP_RIGHT "sprites\\samus\\JUMP_AIM_UP_RIGHT.txt"
 
-#define APPEARING_WIDTH 16
-#define APPEARING_HEIGHT 32
-#define RUNNING_WIDTH 18
-#define RUNNING_HEIGHT 32
-#define JUMP_WIDTH 18
-#define JUMP_HEIGHT 25
-#define RUN_SHOOTING_WIDTH 25
-#define RUN_SHOOTING_HEIGHT 31
-#define RUN_AIM_UP_WIDTH 17
-#define RUN_AIM_UP_HEIGHT 38
-#define IDLE_AIM_UP_WIDTH 14
-#define IDLE_AIM_UP_HEIGHT 38
-#define STANDING_WIDTH 21
-#define STANDING_HEIGHT 32
-#define MORPH_BALL_WIDTH 12
-#define MORPH_BALL_HEIGHT 13
-#define RUN_SHOOTING_WIDTH 22
-#define RUN_SHOOTING_HEIGHT 31
-#define SOMERSAULT_WIDTH 19
-#define SOMERSAULT_HEIGHT 23
-#define JUMPING_SHOOTING_WIDTH 23
-#define JUMPING_SHOOTING_HEIGHT 25
-#define JUMP_AIM_UP_WIDTH 18
-#define JUMP_AIM_UP_HEIGHT 32
+#define APPEARING_WIDTH 32
+#define APPEARING_HEIGHT 64
+#define RUNNING_WIDTH 36
+#define RUNNING_HEIGHT 64
+#define JUMP_WIDTH 36
+#define JUMP_HEIGHT 50
+#define RUN_SHOOTING_WIDTH 50
+#define RUN_SHOOTING_HEIGHT 62
+#define RUN_AIM_UP_WIDTH 34
+#define RUN_AIM_UP_HEIGHT 76
+#define IDLE_AIM_UP_WIDTH 28
+#define IDLE_AIM_UP_HEIGHT 76
+#define STANDING_WIDTH 42
+#define STANDING_HEIGHT 64
+#define MORPH_BALL_WIDTH 24
+#define MORPH_BALL_HEIGHT 26
+#define RUN_SHOOTING_WIDTH 44
+#define RUN_SHOOTING_HEIGHT 62
+#define SOMERSAULT_WIDTH 37
+#define SOMERSAULT_HEIGHT 46
+#define JUMPING_SHOOTING_WIDTH 46
+#define JUMPING_SHOOTING_HEIGHT 50
+#define JUMP_AIM_UP_WIDTH 36
+#define JUMP_AIM_UP_HEIGHT 64
 
 #define APPEARING_COUNT 5
 #define RUNNING_COUNT 3
@@ -72,7 +73,7 @@
 #define JUMP_VELOCITY_BOOST_FIRST 0.8f
 #define FALLDOWN_VELOCITY_DECREASE 0.2f
 
-#define GROUND_Y 40
+#define GROUND_Y 210
 
 #include "GameObject.h"
 
@@ -127,9 +128,19 @@ protected:
 	SAMUS_STATE state;
 
 	void _Render();
+
+	DirectCollision direction;
 public:
 	Samus();
 	~Samus();
+	DirectCollision getDirection()
+	{
+		return this->direction;
+	}
+	void setDirection(DirectCollision direction)
+	{
+		this->direction = direction;
+	}
 	void SetPosX(int value);
 	int GetPosX();
 	void SetPosY(int value);

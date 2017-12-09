@@ -12,11 +12,13 @@ Enemy_Fly::~Enemy_Fly()
 void Enemy_Fly::InitPostition()
 {
 	Enemy::InitPostition();
+	pos_x = 70;
+	pos_y = 80;
 }
 void Enemy_Fly::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_fly_1->Render(105, 100, samus_pos_x - 365, 520);
+	enemy_fly_1->Render(pos_x, pos_y, samus_pos_x - 400, 600);
 	_SpriteHandler->End();
 }
 

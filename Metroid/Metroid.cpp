@@ -4,7 +4,6 @@
 #include "utils.h"
 #include "Collision.h"
 int xc = 0; ////////////////////////////
-
 void Metroid::_InitBackground()
 {
 }
@@ -89,17 +88,19 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			NULL,				// which portion?
 			D3DTEXF_NONE);
 
-		
+	Collision::Resolve(samus, enemy_fly, samus->getDirection());
+
 	samus->Update(Delta);
 	tiles->_Render(xc, samus->GetPosX());
 	enemy_fly->Update(Delta, samus->GetPosX());
-	enemy_stick_bottom->Update(Delta, samus->GetPosX());
+	//enemy_stick_bottom->Update(Delta, samus->GetPosX());
 	enemy_stick_up->Update(Delta, samus->GetPosX());
-	enemy_stick_left->Update(Delta, samus->GetPosX());
-	enemy_stick_right->Update(Delta, samus->GetPosX());
+	//enemy_stick_left->Update(Delta, samus->GetPosX());
+	//enemy_stick_right->Update(Delta, samus->GetPosX());
 
 	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
 	
+
 }
 
 void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
@@ -107,6 +108,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	
 	if (IsKeyDown(DIK_RIGHT))
 	{
+		samus->setDirection(DirectCollision::LEFT);
 		samus->SetVelocityXLast(samus->GetVelocityX());
 		samus->SetVelocityX(SAMUS_SPEED);	
 		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
@@ -138,7 +140,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
-		trace(L"Key Left Samus");
+		samus->setDirection(DirectCollision::RIGHT);
 		samus->SetVelocityXLast(samus->GetVelocityX());
 		samus->SetVelocityX(-SAMUS_SPEED);
 		if (samus->GetState() != ON_MORPH_LEFT && samus->GetState() != ON_MORPH_RIGHT
@@ -170,6 +172,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
+		samus->setDirection(DirectCollision::DOWN);
 		if (samus->GetVelocityXLast() < 0)
 		{
 			if (samus->GetState() != ON_JUMP_LEFT && samus->GetState() != ON_SOMERSAULT_LEFT 
@@ -305,7 +308,11 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 			_Shoot(ON_RIGHT);
 		}
 	}
-	
+
+	if (samus->GetVelocityY() < 0)
+	{
+		samus->setDirection(DirectCollision::UP);
+	}
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
@@ -348,12 +355,14 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetVelocityX(0);
 			samus->ResetAllSprites();
 			samus->SetState(IDLE_LEFT);
+			samus->setDirection(DirectCollision::RIGHT);
 		}
 		else if (samus->GetState() == ON_MORPH_RIGHT)
 		{
 			samus->SetVelocityX(0);
 			samus->ResetAllSprites();
 			samus->SetState(IDLE_RIGHT);
+			samus->setDirection(DirectCollision::LEFT);
 		}
 		break;
 	//case DIK_X:
@@ -394,5 +403,4 @@ void Metroid::OnKeyDown(int KeyCode)
 			samus->SetState(RIGHTING);*/
 		break;
 	}
-
 }

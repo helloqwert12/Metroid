@@ -61,7 +61,14 @@ void Game::Run()
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT) done = 1;
-
+			else if (msg.message == WM_ACTIVATE)
+			{
+				if (_Keyboard != NULL && _Keyboard->Poll() != DI_OK)
+				{
+					_Keyboard->Acquire();
+				}
+				msg.message = 0;
+			}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}

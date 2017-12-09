@@ -15,11 +15,13 @@ Enemy_Stick_Up::~Enemy_Stick_Up()
 void Enemy_Stick_Up::InitPostition()
 {
 	Enemy::InitPostition();
+	pos_x = 360;
+	pos_y = 50;
 }
 void Enemy_Stick_Up::_Render(int samus_pos_x)
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	enemy_stick_up->Render(100, 100, samus_pos_x - 400, 662);
+	enemy_stick_up->Render(pos_x, pos_y, samus_pos_x - 400, 600);
 	_SpriteHandler->End();
 }
 
@@ -30,6 +32,8 @@ void Enemy_Stick_Up::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 }
 void Enemy_Stick_Up::Update(int t, int samus_pos_x)
 {
+	pos_x += vx*t;
+	pos_y += vy*t;
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
 	{
