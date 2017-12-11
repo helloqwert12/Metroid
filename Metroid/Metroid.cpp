@@ -98,7 +98,7 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	//enemy_stick_left->Update(Delta, samus->GetPosX());
 	//enemy_stick_right->Update(Delta, samus->GetPosX());
 
-	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY());
+	bulletManager->Update(Delta, samus->GetPosX(), samus->GetPosY() + 12);
 	
 
 }

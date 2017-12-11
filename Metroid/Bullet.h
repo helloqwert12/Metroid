@@ -7,8 +7,8 @@
 
 #define BULLET_SPRITE_PATH L"sprites\\bullet\\bullet.png"
 #define BULLET_SPRITE "sprites\\bullet\\BULLET.txt"
-#define BULLET_WIDTH 6
-#define BULLET_HEIGHT 7
+#define BULLET_WIDTH 12
+#define BULLET_HEIGHT 14
 #define BULLET_COUNT 1
 #define SPRITE_PER_ROW 1
 

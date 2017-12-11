@@ -76,6 +76,7 @@
 #define GROUND_Y 210
 
 #include "GameObject.h"
+#include "SoundManager.h"
 
 enum SAMUS_STATE {
 	IDLE_LEFT, 

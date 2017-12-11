@@ -1,6 +1,7 @@
 ﻿#include "Samus.h"
 #include "trace.h"
 
+
 void Samus::_Render()
 {
 	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
@@ -255,27 +256,35 @@ void Samus::Update(int t)
 			break;
 		case ON_JUMP_LEFT:
 			jump_left->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_JUMP_RIGHT:
 			jump_right->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_SOMERSAULT_LEFT:
 			somersault_left->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_SOMERSAULT_RIGHT:
 			somersault_right->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_JUMPING_SHOOTING_LEFT:
 			jumping_shooting_left->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_JUMPING_SHOOTING_RIGHT:
 			jumping_shooting_right->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_JUMP_AIM_UP_LEFT:
 			jump_aim_up_left->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		case ON_JUMP_AIM_UP_RIGHT:
 			jump_aim_up_right->Next();
+			//SoundManager::getInstance()->Play(eSoundId::JUMP);
 			break;
 		}
 		last_time = now;
