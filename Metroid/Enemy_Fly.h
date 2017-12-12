@@ -7,8 +7,8 @@
 
 #define ENEMY_FLY_1 "sprites\\enemy\\ENEMY_FLY_1.txt"
 
-#define ENEMY_FLY_1_WIDTH 16
-#define ENEMY_FLY_1_HEIGHT 32
+#define ENEMY_FLY_1_WIDTH 32
+#define ENEMY_FLY_1_HEIGHT 64
 
 #define ENEMY_FLY_1_COUNT 3
 
