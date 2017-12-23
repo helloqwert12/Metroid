@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _GAME_H_
 #define _GAME_H_
 #include <windows.h>
@@ -59,8 +59,9 @@ protected:
 	//
 	//====================== VIRTUAL METHOD ===========================
 	//
-	virtual void UpdateFrame(float Delta);
-	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta);
+	virtual void Update(float Delta);
+	// Đã bỏ delta time cho phương thức Render
+	virtual void Render(LPDIRECT3DDEVICE9 d3ddv);
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 

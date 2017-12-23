@@ -141,11 +141,11 @@
     <ClCompile Include="Loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dxaudio.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,11 +221,11 @@
     <ClInclude Include="Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dxaudio.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="dsutil.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="dxutil.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

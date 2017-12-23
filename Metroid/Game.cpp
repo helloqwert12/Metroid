@@ -78,7 +78,7 @@ void Game::Run()
 		if (_DeltaTime >= tick_per_frame)
 		{
 			frame_start = now;
-			UpdateFrame(_DeltaTime);
+			Update(_DeltaTime);
 			_RenderFrame();		
 		}
 		else
@@ -330,18 +330,18 @@ void Game::_RenderFrame()
 	{
 		_d3ddv->ColorFill(_BackBuffer, NULL, D3DCOLOR_XRGB(0xAA, 0xAA, 0xAA));
 
-		RenderFrame(_d3ddv, _DeltaTime);
+		Render(_d3ddv);
 		_d3ddv->EndScene();
 	}
 	_d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void Game::UpdateFrame(float Delta)
+void Game::Update(float Delta)
 {
 
 }
 
-void Game::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)
+void Game::Render(LPDIRECT3DDEVICE9 d3ddv)
 {
 	d3ddv->ColorFill(_BackBuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
 }
