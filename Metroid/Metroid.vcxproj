@@ -121,48 +121,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bedgehog.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="dxgraphics.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Enemy_Fly.cpp" />
-    <ClCompile Include="Enemy_Stick_Bottom.cpp" />
-    <ClCompile Include="Enemy_Stick_Left.cpp" />
-    <ClCompile Include="Enemy_Stick_Right.cpp" />
-    <ClCompile Include="Enemy_Stick_Up.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GroupObject.cpp" />
+    <ClCompile Include="Loader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Metroid.cpp" />
+    <ClCompile Include="QNode.cpp" />
+    <ClCompile Include="QTreeObject.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Samus.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tiles.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="utils.cpp" />
-    <ClCompile Include="vsgame.cpp" />
-    <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bedgehog.h" />
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="dxgraphics.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Enemy_Fly.h" />
-    <ClInclude Include="Enemy_Stick_Bottom.h" />
-    <ClInclude Include="Enemy_Stick_Left.h" />
-    <ClInclude Include="Enemy_Stick_Right.h" />
-    <ClInclude Include="Enemy_Stick_Up.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GroupObject.h" />
+    <ClInclude Include="Loader.h" />
     <ClInclude Include="Metroid.h" />
+    <ClInclude Include="Parameters.h" />
+    <ClInclude Include="QNode.h" />
+    <ClInclude Include="QTreeObject.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Samus.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="utils.h" />
-    <ClInclude Include="vsgame.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

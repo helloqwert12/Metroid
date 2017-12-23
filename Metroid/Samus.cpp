@@ -1,76 +1,84 @@
 ﻿#include "Samus.h"
-#include "trace.h"
 
-void Samus::_Render()
+
+void Samus::Render()
 {
-	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 	switch (state)
 	{
 	case RIGHTING:
-		running_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		running_right->Render(pos_x, pos_y);
 		break;
 	case LEFTING:
-		running_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		running_left->Render(pos_x, pos_y);
 		break;
 	case AIMING_UP_LEFT:
-		run_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_aim_up_left->Render(pos_x, pos_y);
 		break;
 	case AIMING_UP_RIGHT:
-		run_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_aim_up_right->Render(pos_x, pos_y);
 		break;
 	case IDLING_AIM_UP_LEFT:
-		idle_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_aim_up_left->Render(pos_x, pos_y);
 		break;
 	case IDLING_AIM_UP_RIGHT:
-		idle_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_aim_up_right-> Render(pos_x, pos_y);
 		break;
 	case IDLE_LEFT:
-		idle_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_left->Render(pos_x, pos_y);
 		break;
 	case IDLE_RIGHT:
-		idle_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		idle_right->Render(pos_x, pos_y);
 		break;
 	case ON_MORPH_LEFT:
-		morph_ball_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		morph_ball_left->Render(pos_x, pos_y);
 		break;
 	case ON_MORPH_RIGHT:
-		morph_ball_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		morph_ball_right->Render(pos_x, pos_y);
 		break;
 	case ON_RUN_SHOOTING_LEFT:
-		run_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_shooting_left->Render(pos_x, pos_y);
 		break;
 	case ON_RUN_SHOOTING_RIGHT:
-		run_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		run_shooting_right->Render(pos_x, pos_y);
 		break;
 	case ON_JUMP_LEFT:
-		jump_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		jump_left->Render(pos_x, pos_y);
 		break;
 	case ON_JUMP_RIGHT:
-		jump_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		jump_right->Render(pos_x, pos_y);
 		break;
 	case ON_SOMERSAULT_LEFT:
-		somersault_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		somersault_left->Render(pos_x, pos_y);
 		break;
 	case ON_SOMERSAULT_RIGHT:
-		somersault_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		somersault_right->Render(pos_x, pos_y);
 		break;
 	case ON_JUMPING_SHOOTING_LEFT:
-		jumping_shooting_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		jumping_shooting_left->Render(pos_x, pos_y);
 		break;
 	case ON_JUMPING_SHOOTING_RIGHT:
-		jumping_shooting_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		jumping_shooting_right->Render(pos_x, pos_y);
 		break;
 	case ON_JUMP_AIM_UP_LEFT:
-		jump_aim_up_left->Render(pos_x, pos_y, pos_x - 400, 600);
+		jump_aim_up_left->Render(pos_x, pos_y);
 		break;
 	case ON_JUMP_AIM_UP_RIGHT:
-		jump_aim_up_right->Render(pos_x, pos_y, pos_x - 400, 600);
+		jump_aim_up_right->Render(pos_x, pos_y);
 		break;
 	}
 
 	
-	_SpriteHandler->End();
+	spriteHandler->End();
+}
+
+void Samus::Destroy()
+{
+	//Ngưng active
+	isActive = false;
+
+	//--TO DO: Đưa Samus ra khỏi viewport
 }
 
 Samus::Samus()
@@ -80,6 +88,18 @@ Samus::Samus()
 	running_right = NULL;
 	jump_left = NULL;
 	jump_right = NULL;
+}
+
+Samus::Samus(LPD3DXSPRITE spriteHandler, World * manager)
+{
+	this->spriteHandler = spriteHandler;
+	this->manager = manager;
+
+	//Set type
+	this->type = SAMUS;
+
+	//Collider
+	collider = new Collider();
 }
 
 
@@ -108,55 +128,42 @@ Samus::~Samus()
 	delete(jump_aim_up_right);
 }
 
-void Samus::SetPosX(int value)
-{
-	pos_x = value;
-}
+//DirectCollision Samus::getDirection()
+//{
+//	return this->direction;
+//}
+//void Samus::setDirection(DirectCollision direction)
+//{
+//	this->direction = direction;
+//}
 
-void Samus::SetPosY(int value)
-{
-	pos_y = value;
-}
-
-int Samus::GetPosX()
-{
-	return pos_x;
-}
-
-int Samus::GetPosY()
-{
-	return pos_y;
-}
 
 void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	if (d3ddv == NULL) return;
-	//Create sprite handler
-	HRESULT result =  D3DXCreateSprite(d3ddv, &_SpriteHandler);
-	if (result != D3D_OK) return;
 
 	//Create instance of sprites
-	appearing = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, APPEARING, APPEARING_WIDTH, APPEARING_HEIGHT, APPEARING_COUNT, SPRITE_PER_ROW);
-	running_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUNNING_LEFT, RUNNING_WIDTH, RUNNING_HEIGHT, RUNNING_COUNT, SPRITE_PER_ROW);
-	running_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUNNING_RIGHT, RUNNING_WIDTH, RUNNING_HEIGHT, RUNNING_COUNT, SPRITE_PER_ROW);
-	jump_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_LEFT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
-	jump_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_RIGHT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
-	run_shooting_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_LEFT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
-	run_shooting_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_RIGHT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
-	run_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_LEFT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
-	run_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_RIGHT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
-	idle_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_LEFT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
-	idle_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_RIGHT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
-	idle_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, STANDING_LEFT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
-	idle_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, STANDING_RIGHT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
-	morph_ball_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_LEFT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
-	morph_ball_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_RIGHT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
-	somersault_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, SOMERSAULT_LEFT, SOMERSAULT_WIDTH, SOMERSAULT_HEIGHT, SOMERSAULT_COUNT, SPRITE_PER_ROW);
-	somersault_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, SOMERSAULT_RIGHT, SOMERSAULT_WIDTH, SOMERSAULT_HEIGHT, SOMERSAULT_COUNT, SPRITE_PER_ROW);
-	jumping_shooting_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_LEFT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
-	jumping_shooting_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_RIGHT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
-	jump_aim_up_left = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_LEFT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
-	jump_aim_up_right = new Sprite(_SpriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_RIGHT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
+	appearing = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, APPEARING, APPEARING_WIDTH, APPEARING_HEIGHT, APPEARING_COUNT, SPRITE_PER_ROW);
+	running_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUNNING_LEFT, RUNNING_WIDTH, RUNNING_HEIGHT, RUNNING_COUNT, SPRITE_PER_ROW);
+	running_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUNNING_RIGHT, RUNNING_WIDTH, RUNNING_HEIGHT, RUNNING_COUNT, SPRITE_PER_ROW);
+	jump_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_LEFT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
+	jump_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_RIGHT, JUMP_WIDTH, JUMP_HEIGHT, JUMP_COUNT, SPRITE_PER_ROW);
+	run_shooting_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_LEFT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
+	run_shooting_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUN_SHOOTING_RIGHT, RUN_SHOOTING_WIDTH, RUN_SHOOTING_HEIGHT, RUN_SHOOTING_COUNT, SPRITE_PER_ROW);
+	run_aim_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_LEFT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
+	run_aim_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, RUN_AIM_UP_RIGHT, RUN_AIM_UP_WIDTH, RUN_AIM_UP_HEIGHT, RUN_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_aim_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_LEFT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_aim_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, IDLE_AIM_UP_RIGHT, IDLE_AIM_UP_WIDTH, IDLE_AIM_UP_HEIGHT, IDLE_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STANDING_LEFT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
+	idle_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STANDING_RIGHT, STANDING_WIDTH, STANDING_HEIGHT, STANDING_COUNT, SPRITE_PER_ROW);
+	morph_ball_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_LEFT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
+	morph_ball_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, MORPH_BALL_RIGHT, MORPH_BALL_WIDTH, MORPH_BALL_HEIGHT, MORPH_BALL_COUNT, SPRITE_PER_ROW);
+	somersault_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, SOMERSAULT_LEFT, SOMERSAULT_WIDTH, SOMERSAULT_HEIGHT, SOMERSAULT_COUNT, SPRITE_PER_ROW);
+	somersault_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, SOMERSAULT_RIGHT, SOMERSAULT_WIDTH, SOMERSAULT_HEIGHT, SOMERSAULT_COUNT, SPRITE_PER_ROW);
+	jumping_shooting_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_LEFT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
+	jumping_shooting_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_RIGHT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
+	jump_aim_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_LEFT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
+	jump_aim_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_RIGHT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -172,6 +179,13 @@ void Samus::InitPostition()
 	//Init state of samus
 	state = IDLE_RIGHT;
 }
+
+int max_camera_x = 300;
+int max_camera_y = 480;
+
+int min_camera_x = 0;
+int min_camera_y = 480;
+
 
 SAMUS_STATE Samus::GetState()
 {
@@ -209,6 +223,16 @@ void Samus::ResetAllSprites()
 }	
 
 
+void Samus::Reset(int x, int y)
+{
+	// Cho samus active trở lại
+	isActive = true;
+
+	//Đặt lại vị trí
+	this->pos_x = x;
+	this->pos_y = y;
+}
+
 void Samus::Update(int t)
 {
 	//
@@ -216,6 +240,9 @@ void Samus::Update(int t)
 	//
 	pos_x += vx*t;
 	pos_y += vy*t;
+
+	Camera::SetCameraX(pos_x);
+	Camera::SetCameraY(pos_y);
 
 	// Animate samus if he is running
 	DWORD now = GetTickCount();
@@ -301,7 +328,7 @@ void Samus::Update(int t)
 	}
 
 	//Render
-	_Render();
+	Render();
 
 }
 

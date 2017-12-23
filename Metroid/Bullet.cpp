@@ -2,11 +2,14 @@
 
 
 
-void Bullet::_Render()
+void Bullet::Render()
 {
-	_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	bullet->Render(pos_x, pos_y, pos_x_holder - 400, 600);
-	_SpriteHandler->End();
+	if (isRendering)
+	{
+		_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+		bullet->Render(pos_x, pos_y);
+		_SpriteHandler->End();
+	}
 }
 
 Bullet::Bullet()
@@ -116,10 +119,6 @@ void Bullet::Update(int t, int posX, int posY)
 	//Update position of samus
 	pos_x_holder = posX;
 	pos_y_holder = posY;
-
-	//Render
-	if (isRendering)
-		_Render();
 }
 
 void Bullet::ResetPosition()

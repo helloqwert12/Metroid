@@ -78,15 +78,16 @@ void Game::Run()
 		if (_DeltaTime >= tick_per_frame)
 		{
 			frame_start = now;
-			_RenderFrame();
+			UpdateFrame(_DeltaTime);
+			_RenderFrame();		
 		}
 		else
 		{
 			Sleep(tick_per_frame - _DeltaTime);
 		}
-
 		_ProcessKeyBoard();
 		ProcessInput(_d3ddv, _DeltaTime);
+		
 	}
 }
 
@@ -283,14 +284,24 @@ void Game::_InitKeyboard()
 
 void Game::_ProcessKeyBoard()
 {
-	// Collect all key states first
-	_Keyboard->GetDeviceState(sizeof(_KeyStates), _KeyStates);
+	static HRESULT result;
 
+	// Collect all key states first
+	result = _Keyboard->GetDeviceState(sizeof(_KeyStates), _KeyStates);
+
+	if (FAILED(result)) 
+	{
+		if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
+		{
+			_Keyboard->Acquire();
+		}
+	}
 	if (IsKeyDown(DIK_ESCAPE))
 	{
 		trace(L"Escape key pressed!");
 		PostMessage(_hWnd, WM_QUIT, 0, 0);
 	}
+
 
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
@@ -323,6 +334,11 @@ void Game::_RenderFrame()
 		_d3ddv->EndScene();
 	}
 	_d3ddv->Present(NULL, NULL, NULL, NULL);
+}
+
+void Game::UpdateFrame(float Delta)
+{
+
 }
 
 void Game::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta)

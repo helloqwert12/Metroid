@@ -5,17 +5,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
-
-//
-// Screen resolution
-//
-#define GAME_SCREEN_RESOLUTION_640_480_24   0
-#define GAME_SCREEN_RESOLUTION_800_600_24   1
-#define GAME_SCREEN_RESOLUTION_1024_768_24  2
-
-#define GAME_SCREEN_RESOLUTION_640_480_32   10
-#define GAME_SCREEN_RESOLUTION_800_600_32   11
-#define GAME_SCREEN_RESOLUTION_1024_768_32  12
+#include "Parameters.h"
 
 #define KEY_DOWN(code) ( IsKeyDown(code) )
 
@@ -67,15 +57,16 @@ protected:
 	void _RenderFrame();
 
 	//
-	// Place holder for sub classes
+	//====================== VIRTUAL METHOD ===========================
 	//
+	virtual void UpdateFrame(float Delta);
 	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-
+	//======================= END VIRTUAL METHOD ======================
 
 public:
 	LPDIRECT3D9 GetDirectX();

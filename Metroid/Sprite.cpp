@@ -1,10 +1,11 @@
-#include "Sprite.h"
+﻿#include "Sprite.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include "trace.h"
+#include "Camera.h"
 using namespace std;
 
 Sprite::Sprite()
@@ -26,8 +27,7 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, char* infoFilePath,
 	}
 	catch (std::fstream::failure e)
 	{
-		//--TO DO: log failure
-
+		trace(L"[Sprite class]--Read sprite info from file failed");
 		return;
 	}
 	string line;
@@ -96,7 +96,58 @@ Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, char* infoFilePath,
 		return;
 	}
 
-}	
+}
+
+Sprite::Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, int posX, int posY, int Width, int Height)
+{
+	spriteInfo = new SpriteInfo[1];
+	spriteInfo->pos_x = posX;
+	spriteInfo->pos_y = posY;
+	//
+	//Init sprite with DirectX
+	//
+	D3DXIMAGE_INFO info;
+	HRESULT result;
+
+	_Image = NULL;
+	_SpriteHandler = SpriteHandler;
+	_Width = Width;
+	_Height = Height;
+	_Count = 1;
+	_Index = 0;
+
+	result = D3DXGetImageInfoFromFile(ImagePath, &info);
+	if (result != D3D_OK)
+	{
+		trace(L"[ERROR] Failed to get information from image file '%s'", ImagePath);
+		return;
+	}
+
+	LPDIRECT3DDEVICE9 d3ddv;
+	SpriteHandler->GetDevice(&d3ddv);
+
+	result = D3DXCreateTextureFromFileEx(
+		d3ddv,
+		ImagePath,
+		info.Width,
+		info.Height,
+		1,
+		D3DUSAGE_DYNAMIC,
+		D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		D3DCOLOR_XRGB(0, 0, 0),
+		&info,
+		NULL,
+		&_Image);
+
+	if (result != D3D_OK)
+	{
+		trace(L"[ERROR] Failed to create texture from file '%s'", ImagePath);
+		return;
+	}
+}
 
 
 Sprite::~Sprite()
@@ -115,8 +166,9 @@ void Sprite::Reset()
 	_Index = 0;
 }
 
-void Sprite::Render(int X, int Y, int vpx, int vpy)
+void Sprite::Render(int X, int Y)
 {
+
 	RECT rect;
 	rect.left = spriteInfo[_Index].pos_x;
 	rect.top = spriteInfo[_Index].pos_y;
@@ -132,8 +184,8 @@ void Sprite::Render(int X, int Y, int vpx, int vpy)
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1.0f;
-	mt._41 = -vpx;
-	mt._42 = vpy;
+	mt._41 = -Camera::currentCamX;;
+	mt._42 = Camera::currentCamY;	// --TO DO:  Fix lại chỗ này sau
 	D3DXVECTOR4 vp_pos;
 	D3DXVec3Transform(&vp_pos, &position, &mt);
 

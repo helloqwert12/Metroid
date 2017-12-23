@@ -3,80 +3,13 @@
 #define _SAMUS_H_
 #include "Sprite.h"
 #include "Collision.h"
-
-#define SAMUS_SPRITES_PATH L"sprites\\samus\\samus_sprites.png"
-
-#define APPEARING "sprites\\samus\\APPEARING.txt"
-#define RUNNING_LEFT "sprites\\samus\\RUNNING_LEFT.txt"
-#define RUNNING_RIGHT "sprites\\samus\\RUNNING_RIGHT.txt"
-#define JUMP_LEFT "sprites\\samus\\JUMP_LEFT.txt"
-#define JUMP_RIGHT "sprites\\samus\\JUMP_RIGHT.txt"
-#define RUN_SHOOTING_LEFT "sprites\\samus\\RUN_SHOOTING_LEFT.txt"
-#define RUN_SHOOTING_RIGHT "sprites\\samus\\RUN_SHOOTING_RIGHT.txt"
-#define RUN_AIM_UP_LEFT "sprites\\samus\\RUN_AIM_UP_LEFT.txt"
-#define RUN_AIM_UP_RIGHT "sprites\\samus\\RUN_AIM_UP_RIGHT.txt"
-#define IDLE_AIM_UP_LEFT "sprites\\samus\\IDLE_AIM_UP_LEFT.txt"
-#define IDLE_AIM_UP_RIGHT "sprites\\samus\\IDLE_AIM_UP_RIGHT.txt"
-#define STANDING_LEFT "sprites\\samus\\STANDING_LEFT.txt"
-#define STANDING_RIGHT "sprites\\samus\\STANDING_RIGHT.txt"
-#define MORPH_BALL_LEFT "sprites\\samus\\MORPH_BALL_LEFT.txt"
-#define MORPH_BALL_RIGHT "sprites\\samus\\MORPH_BALL_RIGHT.txt"
-#define SOMERSAULT_LEFT "sprites\\samus\\SOMERSAULT_LEFT.txt"
-#define SOMERSAULT_RIGHT "sprites\\samus\\SOMERSAULT_RIGHT.txt"
-#define JUMPING_SHOOTING_LEFT "sprites\\samus\\JUMP_SHOOTING_LEFT.txt"
-#define JUMPING_SHOOTING_RIGHT "sprites\\samus\\JUMP_SHOOTING_RIGHT.txt"
-#define JUMP_AIM_UP_LEFT "sprites\\samus\\JUMP_AIM_UP_LEFT.txt"
-#define JUMP_AIM_UP_RIGHT "sprites\\samus\\JUMP_AIM_UP_RIGHT.txt"
-
-#define APPEARING_WIDTH 32
-#define APPEARING_HEIGHT 64
-#define RUNNING_WIDTH 36
-#define RUNNING_HEIGHT 64
-#define JUMP_WIDTH 36
-#define JUMP_HEIGHT 50
-#define RUN_SHOOTING_WIDTH 50
-#define RUN_SHOOTING_HEIGHT 62
-#define RUN_AIM_UP_WIDTH 34
-#define RUN_AIM_UP_HEIGHT 76
-#define IDLE_AIM_UP_WIDTH 28
-#define IDLE_AIM_UP_HEIGHT 76
-#define STANDING_WIDTH 42
-#define STANDING_HEIGHT 64
-#define MORPH_BALL_WIDTH 24
-#define MORPH_BALL_HEIGHT 26
-#define RUN_SHOOTING_WIDTH 44
-#define RUN_SHOOTING_HEIGHT 62
-#define SOMERSAULT_WIDTH 37
-#define SOMERSAULT_HEIGHT 46
-#define JUMPING_SHOOTING_WIDTH 46
-#define JUMPING_SHOOTING_HEIGHT 50
-#define JUMP_AIM_UP_WIDTH 36
-#define JUMP_AIM_UP_HEIGHT 64
-
-#define APPEARING_COUNT 5
-#define RUNNING_COUNT 3
-#define JUMP_COUNT 1
-#define RUN_SHOOTING_COUNT 3
-#define RUN_AIM_UP_COUNT 3
-#define IDLE_AIM_UP_COUNT 1
-#define STANDING_COUNT 1
-#define MORPH_BALL_COUNT 4
-#define RUN_SHOOTING_COUNT 3
-#define SPRITE_PER_ROW 1
-#define SOMERSAULT_COUNT 4
-#define JUMPING_SHOOTING_COUNT 1
-#define JUMP_AIM_UP_COUNT 1
-
-#define ANIMATE_RATE 15
-
-#define JUMP_VELOCITY_BOOST 0.05f
-#define JUMP_VELOCITY_BOOST_FIRST 0.8f
-#define FALLDOWN_VELOCITY_DECREASE 0.2f
-
-#define GROUND_Y 210
-
+#include "Parameters.h"
+#include "Collision.h"
 #include "GameObject.h"
+#include "trace.h"
+#include "Camera.h"
 
+#define GROUND_Y 100
 enum SAMUS_STATE {
 	IDLE_LEFT, 
 	IDLE_RIGHT,
@@ -102,7 +35,6 @@ enum SAMUS_STATE {
 class Samus : public GameObject
 {
 protected:
-	LPD3DXSPRITE _SpriteHandler;
 	Sprite * appearing;
 	Sprite * running_left;
 	Sprite * running_right;
@@ -127,24 +59,15 @@ protected:
 
 	SAMUS_STATE state;
 
-	void _Render();
 
-	DirectCollision direction;
+	//DirectCollision direction;
 public:
 	Samus();
+	Samus(LPD3DXSPRITE spriteHandler, World * manager);
 	~Samus();
-	DirectCollision getDirection()
-	{
-		return this->direction;
-	}
-	void setDirection(DirectCollision direction)
-	{
-		this->direction = direction;
-	}
-	void SetPosX(int value);
-	int GetPosX();
-	void SetPosY(int value);
-	int GetPosY();
+	//DirectCollision getDirection();
+	//void setDirection(DirectCollision direction);
+	
 	void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 	void InitPostition();
 
@@ -153,10 +76,12 @@ public:
 
 	void ResetAllSprites();
 	
-	//Update every frame of game	
+	//================ OVERRIDE VIRTUAL METHOD ==================
+	void Reset(int  x, int y);
 	void Update(int t);
-	
-
+	void Render();
+	void Destroy();
+	//================= END OVERRIDE VIRTUAL METHOD =============
 };
 #endif // !_SAMUS_H
 

@@ -23,6 +23,7 @@ public:
 	void ResetAll();
 	void Next(BULLET_DIRECTION dir);
 	void Update(int t, int posX, int posY);
+	void Render();
 	
 };
 

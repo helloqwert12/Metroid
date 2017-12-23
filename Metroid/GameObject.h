@@ -1,72 +1,75 @@
-#pragma once
+﻿#pragma once
 #ifndef _GAME_OBJECT_H_
 #define _GAME_OBJECT_H_
 
 
 #include <d3dx9.h>
-
+#include "Sprite.h"
+#include "Collider.h"
+#include "Parameters.h"
 class GameObject
 {
 protected:
-	int pos_x;		// x postition of samus
-	int pos_y;		// y position of samus
+	World * manager;	// con trỏ đến world để thao tác với các object ở world khi cần thiết
 
-	float vx;		//x velocity
-	float vy;		//y velocity
+	float pos_x;		// x postition of samus
+	float pos_y;		// y position of samus
+	float lastPosX;
+	float lastPosY;
+
+	float width;
+	float height;
+
+	float vx;		// x velocity
+	float vy;		// y velocity
 
 	float vx_last; // last vx of samus before stop ( to determine the direction of samus)
 	float vy_last;
 
 	DWORD last_time; // this is to control the animate rate of kitty
+	LPD3DXSPRITE spriteHandler;
+	
+	OBJECT_TYPE type;		//Loại GameObject, được định nghĩa trong file type
+	bool isActive;	// Cho biết GameObject có đang hoạt động hay không
+	Sprite* sprite;
+	//
+	//Các thuộc tính Collision
+	//
+	Collider * collider;
+	Collider * broadPhaseBox;
 
-	float width = 16;
-	float height = 16;
-	float lastPosX;
-	float lastPosY;
+	float collisionTimeScale; // thời gian va chạm
+
+	float normalx;	// "vector pháp tuyến" để xét va chạm
+	float normaly;
+	
 public:
 	GameObject();
-	~GameObject();
+	//======================== GET - SET METHOD ================================
+	OBJECT_TYPE GetType();
+	void SetType(OBJECT_TYPE type);
 
-	void setlastPosX(float posx)
-	{
-		this->lastPosX = posx;
-	}
-	void setlastPosY(float posy)
-	{
-		this->lastPosY = posy;
-	}
-
-	float getlastPosX()
-	{
-		return this->lastPosX;
-	}
-	float getlastPosY()
-	{
-		return lastPosY;
-	}
+	bool IsActive();
+	void SetActive(bool value);
+	void SetlastPosX(float posx);
+	void SetlastPosY(float posy);
+	float GetlastPosX();
+	float GetlastPosY();
 
 	void SetVelocityX(float value);
 	float GetVelocityX();
-
 	void SetVelocityY(float value);
 	float GetVelocityY();
 
 	void SetPosX(int value);
-	int GetPosX();
+	float GetPosX();
 	void SetPosY(int value);
-	int GetPosY();
-
+	float GetPosY();
+	
 	void SetVelocityXLast(float value);
 	float GetVelocityXLast();
-
-	void SetVelocityYLast(float value)
-	{
-		this->vy_last = value;
-	}
-	float GetVelocityYLast()
-	{
-		return this->vy_last;
-	}
+	void SetVelocityYLast(float value);
+	float GetVelocityYLast();
 
 	void SetWidth(float value);
 	float GetWidth();
@@ -74,7 +77,39 @@ public:
 	void SetHeight(float value);
 	float GetHeight();
 
-	virtual void Update();
-	virtual void _Render();
+	Collider * GetCollider();
+	//===============================END GET - SET METHOD============================
+
+	//=============================== VIRTUAL METHOD FOR INHERITANCE ================
+
+	virtual ~GameObject();
+	virtual void Update(int t);
+	virtual void Render();
+
+	//Phương thức để reset lại GameObject
+	virtual void Reset(int x, int y);	
+
+	// Hủy GameObject (Lưu ý: chỉ unactive chứ không delete GameObject)
+	virtual void Destroy();				
+
+	// ============================== END VIRTUAL METHOD =============================
+
+
+	// ============================== COLLISTION METHOD ==============================
+	//--TO DO: Khang hoàn thiện những hàm này
+
+	bool IsCollide(GameObject* target);
+	bool IsInside(GameObject* target);
+	//bool IsInCamera();
+
+	float SweptAABB(GameObject *target, const float &DeltaTime);
+
+	// xử lý khi có va chạm
+	void Response(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	void Deflect(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	//void Push(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	//void Slide(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	void SlideFromGround(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	// ============================== END COLLISTION METHOD ==========================
 };
 #endif // !_GAME_OBJECT_

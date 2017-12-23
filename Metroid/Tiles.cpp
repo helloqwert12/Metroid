@@ -118,71 +118,71 @@ void Tiles::Check(int a[], int vpx, int vpy, int c, int d)
 	{
 		if (a[j] == 0)
 		{
-			s1->Render(32 + i, 32, vpx, vpy); i += 32;
+			s1->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 1)
 		{
-			s2->Render(32 + i, 32, vpx, vpy); i += 32;
+			s2->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 2)
 		{
-			s3->Render(32 + i, 32, vpx, vpy); i += 32;
+			s3->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 3)
 		{
-			s4->Render(32 + i, 32, vpx, vpy); i += 32;
+			s4->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 4)
 		{
-			s5->Render(32 + i, 32, vpx, vpy); i += 32;
+			s5->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 5)
 		{
-			s6->Render(32 + i, 32, vpx, vpy); i += 32;
+			s6->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 6)
 		{
-			s7->Render(32 + i, 32, vpx, vpy); i += 32;
+			s7->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 7)
 		{
-			s8->Render(32 + i, 32, vpx, vpy); i += 32;
+			s8->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 9)
 		{
-			s10->Render(32 + i, 32, vpx, vpy); i += 32;
+			s10->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 10)
 		{
-			s11->Render(32 + i, 32, vpx, vpy); i += 32;
+			s11->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 11)
 		{
-			s12->Render(32 + i, 32, vpx, vpy); i += 32;
+			s12->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 12)
 		{
-			s13->Render(32 + i, 32, vpx, vpy); i += 32;
+			s13->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 13)
 		{
-			s14->Render(32 + i, 32, vpx, vpy); i += 32;
+			s14->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 14)
 		{
-			s15->Render(32 + i, 32, vpx, vpy); i += 32;
+			s15->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 15)
 		{
-			s16->Render(32 + i, 32, vpx, vpy); i += 32;
+			s16->Render(32 + i, 32); i += 32;
 		}
 		else if (a[j] == 16)
 		{
-			s17->Render(32 + i, 32, vpx, vpy); i += 32;
+			s17->Render(32 + i, 32); i += 32;
 		}
 		else
 		{
-			s9->Render(32 + i, 32, vpx, vpy); i += 32;
+			s9->Render(32 + i, 32); i += 32;
 		}
 	}
 	j = 0;

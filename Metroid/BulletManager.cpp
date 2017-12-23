@@ -1,7 +1,5 @@
 #include "BulletManager.h"
 
-
-
 BulletManager::BulletManager()
 {
 	//Create instance bullet_list
@@ -71,4 +69,12 @@ void BulletManager::Update(int t, int posX, int posY)
 		bullet_list[i]->Update(t, posX, posY);
 	}
 
+}
+
+void BulletManager::Render()
+{
+	for (int i = 0; i < BULLET_COUNT; i++)
+	{
+		bullet_list[i]->Render();
+	}
 }

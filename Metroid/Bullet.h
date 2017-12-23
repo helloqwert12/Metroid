@@ -4,6 +4,7 @@
 
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Parameters.h"
 
 #define BULLET_SPRITE_PATH L"sprites\\bullet\\bullet.png"
 #define BULLET_SPRITE "sprites\\bullet\\BULLET.txt"
@@ -15,13 +16,7 @@
 #define SPEED 0.6f
 #define LIMIT_DISTANCE 150
 
-enum BULLET_DIRECTION 
-{
-	NONE,
-	ON_LEFT,
-	ON_RIGHT,
-	ON_UP
-};
+
 
 class Bullet : public GameObject
 {
@@ -38,7 +33,7 @@ private:
 	BULLET_DIRECTION direction;
 	Sprite * bullet;
 
-	void _Render();
+	
 public:
 	bool isRendering;		//determine if the bullet is in rendering (in case out of distance_limit -> not render)
 
@@ -52,6 +47,7 @@ public:
 	BULLET_DIRECTION GetDirection();
 	void SetDirection(BULLET_DIRECTION value);
 	void Update(int t, int posX, int posY);
+	void Render();
 	void ResetPosition();
 	void Reset();
 	void Release();		//destroy the bullet

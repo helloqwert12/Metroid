@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef _SPRITE_H_
 #define _SPRITE_H_
 
@@ -24,13 +24,18 @@ protected:
 	SpriteInfo* spriteInfo;				    // Array contain position of each sprite
 public:
 	Sprite();
+
+	//Constructor cho những GameObject có animation, nhiều sprite
 	Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, char* infoFilePath, int Width, int Height, int Count, int SpritePerRow);
+	
+	//Constructor cho những GameObject chỉ có duy nhất 1 sprite (đỡ dài dòng)
+	Sprite(LPD3DXSPRITE SpriteHandler, LPWSTR ImagePath, int posX, int posY, int Width, int Height);
 	~Sprite();
 
 	void Next();
 	void Reset();
 
 	// Render current sprite at location (X,Y)
-	void Render(int X, int Y, int vpx, int vpy);
+	void Render(int X, int Y);
 };
 #endif

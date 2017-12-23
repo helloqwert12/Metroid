@@ -2,33 +2,22 @@
 #ifndef _METROID_H_
 #define _METROID_H_
 
-#define SAMUS_SPEED 0.25f
-#define SHOOTING_SPEED 15
 #define BACKGROUND_FILE L"background\\temp.png"
 
-
 #include "Game.h"
-#include "Samus.h"
-#include "Tiles.h"
-#include "Bullet.h"
-#include "Enemy_Fly.h"
-#include "Enemy_Stick_Bottom.h"
-#include "Enemy_Stick_Up.h"
-#include "Enemy_Stick_Left.h"
-#include "Enemy_Stick_Right.h"
-
-#include "BulletManager.h"
+#include "World.h"
+#include "Parameters.h"
+#include "Loader.h"
 class Metroid : public Game
 {
 protected:
 	LPDIRECT3DSURFACE9 Background;
-	Samus * samus;
-	Tiles * tiles;
-	Enemy * enemy_fly,* enemy_stick_bottom,
-		*enemy_stick_up,*enemy_stick_left,
-		*enemy_stick_right;
+	LPD3DXSPRITE spriteHandler;
+	World * world;
 
 	BulletManager * bulletManager;
+
+	Loader* first_room;
 
 private:
 	void _InitBackground();
@@ -50,7 +39,7 @@ public:
 
 	LPDIRECT3DSURFACE9 _Background;
 
-
+	virtual void UpdateFrame(float Delta);
 	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
