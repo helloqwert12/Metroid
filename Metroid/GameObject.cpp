@@ -110,6 +110,16 @@ float GameObject::GetlastPosY()
 	return lastPosY;
 }
 
+float GameObject::getgravity()
+{
+	return gravity;
+}
+
+void GameObject::setgravity(float value)
+{
+	gravity = value;
+}
+
 void GameObject::SetVelocityYLast(float value)
 {
 	this->vy_last = value;
@@ -149,6 +159,26 @@ float GameObject::GetHeight()
 	return height;
 }
 
+void GameObject::setNormalx(float value)
+{
+	this->normalx = value;
+}
+
+float GameObject::getNormalx()
+{
+	return this->normalx;
+}
+
+void GameObject::setNormaly(float value)
+{
+	this->normaly = value;
+}
+
+float GameObject::getNormaly()
+{
+	return this->normaly;
+}
+
 Collider * GameObject::GetCollider()
 {
 	return collider;
@@ -180,6 +210,7 @@ bool GameObject::IsCollide(GameObject* target)
 	// ko thoả điều kiện nào hết => đang nằm lồng vào nhau
 	return true;
 }
+//////// khang
 // kiểm tra xem có nằm bên trong (đang xuyên qua) hay ko ? (Xét va chạm)
 bool GameObject::IsInside(GameObject* target)
 {
@@ -381,17 +412,39 @@ float GameObject::SweptAABB(GameObject *target, const float &DeltaTime)
 	// 0.0f va chạm lồng vào nhau
 	return entryTimeScale;
 }
+////////////////////// khang
 // di chuyển sát tường (xử lý va chạm)
-void GameObject::Response(GameObject *target, const float &DeltaTime, const float &CollisionTime)
+void GameObject::Response(GameObject *target, const float &DeltaTime)
 {
-	pos_x += vx * (CollisionTime * DeltaTime);
-	pos_y += vy * (CollisionTime * DeltaTime);
+	/*pos_x += vx * (CollisionTime * DeltaTime);
+	pos_y += vy * (CollisionTime * DeltaTime);*/
+
+	float scale = SweptAABB(target, DeltaTime);
+	if (scale < 1.0f)
+	{
+		if (this->getNormalx() > 0 || this->getNormalx() < 0)
+		{
+			this->setNormalx(this->getNormalx()*(-1));
+		}
+		if (this->getNormaly() > 0 || this->getNormaly() < 0)
+		{
+			this->setNormaly(this->getNormaly()*(-1));
+		}
+
+		this->SetPosX(this->GetlastPosX() + this->GetVelocityX()*this->getNormalx()*scale*DeltaTime);
+		this->SetPosY(this->GetlastPosY() + this->GetVelocityY()*this->getNormaly()*scale*DeltaTime);
+	}
+	else
+	{
+		this->SetlastPosX(this->GetPosX());
+		this->SetlastPosY(this->GetPosY());
+	}
 }
 // bật ngược ra khi va chạm (Xử lý va chạm)
 void GameObject::Deflect(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale)
 {
 	// di chuyển vào sát tường trước
-	this->Response(target, DeltaTime, CollisionTimeScale);
+	//this->Response(target, DeltaTime, CollisionTimeScale);
 
 	// rồi mới bật ra
 	if (normalx > 0.1f)	// tông bên phải

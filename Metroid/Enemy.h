@@ -12,6 +12,7 @@ public:
 	Enemy();
 	Enemy(LPD3DXSPRITE spriteHandler, World * manager);
 	~Enemy();
+	virtual void InitPostition();
 	virtual void InitPostition(int x, int y);
 	virtual void InitSprites(LPDIRECT3DDEVICE9 d3ddv);
 

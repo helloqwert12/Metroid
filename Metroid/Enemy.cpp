@@ -21,6 +21,10 @@ Enemy::Enemy(LPD3DXSPRITE spriteHandler, World * manager)
 Enemy::~Enemy()
 {
 }
+void Enemy::InitPostition()
+{
+	
+}
 void Enemy::InitPostition(int x, int y)
 {
 	this->pos_x = x;

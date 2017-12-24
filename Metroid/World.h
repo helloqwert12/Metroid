@@ -4,6 +4,7 @@
 
 #include <d3dx9.h>
 #include "Samus.h"
+#include "Zoomer.h"
 #include "Parameters.h"
 
 /*
@@ -18,6 +19,9 @@ class World
 public:
 	Metroid * metroid;
 	Samus * samus;
+
+	Zoomer * zoomer;
+
 	LPD3DXSPRITE spriteHandler;
 
 	QNode * rootQNode;

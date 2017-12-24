@@ -88,6 +88,12 @@ Samus::Samus()
 	running_right = NULL;
 	jump_left = NULL;
 	jump_right = NULL;
+
+	width = 40;
+	height = 64;
+
+	collider = new Collider();
+	collider->SetCollider(0, 0, -this->height, this->width);
 }
 
 Samus::Samus(LPD3DXSPRITE spriteHandler, World * manager)
@@ -98,8 +104,14 @@ Samus::Samus(LPD3DXSPRITE spriteHandler, World * manager)
 	//Set type
 	this->type = SAMUS;
 
+	width = 40;
+	height = 50;
+
 	//Collider
-	collider = new Collider();
+	this->collider = new Collider();
+	this->collider->SetCollider(0, 0, -this->height, this->width);
+
+	gravity = FALLDOWN_VELOCITY_DECREASE;
 }
 
 
@@ -126,6 +138,7 @@ Samus::~Samus()
 	delete(jumping_shooting_right);
 	delete(jump_aim_up_left);
 	delete(jump_aim_up_right);
+	delete(collider);
 }
 
 //DirectCollision Samus::getDirection()
@@ -311,7 +324,7 @@ void Samus::Update(int t)
 	//Check if samus is on ground or not
 	if (pos_y > GROUND_Y)
 	{
-		vy -= FALLDOWN_VELOCITY_DECREASE;
+		vy -= gravity;
 	}
 	else
 	{
@@ -326,7 +339,6 @@ void Samus::Update(int t)
 			state = IDLE_RIGHT;
 		}
 	}
-
 	//Render
 	Render();
 

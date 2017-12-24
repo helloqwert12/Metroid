@@ -43,6 +43,7 @@ protected:
 	float normalx;	// "vector pháp tuyến" để xét va chạm
 	float normaly;
 	
+	float gravity;
 public:
 	GameObject();
 	//======================== GET - SET METHOD ================================
@@ -55,6 +56,9 @@ public:
 	void SetlastPosY(float posy);
 	float GetlastPosX();
 	float GetlastPosY();
+
+	float getgravity();
+	void setgravity(float value);
 
 	void SetVelocityX(float value);
 	float GetVelocityX();
@@ -76,6 +80,12 @@ public:
 
 	void SetHeight(float value);
 	float GetHeight();
+
+	void setNormalx(float value);
+	float getNormalx();
+	void setNormaly(float value);
+	float getNormaly();
+
 
 	Collider * GetCollider();
 	//===============================END GET - SET METHOD============================
@@ -105,7 +115,9 @@ public:
 	float SweptAABB(GameObject *target, const float &DeltaTime);
 
 	// xử lý khi có va chạm
-	void Response(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+	//void Response(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
+
+	void Response(GameObject *target, const float &DeltaTime);
 	void Deflect(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
 	//void Push(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
 	//void Slide(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);

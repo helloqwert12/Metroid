@@ -11,6 +11,7 @@ void Metroid::_InitBackground()
 void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	world->samus->InitSprites(d3ddv);
+	world->zoomer->InitSprites(d3ddv);
 	//tiles->InitSprites(d3ddv);
 	
 	//bulletManager->InitSprites(d3ddv);
@@ -19,10 +20,9 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 void Metroid::_InitPositions()
 {
 	world->samus->InitPostition();
-	
+	world->zoomer->InitPostition(1500, 140);
 	//bulletManager->InitPosition(world->samus->GetPosX(), world->samus->GetPosY());
 }
-
 
 void Metroid::_Shoot(BULLET_DIRECTION dir)
 {
@@ -88,7 +88,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		//world->samus->setDirection(DirectCollision::LEFT);
+		world->samus->setNormalx(1.0f);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(SAMUS_SPEED);	
 		if (world->samus->GetState() != ON_MORPH_LEFT && world->samus->GetState() != ON_MORPH_RIGHT
@@ -98,6 +98,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				world->samus->setNormaly(1.0f);
+				world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 				if (world->samus->GetState() != ON_SOMERSAULT_RIGHT /*&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT*/)
 				{
 					start_jump = GetTickCount();
@@ -120,7 +122,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
-		//world->samus->setDirection(DirectCollision::RIGHT);
+		world->samus->setNormalx(-1.0f);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(-SAMUS_SPEED);
 		if (world->samus->GetState() != ON_MORPH_LEFT && world->samus->GetState() != ON_MORPH_RIGHT
@@ -130,6 +132,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				world->samus->setNormaly(1.0f);
+				world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 				if (world->samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
@@ -152,7 +156,8 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
-		//world->samus->setDirection(DirectCollision::DOWN);
+		world->samus->setNormaly(1.0f);
+		world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 		if (world->samus->GetVelocityXLast() < 0)
 		{
 			if (world->samus->GetState() != ON_JUMP_LEFT && world->samus->GetState() != ON_SOMERSAULT_LEFT 
@@ -292,8 +297,10 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 	if (world->samus->GetVelocityY() < 0)
 	{
-		//world->samus->setDirection(DirectCollision::UP);
+		world->samus->setNormaly(-1.0f);
 	}
+
+	world->samus->Response(world->zoomer, Delta);
 }
 
 void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)

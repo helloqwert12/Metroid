@@ -59,7 +59,6 @@ protected:
 
 	SAMUS_STATE state;
 
-
 	//DirectCollision direction;
 public:
 	Samus();
