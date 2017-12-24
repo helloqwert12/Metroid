@@ -441,22 +441,40 @@ void GameObject::Response(GameObject *target, const float &DeltaTime)
 	float scale = SweptAABB(target, DeltaTime);
 	if (scale < 1.0f)
 	{
-		if (this->getNormalx() > 0 || this->getNormalx() < 0)
+		if (normalx > 0.1f)	// tông bên phải
 		{
-			this->setNormalx(this->getNormalx()*(-1));
+			if (vx < -0.0f)// đang chạy qua trái => văng ngược lại
+				vx *= -1;
 		}
-		if (this->getNormaly() > 0 || this->getNormaly() < 0)
+		else if (normalx < -0.1f) // tông bên trái
 		{
-			this->setNormaly(this->getNormaly()*(-1));
+			if (vx > 0.0f)//	đang chạy qua phải => văng ngược lại
+				vx *= -1;
 		}
 
-		this->SetPosX(this->GetlastPosX() + this->GetVelocityX()*this->getNormalx()*scale*DeltaTime);
-		this->SetPosY(this->GetlastPosY() + this->GetVelocityY()*this->getNormaly()*scale*DeltaTime);
+		if (normaly > 0.1f) // tông phía trên
+		{
+			if (vy < -0.0f)// đang rơi xuống => văng lên trên
+				vy *= -1;
+		}
+		else if (normaly < -0.1f) // tông phía dưới
+		{
+			if (vy > 0.0f)// đang bay lên => văng xuống
+				vy *= -1;
+		}
+
+		pos_x = lastPosX + vx*scale*DeltaTime;
+		pos_y = lastPosY + vy*scale*DeltaTime;
+
+		if (this->getNormaly() < 0)
+		{
+			SetVelocityY(0.0f);
+		}
 	}
 	else
 	{
-		this->SetlastPosX(this->GetPosX());
-		this->SetlastPosY(this->GetPosY());
+		lastPosX = this->GetPosX();
+		lastPosY = this->GetPosY();
 	}
 }
 // bật ngược ra khi va chạm (Xử lý va chạm)

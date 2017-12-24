@@ -1,5 +1,8 @@
 ﻿#include "Samus.h"
 #include "Game.h"
+#include <vector>
+#include "GroupObject.h"
+#include "World.h"
 
 void Samus::Render()
 {
@@ -94,6 +97,8 @@ Samus::Samus()
 
 	collider = new Collider();
 	collider->SetCollider(0, 0, -this->height, this->width);
+
+	gravity = FALLDOWN_VELOCITY_DECREASE;
 }
 
 Samus::Samus(LPD3DXSPRITE spriteHandler, World * manager)
@@ -104,8 +109,8 @@ Samus::Samus(LPD3DXSPRITE spriteHandler, World * manager)
 	//Set type
 	this->type = SAMUS;
 
-	width = 40;
-	height = 50;
+	width = 35;
+	height = 40;
 
 	//Collider
 	this->collider = new Collider();
@@ -353,6 +358,12 @@ void Samus::Update(int t)
 			state = IDLE_RIGHT;
 		}
 	}
+	std::vector<GameObject*> list = manager->enemyGroup->GetListGO();
+	for (int i = 0; i < list.size(); i++)
+	{
+		this->Response(list[i], t);
+	}
+
 	//Render
 	Render();
 

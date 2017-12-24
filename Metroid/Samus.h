@@ -10,6 +10,7 @@
 #include "Camera.h"
 
 #define GROUND_Y 100
+
 enum SAMUS_STATE {
 	IDLE_LEFT, 
 	IDLE_RIGHT,
