@@ -9,8 +9,9 @@
 #include "trace.h"
 #include "Camera.h"
 
-#define GROUND_Y 100
+#define GROUND_Y 110
 enum SAMUS_STATE {
+	APPEARANCE,
 	IDLE_LEFT, 
 	IDLE_RIGHT,
 	LEFTING, 
@@ -30,7 +31,13 @@ enum SAMUS_STATE {
 	ON_JUMPING_SHOOTING_LEFT,
 	ON_JUMPING_SHOOTING_RIGHT,
 	ON_JUMP_AIM_UP_LEFT,
-	ON_JUMP_AIM_UP_RIGHT
+	ON_JUMP_AIM_UP_RIGHT,
+	IDLING_SHOOTING_LEFT,
+	IDLING_SHOOTING_RIGHT,
+	IDLING_SHOOTING_UP_LEFT,
+	IDLING_SHOOTING_UP_RIGHT,
+	ON_JUMP_SHOOTING_UP_LEFT,
+	ON_JUMP_SHOOTING_UP_RIGHT,
 };
 class Samus : public GameObject
 {
@@ -56,6 +63,12 @@ protected:
 	Sprite * jumping_shooting_right;
 	Sprite * jump_aim_up_left;
 	Sprite * jump_aim_up_right;
+	Sprite * idle_shooting_left;
+	Sprite * idle_shooting_right;
+	Sprite * idle_shooting_up_left;
+	Sprite * idle_shooting_up_right;
+	Sprite * jump_shooting_up_left;
+	Sprite * jump_shooting_up_right;
 
 	SAMUS_STATE state;
 

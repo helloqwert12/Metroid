@@ -67,6 +67,24 @@ void Samus::Render()
 	case ON_JUMP_AIM_UP_RIGHT:
 		jump_aim_up_right->Render(pos_x, pos_y);
 		break;
+	case IDLING_SHOOTING_LEFT:
+		idle_shooting_left->Render(pos_x, pos_y);
+		break;
+	case IDLING_SHOOTING_RIGHT:
+		idle_shooting_right->Render(pos_x, pos_y);
+		break;
+	case IDLING_SHOOTING_UP_LEFT:
+		idle_shooting_up_left->Render(pos_x, pos_y);
+		break;
+	case IDLING_SHOOTING_UP_RIGHT:
+		idle_shooting_up_right->Render(pos_x, pos_y);
+		break;
+	case ON_JUMP_SHOOTING_UP_LEFT:
+		jump_shooting_up_right->Render(pos_x, pos_y);
+		break;
+	case ON_JUMP_SHOOTING_UP_RIGHT:
+		jump_shooting_up_right->Render(pos_x, pos_y);
+		break;
 	}
 
 	
@@ -139,6 +157,12 @@ Samus::~Samus()
 	delete(jump_aim_up_left);
 	delete(jump_aim_up_right);
 	delete(collider);
+	delete(idle_shooting_left);
+	delete(idle_shooting_right);
+	delete(idle_shooting_up_left);
+	delete(idle_shooting_up_right);
+	delete(jump_shooting_up_left);
+	delete(jump_shooting_up_right);
 }
 
 //DirectCollision Samus::getDirection()
@@ -177,6 +201,12 @@ void Samus::InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	jumping_shooting_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMPING_SHOOTING_RIGHT, JUMPING_SHOOTING_WIDTH, JUMPING_SHOOTING_HEIGHT, JUMPING_SHOOTING_COUNT, SPRITE_PER_ROW);
 	jump_aim_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_LEFT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
 	jump_aim_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_AIM_UP_RIGHT, JUMP_AIM_UP_WIDTH, JUMP_AIM_UP_HEIGHT, JUMP_AIM_UP_COUNT, SPRITE_PER_ROW);
+	idle_shooting_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STAND_SHOOTING_LEFT, STANDING_SHOOTING_WIDTH, STANDING_SHOOTING_HEIGHT, STAND_SHOOTING_COUNT, SPRITE_PER_ROW);
+	idle_shooting_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STAND_SHOOTING_RIGHT, STANDING_SHOOTING_WIDTH, STANDING_SHOOTING_HEIGHT, STAND_SHOOTING_COUNT, SPRITE_PER_ROW);
+	idle_shooting_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STAND_SHOOTING_UP_LEFT, STANDING_SHOOTING_UP_WIDTH, STANDING_SHOOTING_UP_HEIGHT, STAND_SHOOTING_UP_COUNT, SPRITE_PER_ROW);
+	idle_shooting_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, STAND_SHOOTING_UP_RIGHT, STANDING_SHOOTING_UP_WIDTH, STANDING_SHOOTING_UP_HEIGHT, STAND_SHOOTING_UP_COUNT, SPRITE_PER_ROW);
+	jump_shooting_up_left = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_SHOOTING_UP_LEFT, JUMP_SHOOTING_UP_WIDTH, JUMP_SHOOTING_UP_HEIGHT, JUMP_SHOOTING_UP_COUNT, SPRITE_PER_ROW);
+	jump_shooting_up_right = new Sprite(spriteHandler, SAMUS_SPRITES_PATH, JUMP_SHOOTING_UP_RIGHT, JUMP_SHOOTING_UP_WIDTH, JUMP_SHOOTING_UP_HEIGHT, JUMP_SHOOTING_UP_COUNT, SPRITE_PER_ROW);
 }
 
 void Samus::InitPostition()
@@ -233,6 +263,12 @@ void Samus::ResetAllSprites()
 	jumping_shooting_right->Reset();
 	jump_aim_up_left->Reset();
 	jump_aim_up_right->Reset();
+	idle_shooting_left->Reset();
+	idle_shooting_right->Reset();
+	idle_shooting_up_left->Reset();
+	idle_shooting_up_right->Reset();
+	jump_shooting_up_left->Reset();
+	jump_shooting_up_right->Reset();
 }	
 
 
@@ -290,12 +326,10 @@ void Samus::Update(int t)
 		case ON_RUN_SHOOTING_LEFT:
 			Game::gameSound->playSound(SHOOT);
 			run_shooting_left->Next();
-			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_RUN_SHOOTING_RIGHT:
 			Game::gameSound->playSound(SHOOT);
 			run_shooting_right->Next();
-			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMP_LEFT:
 			Game::gameSound->playSound(JUMP);
@@ -316,12 +350,10 @@ void Samus::Update(int t)
 		case ON_JUMPING_SHOOTING_LEFT:
 			Game::gameSound->playSound(SHOOT);
 			jumping_shooting_left->Next();	
-			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMPING_SHOOTING_RIGHT:
 			Game::gameSound->playSound(SHOOT);
 			jumping_shooting_right->Next();
-			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMP_AIM_UP_LEFT:
 			Game::gameSound->playSound(JUMP);
@@ -331,6 +363,31 @@ void Samus::Update(int t)
 			Game::gameSound->playSound(JUMP);
 			jump_aim_up_right->Next();
 			break;
+		case IDLING_SHOOTING_LEFT:
+			Game::gameSound->playSound(SHOOT);
+			idle_shooting_left->Next();
+			break;
+		case IDLING_SHOOTING_RIGHT:
+			Game::gameSound->playSound(SHOOT);
+			idle_shooting_right->Next();
+			break;
+		case IDLING_SHOOTING_UP_LEFT:
+			Game::gameSound->playSound(SHOOT);
+			idle_shooting_up_left->Next();
+			break;
+		case IDLING_SHOOTING_UP_RIGHT:
+			Game::gameSound->playSound(SHOOT);
+			idle_shooting_up_right->Next();
+			break;
+		case ON_JUMP_SHOOTING_UP_LEFT:
+			Game::gameSound->playSound(JUMP);
+			jump_shooting_up_left->Next();
+			break;
+		case ON_JUMP_SHOOTING_UP_RIGHT:
+			Game::gameSound->playSound(JUMP);
+			jump_shooting_up_right->Next();
+			break;
+
 		}
 		last_time = now;
 	}
