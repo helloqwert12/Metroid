@@ -34,6 +34,8 @@ Brick::Brick(LPD3DXSPRITE spriteHandler, World * manager, BRICK_TYPE type, int i
 	vy = 0;
 
 	this->InitSprite();
+
+	//--TO DO: Set collider cho brick
 }
 
 
@@ -64,6 +66,11 @@ int Brick::GetId()
 void Brick::SetId(int id)
 {
 	this->id = id;
+}
+
+BRICK_TYPE Brick::GetBrickType()
+{
+	return brick_type;
 }
 
 void Brick::Update(int t)

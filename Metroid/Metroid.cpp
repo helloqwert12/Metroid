@@ -11,9 +11,13 @@ void Metroid::_InitBackground()
 void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	world->samus->InitSprites(d3ddv);
+<<<<<<< HEAD
+=======
 	world->zoomer->InitSprites(d3ddv);
 	//tiles->InitSprites(d3ddv);
+>>>>>>> 0d695e3942bab7ab7b8acd0d66a2ff78229a0d61
 	
+	//tiles->InitSprites(d3ddv);
 	//bulletManager->InitSprites(d3ddv);
 }
 

@@ -40,13 +40,16 @@ public:
 	// Hàm render các GameObject có trong vector (dùng cho SpecialCollision và QuadtreeCollision)
 	void Render();
 
-	//=================== STATIC METHOD ========================
+	
 	// Lấy GroupGameObject khác bỏ vào vector này
 	void GetGroupObjectFrom(GroupObject* group);
 
 	//Lấy ra những GameObject trong quadtree nằm trong viewport
 	void GetCollisionObjectQTree();	//--TO-DO: Hoàn thành hàm này sau khi code QNode
-	//=================== END STATIC METHOD ====================
+	
+	//Lấy ra những GameObject cần xử lý va chạm (không nằm trong quadtree)
+	void GetCollisionObjects();
+
 };
 #endif // !_GROUPOBJECT_H_
 

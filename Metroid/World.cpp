@@ -2,6 +2,7 @@
 #include "GroupObject.h"
 #include "Brick.h"
 #include "Camera.h"
+#include "Bedgehog.h"
 
 World::World()
 {
@@ -15,11 +16,25 @@ World::World(LPD3DXSPRITE spriteHandler, Metroid * metroid)
 
 	//Khởi tạo các đối tượng trong World
 	samus = new Samus(spriteHandler, this);
+<<<<<<< HEAD
+	
+=======
 	zoomer = new Zoomer(spriteHandler, this);
 	//brick = new Brick(spriteHandler, this, BLUE, 1, 32*3, 32*10);
+>>>>>>> 0d695e3942bab7ab7b8acd0d66a2ff78229a0d61
 	quadtreeGroup = new GroupObject(this);
 	rootQNode = NULL;
-	
+
+	collisionGroup = new GroupObject(this);
+
+	enemyGroup = new GroupObject(this);
+
+	hog = new Bedgehog(spriteHandler, this, BEDGEHOG_YELLOW);
+	hog->InitPostition(1280, 384);
+	hog->InitSprites();
+	hog->SetVelocityX(0);
+	hog->SetVelocityY(0);
+	enemyGroup->AddGameObject(hog);
 }
 
 
@@ -32,8 +47,19 @@ World::~World()
 void World::Update(float t)
 {
 	samus->Update(t);
+<<<<<<< HEAD
+	// Cập nhật các đối tượng hiển thị trong camera
+=======
 	zoomer->Update(t);
+>>>>>>> 0d695e3942bab7ab7b8acd0d66a2ff78229a0d61
 	quadtreeGroup->GetCollisionObjectQTree();
+	// Cập nhật các đối tượng có khả năng va chạm trong frame này
+	collisionGroup->GetCollisionObjects();
+
+	collisionGroup->Update(t);
+
+	hog->Update(t);
+	
 }
 
 void World::Render()
@@ -41,5 +67,6 @@ void World::Render()
 	samus->Render();
 	zoomer->Render();
 	quadtreeGroup->Render();
-	//brick->Render();
+	hog->Render();
+	collisionGroup->Render();
 }

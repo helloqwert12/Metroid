@@ -18,6 +18,7 @@ public:
 	//============= GET - SET METHOD ======================
 	int GetId();
 	void SetId(int id);
+	BRICK_TYPE GetBrickType();
 	//============= END GET - SET METHOD ==================
 
 	//============= OVERRIDE VIRTUAL METHOD ===============
