@@ -19,7 +19,7 @@ Zoomer::Zoomer(LPD3DXSPRITE spriteHandler, World * manager)
 	this->spriteHandler = spriteHandler;
 	this->manager = manager;
 
-	width = 40;
+	width = 32;
 	height = 32;
 
 	collider = new Collider();

@@ -176,7 +176,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	
 	if (IsKeyDown(DIK_RIGHT))
 	{
-		//world->samus->setDirection(DirectCollision::LEFT);
+		world->samus->setNormalx(1.0f);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(SAMUS_SPEED);	
 		if (world->samus->GetState() != ON_MORPH_LEFT && world->samus->GetState() != ON_MORPH_RIGHT
@@ -186,6 +186,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				world->samus->setNormaly(1.0f);
 				if (world->samus->GetState() != ON_SOMERSAULT_RIGHT /*&& samus->GetState() != ON_JUMP_AIM_UP_RIGHT*/)
 				{
 					start_jump = GetTickCount();
@@ -208,7 +209,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
-		//world->samus->setDirection(DirectCollision::RIGHT);
+		world->samus->setNormalx(-1.0f);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(-SAMUS_SPEED);
 		if (world->samus->GetState() != ON_MORPH_LEFT && world->samus->GetState() != ON_MORPH_RIGHT
@@ -218,6 +219,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 		{
 			if (IsKeyDown(DIK_X))
 			{
+				world->samus->setNormaly(1.0f);
 				if (world->samus->GetState() != ON_SOMERSAULT_LEFT /*&& samus->GetState() != ON_JUMP_AIM_UP_LEFT*/)
 				{
 					start_jump = GetTickCount();
@@ -240,7 +242,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
-		//world->samus->setDirection(DirectCollision::DOWN);
+		world->samus->setNormaly(1.0f);
 		if (world->samus->GetVelocityXLast() < 0)
 		{
 			if (world->samus->GetState() != ON_JUMP_LEFT && world->samus->GetState() != ON_SOMERSAULT_LEFT 
@@ -380,8 +382,10 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 	if (world->samus->GetVelocityY() < 0)
 	{
-		//world->samus->setDirection(DirectCollision::UP);
+		world->samus->setNormaly(-1.0f);
 	}
+
+	world->samus->Response(world->zoomer, Delta);
 }
 
 void Metroid::OnKeyDown(int KeyCode)
