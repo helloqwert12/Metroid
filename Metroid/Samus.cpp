@@ -1,5 +1,5 @@
 ﻿#include "Samus.h"
-
+#include "Game.h"
 
 void Samus::Render()
 {
@@ -288,33 +288,47 @@ void Samus::Update(int t)
 			morph_ball_right->Next();
 			break;
 		case ON_RUN_SHOOTING_LEFT:
+			Game::gameSound->playSound(SHOOT);
 			run_shooting_left->Next();
+			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_RUN_SHOOTING_RIGHT:
+			Game::gameSound->playSound(SHOOT);
 			run_shooting_right->Next();
+			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMP_LEFT:
+			Game::gameSound->playSound(JUMP);
 			jump_left->Next();
 			break;
 		case ON_JUMP_RIGHT:
+			Game::gameSound->playSound(JUMP);
 			jump_right->Next();
 			break;
 		case ON_SOMERSAULT_LEFT:
+			Game::gameSound->playSound(JUMP);
 			somersault_left->Next();
 			break;
 		case ON_SOMERSAULT_RIGHT:
+			Game::gameSound->playSound(JUMP);
 			somersault_right->Next();
 			break;
 		case ON_JUMPING_SHOOTING_LEFT:
-			jumping_shooting_left->Next();
+			Game::gameSound->playSound(SHOOT);
+			jumping_shooting_left->Next();	
+			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMPING_SHOOTING_RIGHT:
+			Game::gameSound->playSound(SHOOT);
 			jumping_shooting_right->Next();
+			//Game::gameSound->stopSound(SHOOT);
 			break;
 		case ON_JUMP_AIM_UP_LEFT:
+			Game::gameSound->playSound(JUMP);
 			jump_aim_up_left->Next();
 			break;
 		case ON_JUMP_AIM_UP_RIGHT:
+			Game::gameSound->playSound(JUMP);
 			jump_aim_up_right->Next();
 			break;
 		}
