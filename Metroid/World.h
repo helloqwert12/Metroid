@@ -4,9 +4,8 @@
 
 #include <d3dx9.h>
 #include "Samus.h"
-#include "Zoomer.h"
 #include "Parameters.h"
-
+#include "Bedgehog.h"
 /*
 	Class này chứa tất cả những thứ trong Game
 	Các class khác chứa con trỏ đến class này để thao tác với các đối tượng trong class này
@@ -19,8 +18,6 @@ class World
 public:
 	Metroid * metroid;
 	Samus * samus;
-
-	Zoomer * zoomer;
 
 	LPD3DXSPRITE spriteHandler;
 

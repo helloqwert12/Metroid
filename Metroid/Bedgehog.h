@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 #include "Parameters.h"
+
 enum BEDGEHOG_STATE
 {
 	ON_BEDGEHOG_UP,

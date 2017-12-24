@@ -80,19 +80,20 @@ void Game::Run()
 
 		DWORD now = GetTickCount();
 		_DeltaTime = now - frame_start;
-		if (_DeltaTime >= tick_per_frame)
+		if (_DeltaTime >= (tick_per_frame))
 		{
 			frame_start = now;
 			Update(_DeltaTime);
 			_RenderFrame();		
+			
 		}
 		else
 		{
 			Sleep(tick_per_frame - _DeltaTime);
 		}
+		
 		_ProcessKeyBoard();
 		ProcessInput(_d3ddv, _DeltaTime);
-		
 	}
 }
 

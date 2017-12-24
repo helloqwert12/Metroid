@@ -14,7 +14,7 @@ Bedgehog::Bedgehog(LPD3DXSPRITE spriteHandler, World * manager, ENEMY_TYPE enemy
 
 	//--TO DO: Khởi tạo collider cho Bedgehog (Khang)
 	collider = new Collider();
-	collider->SetCollider(0, 0, BEDGEHOG_HEIGHT, BEDGEHOG_WIDTH);
+	collider->SetCollider(0, 0, -BEDGEHOG_HEIGHT, BEDGEHOG_WIDTH);
 }
 
 

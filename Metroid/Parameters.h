@@ -119,8 +119,8 @@ class Bedgehog;
 //================== BEDGEHOG =====================
 #define ENEMY_SPRITE_PATH L"sprites\\enemy\\metroid_enemies_sheet.png"
 
-#define BEDGEHOG_WIDTH 80
-#define BEDGEHOG_HEIGHT 80
+#define BEDGEHOG_WIDTH 32
+#define BEDGEHOG_HEIGHT 25
 
 #define BEDGEHOG_SPRITE_COUNT 2
 

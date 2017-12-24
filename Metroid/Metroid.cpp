@@ -11,7 +11,6 @@ void Metroid::_InitBackground()
 void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 {
 	world->samus->InitSprites(d3ddv);
-	world->zoomer->InitSprites(d3ddv);
 	//tiles->InitSprites(d3ddv);
 	
 	//tiles->InitSprites(d3ddv);
@@ -21,7 +20,7 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 void Metroid::_InitPositions()
 {
 	world->samus->InitPostition();
-	world->zoomer->InitPostition(1500, 140);
+	world->hog->InitPostition(1600, 90);
 	//bulletManager->InitPosition(world->samus->GetPosX(), world->samus->GetPosY());
 }
 
@@ -168,6 +167,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	if (IsKeyDown(DIK_RIGHT))
 	{
 		world->samus->setNormalx(1.0f);
+		world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(SAMUS_SPEED);	
 		if (world->samus->GetState() != ON_MORPH_LEFT && world->samus->GetState() != ON_MORPH_RIGHT
@@ -200,6 +200,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_LEFT))
 	{
+		world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 		world->samus->setNormalx(-1.0f);
 		world->samus->SetVelocityXLast(world->samus->GetVelocityX());
 		world->samus->SetVelocityX(-SAMUS_SPEED);
@@ -233,6 +234,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	}
 	else if (IsKeyDown(DIK_X))
 	{
+		world->samus->setgravity(FALLDOWN_VELOCITY_DECREASE);
 		world->samus->setNormaly(1.0f);
 		if (world->samus->GetVelocityXLast() < 0)
 		{
@@ -331,46 +333,13 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 		if (IsKeyDown(DIK_Z))
 		{
-			//State Đứng bắn lên
-			if (world->samus->GetState() == IDLING_AIM_UP_LEFT)
-			{
-				world->samus->SetState(IDLING_SHOOTING_UP_LEFT);
 
-				_Shoot(ON_UP);
-			}
-			if (world->samus->GetState() == IDLING_AIM_UP_RIGHT)
+			if (world->samus->GetState() == AIMING_UP_LEFT || world->samus->GetState() == AIMING_UP_RIGHT
+				|| world->samus->GetState() == IDLING_AIM_UP_LEFT || world->samus->GetState() == IDLING_AIM_UP_RIGHT
+				|| world->samus->GetState() == ON_JUMP_AIM_UP_LEFT || world->samus->GetState() == ON_JUMP_AIM_UP_RIGHT)
 			{
-				world->samus->SetState(IDLING_SHOOTING_UP_RIGHT);
-
 				_Shoot(ON_UP);
 			}
-			//State Chạy bắn lên
-			if (world->samus->GetState() == AIMING_UP_LEFT)
-			{
-				world->samus->SetState(AIMING_UP_LEFT);
-				Game::gameSound->playSound(SHOOT);
-				_Shoot(ON_UP);
-			}
-			if (world->samus->GetState() == AIMING_UP_RIGHT)
-			{
-				world->samus->SetState(AIMING_UP_RIGHT);
-				Game::gameSound->playSound(SHOOT);
-				_Shoot(ON_UP);
-			}
-			//State Nhảy bắn lên => bug
-			if (world->samus->GetState() == ON_JUMP_AIM_UP_LEFT)
-			{
-				world->samus->SetState(ON_JUMP_SHOOTING_UP_LEFT);
-
-				_Shoot(ON_UP);
-			}
-			if (world->samus->GetState() == ON_JUMP_AIM_UP_RIGHT)
-			{
-				world->samus->SetState(ON_JUMP_SHOOTING_UP_RIGHT);
-
-				_Shoot(ON_UP);
-			}
-			//State nhảy bắn
 			if (world->samus->GetState() == ON_JUMP_LEFT || world->samus->GetState() == ON_SOMERSAULT_LEFT || world->samus->GetState() == ON_JUMPING_SHOOTING_LEFT)
 			{
 				world->samus->SetState(ON_JUMPING_SHOOTING_LEFT);
@@ -383,7 +352,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 				_Shoot(ON_RIGHT);
 			}
-			//State chạy bắn
 			if (world->samus->GetState() == LEFTING)
 			{
 				world->samus->SetState(ON_RUN_SHOOTING_LEFT);
@@ -396,17 +364,12 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 				_Shoot(ON_RIGHT);
 			}
-			//State đứng bắn
 			if (world->samus->GetState() == IDLE_LEFT)
 			{
-				world->samus->SetState(IDLING_SHOOTING_LEFT);
-
 				_Shoot(ON_LEFT);
 			}
 			if (world->samus->GetState() == IDLE_RIGHT)
 			{
-				world->samus->SetState(IDLING_SHOOTING_RIGHT);
-
 				_Shoot(ON_RIGHT);
 			}
 		}
@@ -415,8 +378,6 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 	{
 		world->samus->setNormaly(-1.0f);
 	}
-
-	world->samus->Response(world->zoomer, Delta);
 }
 
 void Metroid::OnKeyDown(int KeyCode)
