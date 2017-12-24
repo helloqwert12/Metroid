@@ -154,17 +154,7 @@ void Metroid::RenderIntro(LPDIRECT3DDEVICE9 d3ddv)
 }
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)
-{
-	// Background
-		d3ddv->StretchRect(
-			Background,			// from 
-			NULL,				// which portion?
-			_BackBuffer,		// to 
-			NULL,				// which portion?
-			D3DTEXF_NONE);
-		Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
-	//Collision::Resolve(samus, enemy_fly, samus->getDirection());
-		
+{		
 	world->Render();
 	//first_room->TestRenderMapGO();
 	//bulletManager->Render();

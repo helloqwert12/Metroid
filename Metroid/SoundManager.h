@@ -44,24 +44,6 @@ enum eSoundId
 	SAMUS_HIT_ENEMY,
 };
 
-//class SoundManager
-//{
-//public:
-//	SoundManager();
-//	~SoundManager();
-//	static SoundManager* getInstance();
-//	void loadSound(HWND hWnd);
-//	void Play(eSoundId);
-//	void Stop(eSoundId);
-//	void PlayLoop(eSoundId);
-//	bool IsPlaying(eSoundId);
-//private:
-//	static SoundManager* _instance;
-//	map<eSoundId, CSound*> _listSound;
-//	CSound* currentSound;
-//	float volume;
-//};
-
 class SoundManager
 {
 public:

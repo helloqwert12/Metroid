@@ -344,7 +344,6 @@ void Game::_RenderFrame()
 
 void Game::Update(float Delta)
 {
-
 }
 
 void Game::Render(LPDIRECT3DDEVICE9 d3ddv)
