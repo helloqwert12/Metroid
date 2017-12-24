@@ -26,7 +26,6 @@ protected:
 	float vx_last; // last vx of samus before stop ( to determine the direction of samus)
 	float vy_last;
 
-	DWORD last_time; // this is to control the animate rate
 	LPD3DXSPRITE spriteHandler;
 	
 	OBJECT_TYPE type;		//Loại GameObject, được định nghĩa trong file type
