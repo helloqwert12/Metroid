@@ -333,13 +333,46 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 		if (IsKeyDown(DIK_Z))
 		{
-
-			if (world->samus->GetState() == AIMING_UP_LEFT || world->samus->GetState() == AIMING_UP_RIGHT
-				|| world->samus->GetState() == IDLING_AIM_UP_LEFT || world->samus->GetState() == IDLING_AIM_UP_RIGHT
-				|| world->samus->GetState() == ON_JUMP_AIM_UP_LEFT || world->samus->GetState() == ON_JUMP_AIM_UP_RIGHT)
+			//State Đứng bắn lên
+			if (world->samus->GetState() == IDLING_AIM_UP_LEFT)
 			{
+				world->samus->SetState(IDLING_SHOOTING_UP_LEFT);
+
 				_Shoot(ON_UP);
 			}
+			if (world->samus->GetState() == IDLING_AIM_UP_RIGHT)
+			{
+				world->samus->SetState(IDLING_SHOOTING_UP_RIGHT);
+
+				_Shoot(ON_UP);
+			}
+			//State Chạy bắn lên
+			if (world->samus->GetState() == AIMING_UP_LEFT)
+			{
+				world->samus->SetState(AIMING_UP_LEFT);
+				Game::gameSound->playSound(SHOOT);
+				_Shoot(ON_UP);
+			}
+			if (world->samus->GetState() == AIMING_UP_RIGHT)
+			{
+				world->samus->SetState(AIMING_UP_RIGHT);
+				Game::gameSound->playSound(SHOOT);
+				_Shoot(ON_UP);
+			}
+			//State Nhảy bắn lên => bug
+			if (world->samus->GetState() == ON_JUMP_AIM_UP_LEFT)
+			{
+				world->samus->SetState(ON_JUMP_SHOOTING_UP_LEFT);
+
+				_Shoot(ON_UP);
+			}
+			if (world->samus->GetState() == ON_JUMP_AIM_UP_RIGHT)
+			{
+				world->samus->SetState(ON_JUMP_SHOOTING_UP_RIGHT);
+
+				_Shoot(ON_UP);
+			}
+			//State nhảy bắn
 			if (world->samus->GetState() == ON_JUMP_LEFT || world->samus->GetState() == ON_SOMERSAULT_LEFT || world->samus->GetState() == ON_JUMPING_SHOOTING_LEFT)
 			{
 				world->samus->SetState(ON_JUMPING_SHOOTING_LEFT);
@@ -352,6 +385,7 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 				_Shoot(ON_RIGHT);
 			}
+			//State chạy bắn
 			if (world->samus->GetState() == LEFTING)
 			{
 				world->samus->SetState(ON_RUN_SHOOTING_LEFT);
@@ -364,12 +398,17 @@ void Metroid::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta)
 
 				_Shoot(ON_RIGHT);
 			}
+			//State đứng bắn
 			if (world->samus->GetState() == IDLE_LEFT)
 			{
+				world->samus->SetState(IDLING_SHOOTING_LEFT);
+
 				_Shoot(ON_LEFT);
 			}
 			if (world->samus->GetState() == IDLE_RIGHT)
 			{
+				world->samus->SetState(IDLING_SHOOTING_RIGHT);
+
 				_Shoot(ON_RIGHT);
 			}
 		}
