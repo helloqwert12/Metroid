@@ -2,7 +2,6 @@
 #ifndef _METROID_H_
 #define _METROID_H_
 
-#define BACKGROUND_FILE L"background\\temp.png"
 #define STARTSCREEN_FILE L"Resources\\intro\\start_background.png"
 #define INTRO_FILE L"Resources\\intro\\intro.png"
 #define INTRO "Resources\\intro\\intro.txt"
@@ -19,7 +18,6 @@
 class Metroid : public Game
 {
 protected:
-	LPDIRECT3DSURFACE9 Background;
 	LPDIRECT3DSURFACE9 startscreen;
 
 	LPD3DXSPRITE spriteHandler;
