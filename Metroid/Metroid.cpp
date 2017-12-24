@@ -14,6 +14,7 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	world->zoomer->InitSprites(d3ddv);
 	//tiles->InitSprites(d3ddv);
 	
+	//tiles->InitSprites(d3ddv);
 	//bulletManager->InitSprites(d3ddv);
 }
 

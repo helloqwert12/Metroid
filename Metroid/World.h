@@ -27,8 +27,10 @@ public:
 	QNode * rootQNode;
 	GroupObject * quadtreeGroup;
 
-	Brick * brick;
+	Bedgehog * hog;
 
+	GroupObject * collisionGroup;	//Group chứa các gameobject có khả năng va chạm với nhau
+	GroupObject * enemyGroup;
 
 	World();
 	World(LPD3DXSPRITE spriteHandler, Metroid * metroid);

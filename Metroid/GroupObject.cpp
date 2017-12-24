@@ -75,6 +75,7 @@ void GroupObject::GetGroupObjectFrom(GroupObject * group)
 	int group_size = group->size;
 	for (int i = 0; i < group_size; i++)
 	{
+		// Chỉ lấy những GameObject đang active để xử lý
 		if (group->objects[i]->IsActive())
 		{
 			this->AddGameObject(group->objects[i]);
@@ -90,4 +91,10 @@ void GroupObject::GetCollisionObjectQTree()
 
 	// Gửi những game objects va chạm với viewport vào trong GroupObject này
 	manager->rootQNode->SendObjectsToGroup(this);
+}
+
+void GroupObject::GetCollisionObjects()
+{
+	// Enemy cần để xét va chạm
+	this->GetGroupObjectFrom(manager->enemyGroup);
 }

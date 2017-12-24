@@ -12,6 +12,7 @@ class Enemy;
 class QNode;
 class Loader;
 class Brick;
+class Bedgehog;
 
 //================ SCREEN RESOLUTION ================
 #define GAME_SCREEN_RESOLUTION_640_480_24   0
@@ -100,6 +101,23 @@ class Brick;
 #define FALLDOWN_VELOCITY_DECREASE 0.2f
 //================== END SAMUS ====================
 
+//================== BEDGEHOG =====================
+#define ENEMY_SPRITE_PATH L"sprites\\enemy\\metroid_enemies_sheet.png"
+
+#define BEDGEHOG_WIDTH 80
+#define BEDGEHOG_HEIGHT 80
+
+#define BEDGEHOG_SPRITE_COUNT 2
+
+//--YElLOW
+#define BEDGEHOG_YELLOW_UP "sprites\\enemy\\BEDGEHOG_YELLOW_UP.txt"
+#define BEDGEHOG_YELLOW_BOTTOM "sprites\\enemy\\BEDGEHOG_YELLOW_BOTTOM.txt"
+#define BEDGEHOG_YELLOW_LEFT "sprites\\enemy\\BEDGEHOG_YELLOW_LEFT.txt"
+#define BEDGEHOG_YELLOW_RIGHT "sprites\\enemy\\BEDGEHOG_YELLOW_RIGHT.txt"
+
+//================== END BEDGEHOG =================
+
+
 
 //================= BRICK ====================
 #define BRICK_1_PATH L"map\\brick_blue.png"
@@ -139,5 +157,7 @@ enum OBJECT_TYPE
 enum ENEMY_TYPE
 {
 	//--TO DO: Bổ sung các type enemy
+	BEDGEHOG_YELLOW
+
 };
 //================= END ENEMY TYPE =============
