@@ -6,6 +6,7 @@
 #include <d3dx9.h>
 #include <dinput.h>
 #include "Parameters.h"
+#include "SoundManager.h"
 
 #define KEY_DOWN(code) ( IsKeyDown(code) )
 
@@ -70,6 +71,9 @@ protected:
 	//======================= END VIRTUAL METHOD ======================
 
 public:
+	//Doi tuong Direct Sound
+	static SoundManager *gameSound;
+
 	LPDIRECT3D9 GetDirectX();
 	LPDIRECT3DDEVICE9 GetDevice();
 	LPDIRECT3DSURFACE9 GetBackBuffer();

@@ -73,6 +73,7 @@ void Metroid::LoadResources(LPDIRECT3DDEVICE9 d3ddv)
 
 	first_room = new Loader(spriteHandler, 1, world);
 	first_room->Load();
+	Game::gameSound->playSoundLoop(BACKGROUND_INTRO);
 }
 
 void Metroid::Update(float Delta)
@@ -147,7 +148,7 @@ void Metroid::RenderStartScreen(LPDIRECT3DDEVICE9 d3ddv)
 void Metroid::RenderIntro(LPDIRECT3DDEVICE9 d3ddv)
 {
 	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	//intro = new Sprite(spriteHandler, INTRO_FILE, INTRO, 640, 372, 1, 155); //(spriteHandler, INTRO_FILE, INTRO, 640, 372, 155, 155);
+	//intro = new Sprite(spriteHandler, INTRO_FILE, INTRO, 640, 372, 1, 155);
 	spriteHandler->End();
 }
 
@@ -160,9 +161,9 @@ void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)
 			_BackBuffer,		// to 
 			NULL,				// which portion?
 			D3DTEXF_NONE);
-
-	//Collision::Resolve(samus, enemy_fly, samus->getDirection());
 		Background = CreateSurfaceFromFile(_d3ddv, BACKGROUND_FILE);
+	//Collision::Resolve(samus, enemy_fly, samus->getDirection());
+		
 	world->Render();
 	//first_room->TestRenderMapGO();
 	//bulletManager->Render();
@@ -403,7 +404,6 @@ void Metroid::OnKeyDown(int KeyCode)
 	{
 		if (KeyCode == DIK_RETURN)
 		{
-			//NextIntro();
 			this->screenMode = GAMEMODE_START;
 		}
 		break;
@@ -413,8 +413,9 @@ void Metroid::OnKeyDown(int KeyCode)
 	{
 		if (KeyCode == DIK_RETURN)
 		{
-			//NextIntro();
 			this->screenMode = GAMEMODE_GAMERUN;
+			Game::gameSound->stopSound(BACKGROUND_INTRO);
+			Game::gameSound->playSoundLoop(BACKGROUND_MAP);
 		}
 	}
 	break;

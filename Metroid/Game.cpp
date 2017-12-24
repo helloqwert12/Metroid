@@ -2,6 +2,7 @@
 #include "trace.h"
 #define KEY_DOWN(vk_code) ( (GetAsyncKeyState(vk_code)&0x8000)?1:0 )
 
+SoundManager* Game::gameSound = NULL;
 
 Game::Game()
 {
@@ -23,6 +24,8 @@ Game::Game(HINSTANCE hInstance, LPWSTR Name, int Mode, int IsFullscreen, int Fra
 	_FrameRate = FrameRate;
 
 	_hInstance = hInstance;
+
+	Game::gameSound = new SoundManager();
 }
 
 
@@ -38,6 +41,7 @@ Game::~Game()
 	}
 
 	if (_di) _di->Release();
+	Game::gameSound->shutdownDirectSound();
 }
 
 void Game::Init()
@@ -45,6 +49,7 @@ void Game::Init()
 	_InitWindow();
 	_InitDirectX();
 	_InitKeyboard();
+	Game::gameSound->LoadSound(_hWnd);
 	LoadResources(_d3ddv);
 }
 
