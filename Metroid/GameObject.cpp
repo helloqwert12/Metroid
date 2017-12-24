@@ -1,6 +1,9 @@
 ﻿#include "GameObject.h"
 #include <limits>
 #include "Camera.h"
+#include "GroupObject.h"
+#include "World.h"
+
 GameObject::GameObject()
 {
 }
@@ -40,6 +43,11 @@ void GameObject::Destroy()
 
 void GameObject::Update(int t)
 {
+	std::vector<GameObject*> list = manager->enemyGroup->GetListGO();
+	for (int i = 0; i < list.size(); i++)
+	{
+		this->Response(list[i], t);
+	}
 }
 
 void GameObject::SetVelocityX(float value)
@@ -437,36 +445,15 @@ void GameObject::Response(GameObject *target, const float &DeltaTime)
 {
 	/*pos_x += vx * (CollisionTime * DeltaTime);
 	pos_y += vy * (CollisionTime * DeltaTime);*/
-
+	float vectorx = this->normalx;
+	float vectory = this->normaly;
 	float scale = SweptAABB(target, DeltaTime);
 	if (scale < 1.0f)
 	{
-		if (normalx > 0.1f)	// tông bên phải
-		{
-			if (vx < -0.0f)// đang chạy qua trái => văng ngược lại
-				vx *= -1;
-		}
-		else if (normalx < -0.1f) // tông bên trái
-		{
-			if (vx > 0.0f)//	đang chạy qua phải => văng ngược lại
-				vx *= -1;
-		}
+		pos_x = lastPosX + vx*vectorx*scale*DeltaTime;
+		pos_y = lastPosY + vy*vectory*scale*DeltaTime;
 
-		if (normaly > 0.1f) // tông phía trên
-		{
-			if (vy < -0.0f)// đang rơi xuống => văng lên trên
-				vy *= -1;
-		}
-		else if (normaly < -0.1f) // tông phía dưới
-		{
-			if (vy > 0.0f)// đang bay lên => văng xuống
-				vy *= -1;
-		}
-
-		pos_x = lastPosX + vx*scale*DeltaTime;
-		pos_y = lastPosY + vy*scale*DeltaTime;
-
-		if (this->getNormaly() < 0)
+		if (vectory < 0)
 		{
 			SetVelocityY(0.0f);
 		}
