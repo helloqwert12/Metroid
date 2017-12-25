@@ -116,6 +116,7 @@ class Bedgehog;
 #define FALLDOWN_VELOCITY_DECREASE 0.1f
 //================== END SAMUS ====================
 
+//================== ENEMY =====================
 //================== BEDGEHOG =====================
 #define ENEMY_SPRITE_PATH L"sprites\\enemy\\metroid_enemies_sheet.png"
 
@@ -130,9 +131,45 @@ class Bedgehog;
 #define BEDGEHOG_YELLOW_LEFT "sprites\\enemy\\BEDGEHOG_YELLOW_LEFT.txt"
 #define BEDGEHOG_YELLOW_RIGHT "sprites\\enemy\\BEDGEHOG_YELLOW_RIGHT.txt"
 
+//PINK
+#define BEDGEHOG_PINK_UP "sprites\\enemy\\BEDGEHOG_PINK_UP.txt"
+#define BEDGEHOG_PINK_BOTTOM "sprites\\enemy\\BEDGEHOG_PINK_BOTTOM.txt"
+#define BEDGEHOG_PINK_LEFT "sprites\\enemy\\BEDGEHOG_PINK_LEFT.txt"
+#define BEDGEHOG_PINK_RIGHT "sprites\\enemy\\BEDGEHOG_PINK_RIGHT.txt"
 //================== END BEDGEHOG =================
 
+//================== BIRD  =====================
 
+//--IDLE
+#define BIRD_WIDTH 32
+#define BIRD_HEIGHT 52
+
+#define BIRD_IDLE_SPRITE_COUNT 1
+
+#define BIRD_IDLE "sprites\\enemy\\BIRD_IDLE.txt"
+
+//--FLY
+#define BIRD_WIDTH 32
+#define BIRD_HEIGHT 52
+
+#define BIRD_FLY_SPRITE_COUNT 3
+
+#define BIRD_FLY "sprites\\enemy\\BIRD_FLY.txt"
+//================== END BIRD =================
+
+//================== BLOCK =====================
+
+#define BLOCK_WIDTH 36
+#define BLOCK_HEIGHT 20
+
+#define BLOCK_SPRITE_COUNT 1
+
+//--YElLOW
+#define BLOCK_LEFT "sprites\\enemy\\BLOCK_LEFT.txt"
+#define BLOCK_RIGHT "sprites\\enemy\\BLOCK_RIGHT.txt"
+//================== END BLOCK =================
+
+//================== END ENEMY =================
 
 //================= BRICK ====================
 #define BRICK_1_PATH L"map\\brick_blue.png"
@@ -172,7 +209,9 @@ enum OBJECT_TYPE
 enum ENEMY_TYPE
 {
 	//--TO DO: Bổ sung các type enemy
-	BEDGEHOG_YELLOW
-
+	BEDGEHOG_YELLOW,
+	BEDGEHOG_PINK,
+	BIRD,
+	BLOCK
 };
 //================= END ENEMY TYPE =============

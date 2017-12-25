@@ -41,8 +41,13 @@ World::~World()
 
 void World::Update(float t)
 {
-	
+	samus->Update(t);
 	// Cập nhật các đối tượng hiển thị trong camera
+
+	zoomer->Update(t);
+
+	bullets->Update(t, samus->GetPosX(), samus->GetPosY());
+
 	quadtreeGroup->GetCollisionObjectQTree();
 	// Cập nhật các đối tượng có khả năng va chạm trong frame này
 	collisionGroup->GetCollisionObjects();

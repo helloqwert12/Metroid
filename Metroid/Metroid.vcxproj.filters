@@ -147,6 +147,8 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Source Files\Projectile</Filter>
     <ClCompile Include="PositionManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
@@ -227,6 +229,9 @@
     <ClInclude Include="dxutil.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -235,6 +240,7 @@
     </ClInclude>
     <ClInclude Include="graphics.h">
       <Filter>Header Files</Filter>
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

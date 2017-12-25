@@ -2,6 +2,7 @@
 #ifndef _BULLETMANAGER_H_
 #define _BULLETMANAGER_H_
 #include "Bullet.h"
+#include "Missile.h"
 #include "Parameters.h"
 #define BULLET_COUNT 20
 
