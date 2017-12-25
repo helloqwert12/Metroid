@@ -26,8 +26,6 @@ public:
 
 	Bedgehog * hog;
 
-	BulletManager * bullets;
-
 	GroupObject * collisionGroup;	//Group chứa các gameobject có khả năng va chạm với nhau
 	GroupObject * enemyGroup;
 

@@ -1,6 +1,5 @@
 #include "BulletManager.h"
-#include "World.h"
-#include "Metroid.h"
+
 BulletManager::BulletManager()
 {
 	//Create instance bullet_list
@@ -10,22 +9,6 @@ BulletManager::BulletManager()
 		bullet_list[i] = new Bullet();
 	}
 	_Index = 0;
-	this->start_shoot = 0;
-	this->tick_per_frame = manager->metroid->GetTickPerFrame();
-}
-
-BulletManager::BulletManager(World * manager)
-{
-	this->manager = manager;
-	//Create instance bullet_list
-	bullet_list = new Bullet*[BULLET_COUNT];
-	for (int i = 0; i < BULLET_COUNT; i++)
-	{
-		bullet_list[i] = new Bullet();
-	}
-	_Index = 0;
-	this->start_shoot = 0;
-	this->tick_per_frame = manager->metroid->GetTickPerFrame();
 }
 
 BulletManager::BulletManager(int posX, int posY)
@@ -93,20 +76,5 @@ void BulletManager::Render()
 	for (int i = 0; i < BULLET_COUNT; i++)
 	{
 		bullet_list[i]->Render();
-	}
-}
-
-void BulletManager::Shoot(BULLET_DIRECTION dir)
-{
-	now_shoot = GetTickCount();
-	if (start_shoot <= 0) //if shooting is active
-	{
-		start_shoot = GetTickCount();
-		this->Next(dir);
-	}
-	else if ((now_shoot - start_shoot) > SHOOTING_SPEED * manager->metroid->GetTickPerFrame());
-	{
-		//Reset start_shoot
-		start_shoot = 0;
 	}
 }
