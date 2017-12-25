@@ -9,6 +9,22 @@ BulletManager::BulletManager()
 		bullet_list[i] = new Bullet();
 	}
 	_Index = 0;
+	this->start_shoot = 0;
+	this->tick_per_frame = manager->metroid->GetTickPerFrame();
+}
+
+BulletManager::BulletManager(World * manager)
+{
+	this->manager = manager;
+	//Create instance bullet_list
+	bullet_list = new Bullet*[BULLET_COUNT];
+	for (int i = 0; i < BULLET_COUNT; i++)
+	{
+		bullet_list[i] = new Bullet();
+	}
+	_Index = 0;
+	this->start_shoot = 0;
+	this->tick_per_frame = manager->metroid->GetTickPerFrame();
 }
 
 BulletManager::BulletManager(int posX, int posY)
