@@ -1,10 +1,10 @@
 #include "Bullet.h"
-#include "World.h"
-#include "GroupObject.h"
+
+
 
 void Bullet::Render()
 {
-	if (isActive)
+	if (isRendering)
 	{
 		_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		bullet->Render(pos_x, pos_y);
@@ -17,16 +17,7 @@ Bullet::Bullet()
 	bullet = NULL;
 	limit_dist_x = 0;
 	limit_dist_y = 0;
-	isActive = false;
-}
-
-Bullet::Bullet(World * manager)
-{
-	bullet = NULL;
-	limit_dist_x = 0;
-	limit_dist_y = 0;
-	isActive = false;
-	this->manager = manager;
+	isRendering = false;
 }
 
 Bullet::Bullet(int x_holder, int y_holder)
@@ -83,22 +74,22 @@ void Bullet::Update(int t, int posX, int posY)
 	switch (direction)
 	{
 	case ON_LEFT:
-		isActive = true;
+		isRendering = true;
 		vx = -SPEED;
 		vy = 0;
 		break;
 	case ON_RIGHT:
-		isActive = true;
+		isRendering = true;
 		vx = SPEED;
 		vy = 0;
 		break;
 	case ON_UP:
-		isActive = true;
+		isRendering = true;
 		vy = SPEED;
 		vx = 0;
 		break;
 	case NONE:
-		isActive = false;
+		isRendering = false;
 		vx = 0;
 		vy = 0;
 		break;
@@ -118,17 +109,6 @@ void Bullet::Update(int t, int posX, int posY)
 	limit_dist_x += temp_x;
 	limit_dist_y += temp_y;
 
-	/*for (int i = 0; i < manager->quadtreeGroup->size; i++)
-	{
-		if (manager->quadtreeGroup->objects[i]->GetType() == BRICK)
-		{
-			float scale = SweptAABB(manager->quadtreeGroup->objects[i], t);
-			if (scale < 1.0f)
-			{
-				Reset();
-			}
-		}
-	}*/
 
 	//Check if the bullet reach the limit
 	if (limit_dist_x >= LIMIT_DISTANCE || limit_dist_y >= LIMIT_DISTANCE)
@@ -139,8 +119,6 @@ void Bullet::Update(int t, int posX, int posY)
 	//Update position of samus
 	pos_x_holder = posX;
 	pos_y_holder = posY;
-
-	
 }
 
 void Bullet::ResetPosition()
@@ -152,7 +130,7 @@ void Bullet::ResetPosition()
 void Bullet::Reset()
 {
 	//Ngung render
-	isActive = false;
+	isRendering = false;
 
 	//Reset vi tri
 	ResetPosition();

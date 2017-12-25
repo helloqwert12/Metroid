@@ -9,7 +9,7 @@
 #include "trace.h"
 #include "Camera.h"
 
-#define GROUND_Y 120
+#define GROUND_Y 110
 enum SAMUS_STATE {
 	APPEARANCE,
 	IDLE_LEFT, 

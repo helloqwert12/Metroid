@@ -29,7 +29,7 @@ class Bedgehog;
 
 //================== SAMUS ===================
 #define SHOOTING_SPEED 15
-#define SAMUS_SPEED 0.15f
+#define SAMUS_SPEED 0.25f
 
 #define SAMUS_SPRITES_PATH L"sprites\\samus\\samus_sprites.png"
 
@@ -111,9 +111,9 @@ class Bedgehog;
 
 #define ANIMATE_RATE 15
 
-#define JUMP_VELOCITY_BOOST 0.07f
-#define JUMP_VELOCITY_BOOST_FIRST 0.7f
-#define FALLDOWN_VELOCITY_DECREASE 0.1f
+#define JUMP_VELOCITY_BOOST 0.05f
+#define JUMP_VELOCITY_BOOST_FIRST 0.8f
+#define FALLDOWN_VELOCITY_DECREASE 0.2f
 //================== END SAMUS ====================
 
 //================== ENEMY =====================

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "Parameters.h"
-#include <amp_graphics.h>
 class Brick: public GameObject
 {
 protected:
