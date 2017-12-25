@@ -61,6 +61,8 @@ public:
 	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
 	virtual void OnKeyDown(int KeyCode);
 
+	DWORD GetTickPerFrame();
+
 	int screenMode;
 };
 

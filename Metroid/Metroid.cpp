@@ -3,7 +3,7 @@
 #include "trace.h"
 #include "utils.h"
 #include "Collision.h"
-
+#include "BulletManager.h"
 void Metroid::_InitBackground()
 {
 }
@@ -14,7 +14,7 @@ void Metroid::_InitSprites(LPDIRECT3DDEVICE9 d3ddv)
 	//tiles->InitSprites(d3ddv);
 	
 	//tiles->InitSprites(d3ddv);
-	//bulletManager->InitSprites(d3ddv);
+	world->bullets->InitSprites(d3ddv);
 }
 
 void Metroid::_InitPositions()
@@ -24,13 +24,14 @@ void Metroid::_InitPositions()
 	//bulletManager->InitPosition(world->samus->GetPosX(), world->samus->GetPosY());
 }
 
+
 void Metroid::_Shoot(BULLET_DIRECTION dir)
 {
 	now_shoot = GetTickCount();
 	if (start_shoot <= 0) //if shooting is active
 	{
 		start_shoot = GetTickCount();
-		//bulletManager->Next(dir);
+		world->bullets->Next(dir);
 	}
 	else if ((now_shoot - start_shoot) > SHOOTING_SPEED * tick_per_frame)
 	{
@@ -53,7 +54,7 @@ Metroid::~Metroid()
 {
 	//delete(tiles);
 	
-	delete(bulletManager);
+	//delete(bulletManager);
 
 	delete(first_room);
 }
@@ -516,5 +517,13 @@ void Metroid::OnKeyDown(int KeyCode)
 			break;
 		}
 	}
+
 	}
+
+
+}
+
+DWORD Metroid::GetTickPerFrame()
+{
+	return tick_per_frame;
 }
