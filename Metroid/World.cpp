@@ -47,16 +47,16 @@ void World::Update(float t)
 
 	collisionGroup->Update(t);
 
-	//hog->Update(t);
+	hog->Update(t);
 	
 }
 
 void World::Render()
 {
 	samus->Render();
-	//zoomer->Render();
+	zoomer->Render();
 	bullets->Render();
 	quadtreeGroup->Render();
-	//hog->Render();
+	hog->Render();
 	collisionGroup->Render();
 }
