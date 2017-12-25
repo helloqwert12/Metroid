@@ -100,10 +100,10 @@ void Metroid::Update(float Delta)
 void Metroid::UpdateIntro(float Delta)
 {
 	//DWORD now = GetTickCount();
-	//if (now - last_time > 1000 / ANIMATE_RATE)
+	//if (now - Delta > 1000 / ANIMATE_RATE)
 	//{
 	//	intro->Next();
-	//	last_time = now;
+	//	Delta = now;
 	//}
 }
 
@@ -148,9 +148,9 @@ void Metroid::RenderStartScreen(LPDIRECT3DDEVICE9 d3ddv)
 
 void Metroid::RenderIntro(LPDIRECT3DDEVICE9 d3ddv)
 {
-	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-	//intro = new Sprite(spriteHandler, INTRO_FILE, INTRO, 640, 372, 1, 155);
-	spriteHandler->End();
+	//spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	//intro = new Sprite(spriteHandler, INTRO_FILE, INTRO, 640, 372, 1, 154);
+	//spriteHandler->End();
 }
 
 void Metroid::RenderFrame(LPDIRECT3DDEVICE9 d3ddv)

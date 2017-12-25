@@ -150,8 +150,8 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Zoomer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Source Files\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,11 +233,11 @@
     <ClInclude Include="dxutil.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Missile.h">
+      <Filter>Header Files\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Zoomer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Header Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
