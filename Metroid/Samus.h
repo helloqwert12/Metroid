@@ -93,6 +93,7 @@ public:
 	void Update(int t);
 	void Render();
 	void Destroy();
+	void Response(GameObject *target, const float &DeltaTime);
 	//================= END OVERRIDE VIRTUAL METHOD =============
 };
 #endif // !_SAMUS_H

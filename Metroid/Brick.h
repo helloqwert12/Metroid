@@ -9,6 +9,7 @@ protected:
 	int width_count;
 	int height_count;
 	LPWSTR sprite_path;
+
 public:
 	Brick();
 	Brick(LPD3DXSPRITE spriteHandler, World* manager, BRICK_TYPE type, int id, int posX, int posY);

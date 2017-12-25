@@ -117,7 +117,7 @@ public:
 	// xử lý khi có va chạm
 	//void Response(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
 
-	void Response(GameObject *target, const float &DeltaTime);
+	virtual void Response(GameObject *target, const float &DeltaTime);
 	void Deflect(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
 	//void Push(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);
 	//void Slide(GameObject *target, const float &DeltaTime, const float &CollisionTimeScale);

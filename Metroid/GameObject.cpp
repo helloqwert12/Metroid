@@ -1,8 +1,6 @@
 ﻿#include "GameObject.h"
 #include <limits>
 #include "Camera.h"
-#include "GroupObject.h"
-#include "World.h"
 
 GameObject::GameObject()
 {
@@ -43,11 +41,6 @@ void GameObject::Destroy()
 
 void GameObject::Update(int t)
 {
-	std::vector<GameObject*> list = manager->enemyGroup->GetListGO();
-	for (int i = 0; i < list.size(); i++)
-	{
-		this->Response(list[i], t);
-	}
 }
 
 void GameObject::SetVelocityX(float value)
@@ -456,6 +449,14 @@ void GameObject::Response(GameObject *target, const float &DeltaTime)
 		if (vectory < 0)
 		{
 			SetVelocityY(0.0f);
+			if (vectorx > 0)
+			{
+				//(Samus*)
+			}
+			else if (vectorx < 0)
+			{
+
+			}
 		}
 	}
 	else

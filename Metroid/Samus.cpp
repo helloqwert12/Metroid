@@ -1,6 +1,8 @@
 ﻿#include "Samus.h"
 #include "Game.h"
 #include <vector>
+#include "GroupObject.h"
+#include "World.h"
 
 void Samus::Render()
 {
@@ -288,8 +290,26 @@ void Samus::Update(int t)
 	//
 	// Update mario status
 	//
-	GameObject::Update(t);
+	//GameObject::Update(t);
 
+	std::vector<GameObject*> list = manager->enemyGroup->GetListGO();
+	for (int i = 0; i < list.size(); i++)
+	{
+		this->Response(list[i], t);
+	}
+	
+	for (int i = 0; i < manager->quadtreeGroup->size; i++)
+	{
+		switch (manager->quadtreeGroup->objects[i]->GetType())
+		{
+		case BRICK:
+			this->Response(manager->quadtreeGroup->objects[i], t);
+			break;
+		}
+
+		//this->Response(list2[i], t);
+
+	}
 	pos_x += vx*t;
 	pos_y += vy*t;
 
@@ -419,3 +439,34 @@ void Samus::Update(int t)
 
 }
 
+void Samus::Response(GameObject *target, const float &DeltaTime)
+{
+	/*pos_x += vx * (CollisionTime * DeltaTime);
+	pos_y += vy * (CollisionTime * DeltaTime);*/
+	float vectorx = this->normalx;
+	float vectory = this->normaly;
+	float scale = SweptAABB(target, DeltaTime);
+	if (scale < 1.0f)
+	{
+		pos_x = lastPosX + vx*vectorx*scale*DeltaTime;
+		pos_y = lastPosY + vy*vectory*scale*DeltaTime;
+
+		if (vectory < 0)
+		{
+			SetVelocityY(0.0f);
+			if (vectorx > 0)
+			{
+				this->state = SAMUS_STATE::RIGHTING;
+			}
+			else if (vectorx < 0)
+			{
+				this->state = SAMUS_STATE::LEFTING;
+			}
+		}
+	}
+	else
+	{
+		lastPosX = this->GetPosX();
+		lastPosY = this->GetPosY();
+	}
+}

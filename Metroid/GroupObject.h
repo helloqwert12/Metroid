@@ -12,10 +12,11 @@
 class GroupObject
 {
 protected:
-	std::vector<GameObject*> objects;	// vector quản lý list các GameObject cùng loại
-	int size;							// số lượng GameObject trong vector (tránh moi từ vector vì không tối ưu thời gian)
 	World* manager;
 public:
+	std::vector<GameObject*> objects;	// vector quản lý list các GameObject cùng loại
+	int size;							// số lượng GameObject trong vector (tránh moi từ vector vì không tối ưu thời gian)
+
 	GroupObject();
 	GroupObject(World* manager);
 	~GroupObject();
