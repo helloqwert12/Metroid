@@ -29,8 +29,8 @@ World::World(LPD3DXSPRITE spriteHandler, Metroid * metroid)
 
 	enemyGroup = new GroupObject(this);
 
-	hog = new Bedgehog(spriteHandler, this, BEDGEHOG_YELLOW);
-	enemyGroup->AddGameObject(hog);
+	//hog = new Bedgehog(spriteHandler, this, BEDGEHOG_YELLOW);
+	//enemyGroup->AddGameObject(hog);
 }
 
 
@@ -41,29 +41,28 @@ World::~World()
 
 void World::Update(float t)
 {
-	samus->Update(t);
+	
 	// Cập nhật các đối tượng hiển thị trong camera
-
-	zoomer->Update(t);
-
-	bullets->Update(t, samus->GetPosX(), samus->GetPosY());
-
 	quadtreeGroup->GetCollisionObjectQTree();
 	// Cập nhật các đối tượng có khả năng va chạm trong frame này
 	collisionGroup->GetCollisionObjects();
 
+	samus->Update(t);
+	bullets->Update(t, samus->GetPosX(), samus->GetPosY());
+
+	quadtreeGroup->Update(t);
 	collisionGroup->Update(t);
 
-	hog->Update(t);
+	//hog->Update(t);
 	
 }
 
 void World::Render()
 {
 	samus->Render();
-	zoomer->Render();
+	//zoomer->Render();
 	bullets->Render();
 	quadtreeGroup->Render();
-	hog->Render();
+	//hog->Render();
 	collisionGroup->Render();
 }

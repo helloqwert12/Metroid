@@ -1,6 +1,6 @@
 
 480	2560
-1280	384
+1500	384
 END
 Chu thich:
 Dong dau tien min max camera

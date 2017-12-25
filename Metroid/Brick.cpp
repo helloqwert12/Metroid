@@ -1,5 +1,5 @@
 ﻿#include "Brick.h"
-
+#include "graphics.h"
 
 
 Brick::Brick()

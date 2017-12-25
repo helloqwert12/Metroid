@@ -303,12 +303,13 @@ void Samus::Update(int t)
 		switch (manager->quadtreeGroup->objects[i]->GetType())
 		{
 		case BRICK:
-			this->Response(manager->quadtreeGroup->objects[i], t);
+			float scale = SweptAABB(manager->quadtreeGroup->objects[i], t);
+			if (scale < 1.0f)
+			{
+				SlideFromGround(manager->quadtreeGroup->objects[i], t, scale);
+			}
 			break;
 		}
-
-		//this->Response(list2[i], t);
-
 	}
 	pos_x += vx*t;
 	pos_y += vy*t;
@@ -415,6 +416,7 @@ void Samus::Update(int t)
 		last_time = now;
 	}
 
+
 	//Check if samus is on ground or not
 	if (pos_y > GROUND_Y)
 	{
@@ -435,7 +437,7 @@ void Samus::Update(int t)
 	}
 
 	//Render
-	Render();
+	//Render();
 
 }
 

@@ -31,12 +31,6 @@
     <Filter Include="Source Files\Quadtree">
       <UniqueIdentifier>{ca9a857f-9af3-42dc-add3-ec24a0e64a9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Manager">
-      <UniqueIdentifier>{9080c3a4-a9dc-4aa9-89e2-ff2cd2a6d502}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Manager">
-      <UniqueIdentifier>{f2f4ba01-0038-48f3-ad93-8bcb797535a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Projectile">
       <UniqueIdentifier>{6267d3e7-a349-4718-9d33-599676cec8b7}</UniqueIdentifier>
     </Filter>
@@ -67,6 +61,12 @@
     <Filter Include="Source Files\GameObject">
       <UniqueIdentifier>{f5848d9a-58fc-4ece-8f34-62c9426fdc94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Manager">
+      <UniqueIdentifier>{54582f63-abf3-4e0a-b270-7b9cea96f425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manager">
+      <UniqueIdentifier>{7d23dcb3-afd2-4354-b154-a82b807862cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>Source Files\Quadtree</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
@@ -150,8 +147,8 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Zoomer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PositionManager.cpp">
+      <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +175,6 @@
     </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Header Files\Quadtree</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>Header Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
@@ -236,7 +230,10 @@
     <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Zoomer.h">
+    <ClInclude Include="PositionManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
